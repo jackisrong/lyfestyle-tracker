@@ -7,35 +7,47 @@
 		echo "Oracle Connect Error " . $err['message'] . "<br>\n";
     }
 
-/*
-    echo "inserting<br>\n";
-    $stmt = oci_parse($con, "insert into titles values ('abc', 'TITLE', 'business', null, 2045, 'we3', '234', 'y', 'wnewew', 'e')");
-    oci_execute($stmt, OCI_DEFAULT);
-    echo "done<br>\n";
-*/
-    $param = $_GET['query_type'];
+    $query_type = $_GET['query_type'];
+    $columns = $_GET['columns'];
+    $table = $_GET['table'];
 
-    //if (preg_match('/all_from/', $param))
-
-    if (preg_match('/all_from/', $param)) {
-        $table_name = preg_split("/all_from_/", $param)[1];
-
-        $stmt = oci_parse($con, 'SELECT * FROM ' . $table_name);
-        oci_execute($stmt, OCI_DEFAULT);
-
+    $s;
+    if ($query_type == 'select' && $columns == 'all') {
+        $s = oci_parse($con, 'SELECT * FROM ' . $table);
+    } else if ($query_type == 'insert') {
+        $s = oci_parse($con, 'INSERT INTO ' . $table . ' VALUES ' . '<todo - insert values>');
+    } else if ($query_type == 'describe') {
+        $s = oci_parse($con, 'SELECT * FROM ' . $table);
+        oci_execute($s, OCI_DESCRIBE_ONLY);
+        $ncols = oci_num_fields($s);
         $resultArray = array();
-        $tempArray = array();
-
-        while ($row = oci_fetch_object($stmt)) {
-            $tempArray = $row;
+        for ($i = 1; $i <= $ncols; $i++) {
+            $tempArray = [
+                oci_field_name($s, $i) => oci_field_type($s, $i),
+            ];
             array_push($resultArray, $tempArray);
-            //echo $row->TABLE_NAME . "<br>\n";
         }
-
         echo json_encode($resultArray);
-
-        oci_commit($con);
-        oci_free_statement($stmt);
+        oci_free_statement($s);
         oci_close($con);
+        exit();
     }
+
+
+    oci_execute($s, OCI_DEFAULT);
+
+    $resultArray = array();
+    $tempArray = array();
+
+    while ($row = oci_fetch_object($s)) {
+        $tempArray = $row;
+        array_push($resultArray, $tempArray);
+        //echo $row->TABLE_NAME . "<br>\n";
+    }
+
+    echo json_encode($resultArray);
+
+    oci_commit($con);
+    oci_free_statement($s);
+    oci_close($con);
 ?>
