@@ -1,5 +1,5 @@
 <?php
-    $con = oci_connect("XXXXX", "XXXXX", "XXXXX");
+    $con = oci_connect("xxxxx", "xxxxx", "xxxxx");
     if ($con) {
 		//echo "Successfully connected to Oracle.<br>\n";
 	} else {
@@ -10,6 +10,8 @@
     $query_type = $_GET['query_type'];
     $columns = $_GET['columns'];
     $table = $_GET['table'];
+    $username = $_GET['username'];
+    $password = $_GET['password'];
 
     $s;
     if ($query_type == 'select' && $columns == 'all') {
@@ -28,6 +30,24 @@
             array_push($resultArray, $tempArray);
         }
         echo json_encode($resultArray);
+        oci_free_statement($s);
+        oci_close($con);
+        exit();
+    } else if ($query_type == 'authenticate') {
+        $s = oci_parse($con, 'SELECT * FROM People WHERE username = \'' . $username . '\'');
+        oci_execute($s, OCI_DEFAULT);
+        $row = oci_fetch_row($s);
+
+        if ($row == "") {
+            echo "user does not exist";
+        } else {
+            if ($row[2] == $password) {
+                echo "success";
+            } else {
+                echo 'incorrect password';
+            }
+        }
+
         oci_free_statement($s);
         oci_close($con);
         exit();
