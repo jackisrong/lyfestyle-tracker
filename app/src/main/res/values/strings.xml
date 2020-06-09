@@ -13,4 +13,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="RememberMe">Remember Me</string>
+    <string name="monthly">monthly</string>
+    <string name="weekly">weekly</string>
 </resources>
