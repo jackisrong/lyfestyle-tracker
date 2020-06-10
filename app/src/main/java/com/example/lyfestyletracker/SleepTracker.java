@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.concurrent.*;
 
