@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.Callable;
 
@@ -24,7 +25,9 @@ public class ASyncQuery implements Callable<JSONArray> {
 
         try {
             URL phpURL = new URL(url);
-            br = new BufferedReader(new InputStreamReader(phpURL.openStream()));
+            HttpURLConnection conn = (HttpURLConnection) phpURL.openConnection();
+            conn.connect();
+            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String line;
             while ((line = br.readLine()) != null) {
