@@ -7,11 +7,11 @@
 		echo "Oracle Connect Error " . $err['message'] . "<br>\n";
     }
 
-    $query_type = $_GET['query_type'];
-    $columns = $_GET['columns'];
-    $table = $_GET['table'];
-    $username = $_GET['username'];
-    $password = $_GET['password'];
+    $query_type = $_POST['query_type'];
+    $columns = $_POST['columns'];
+    $table = $_POST['table'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
     $s;
     if ($query_type == 'select' && $columns == 'all') {
