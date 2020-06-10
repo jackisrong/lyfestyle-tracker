@@ -33,7 +33,7 @@ public class SleepTracker extends AppCompatActivity {
         //"https://www.students.cs.ubc.ca/~luigi28/hello.php?query_type=select&columns=all&table=userperson&username=bob123&password=12345;)"
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
-        qe.stop();
+        //qe.stop();
         System.out.println(res);
 
 
