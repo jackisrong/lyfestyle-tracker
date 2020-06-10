@@ -17,5 +17,6 @@ public class UserLogin extends AppCompatActivity {
     public void authenticate(View view) {
         Intent intent = new Intent(this, UserDashboard.class);
         startActivity(intent);
+        finish();
     }
 }
