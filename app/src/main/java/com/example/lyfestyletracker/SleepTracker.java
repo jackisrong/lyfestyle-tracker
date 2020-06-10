@@ -7,6 +7,11 @@ import android.os.Bundle;
 import com.example.lyfestyletracker.web.QueryExecutable;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SleepTracker extends AppCompatActivity {
 
@@ -14,7 +19,19 @@ public class SleepTracker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep_tracker);
-        QueryExecutable qe = new QueryExecutable("https://www.students.cs.ubc.ca/~luigi28/hello.php?query_type=select&columns=all&table=userperson&username=bob123&password=12345;)");
+
+
+        Map<String,Object> map = new LinkedHashMap<>();
+
+        map.put("query_type", "select");
+        map.put("columns", "all");
+        map.put("table", "userPerson");
+        map.put("username", "bob123");
+        map.put("password", "12345;)");
+
+
+        //"https://www.students.cs.ubc.ca/~luigi28/hello.php?query_type=select&columns=all&table=userperson&username=bob123&password=12345;)"
+        QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
         qe.stop();
         System.out.println(res);

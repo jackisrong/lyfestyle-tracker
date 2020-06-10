@@ -3,7 +3,9 @@ package com.example.lyfestyletracker.web;
 import com.example.lyfestyletracker.web.ASyncQuery;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,8 +15,8 @@ public class QueryExecutable {
     private static ExecutorService exec = Executors.newCachedThreadPool();
 
     private ASyncQuery as;
-    public QueryExecutable(String url){
-        as = new ASyncQuery(url);
+    public QueryExecutable(Map<String,Object> js){
+        as = new ASyncQuery(js);
     }
 
     public JSONArray run(){

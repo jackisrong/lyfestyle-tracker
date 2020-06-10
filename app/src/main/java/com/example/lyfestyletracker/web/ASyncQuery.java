@@ -9,13 +9,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 public class ASyncQuery implements Callable<JSONArray> {
-    String url;
+    Map<String,Object> map;
 
-    public ASyncQuery(String url){
-        this.url = url;
+    public ASyncQuery(Map<String,Object> map){
+        this.map = map;
     }
 
     @Override
@@ -23,10 +27,30 @@ public class ASyncQuery implements Callable<JSONArray> {
         BufferedReader br =null;
         StringBuilder sb = new StringBuilder();
 
+        String url = "https://www.students.cs.ubc.ca/~luigi28/hello.php";
+
+
         try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> param : map.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
+
+            byte[] postDataBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
+
             URL phpURL = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) phpURL.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+            conn.setDoOutput(true);
+            conn.getOutputStream().write(postDataBytes);
             conn.connect();
+
             br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String line;
