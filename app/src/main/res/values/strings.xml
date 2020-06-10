@@ -14,4 +14,10 @@
     <string name="remember_me_switch">Remember Me</string>
     <string name="monthly">monthly</string>
     <string name="weekly">weekly</string>
+
+    <string name="dashboard_nav_button_food">Food</string>
+    <string name="dashboard_nav_button_workouts">Exercise</string>
+    <string name="dashboard_nav_button_sleep">Sleep</string>
+    <string name="dashboard_nav_button_consultant">Consultants</string>
+
 </resources>

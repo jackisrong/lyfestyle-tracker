@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".UserDashboard" />
+
         <activity android:name=".UserLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +26,10 @@
 
         <activity
             android:name=".SleepTracker"
-            android:parentActivityName=".UserLogin">
+            android:parentActivityName=".UserDashboard">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UserLogin" />
+                android:value=".UserDashboard" />
         </activity>
     </application>
 
