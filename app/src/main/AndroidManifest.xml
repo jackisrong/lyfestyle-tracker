@@ -12,18 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ConsultantDashboard"/>
         <activity android:name=".UserDashboard" />
-
         <activity android:name=".UserLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".DatePicker" />
-
         <activity
             android:name=".SleepTracker"
             android:parentActivityName=".UserDashboard">
