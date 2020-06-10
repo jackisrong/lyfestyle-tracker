@@ -19,16 +19,16 @@ public class UserDashboard extends AppCompatActivity {
         Intent intent;
         if (buttonId == R.id.nav_button_food) {
             intent = new Intent(this, UserDashboard.class);
-            startActivity(intent);
         } else if (buttonId == R.id.nav_button_workouts) {
             intent = new Intent(this, UserDashboard.class);
-            startActivity(intent);
         } else if (buttonId == R.id.nav_button_sleep) {
             intent = new Intent(this, SleepTracker.class);
-            startActivity(intent);
         } else if (buttonId == R.id.nav_button_consultants) {
             intent = new Intent(this, UserDashboard.class);
-            startActivity(intent);
+        } else {
+            // this should never happen, but just in case...
+            intent = new Intent(this, UserDashboard.class);
         }
+        startActivity(intent);
     }
 }
