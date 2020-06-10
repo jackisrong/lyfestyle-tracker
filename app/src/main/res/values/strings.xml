@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">LyfeStyle Tracker</string>
-    <string name="conLogin">Consultant Login</string>
-    <string name="userLogin">User Login</string>
-    <string name="lstTitle">LyfeStyle Fitness Tracker</string>
+    <string name="login_title_text">Welcome to LyfeStyle Fitness Tracker!</string>
+    <string name="login_is_consultant_toggle">Consultant?</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -12,7 +11,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="RememberMe">Remember Me</string>
+    <string name="remember_me_switch">Remember Me</string>
     <string name="monthly">monthly</string>
     <string name="weekly">weekly</string>
 </resources>
