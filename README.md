@@ -20,4 +20,7 @@ Here are some features that we'll be implementing (hopefully):
 * Workout Plans
 * A beautiful UI and delightful UX
 
+Future ideas after the end of this course if we still have the motivation to maintain this:
+* Water intake tracker
+
 Thank you for reading. Send food.
