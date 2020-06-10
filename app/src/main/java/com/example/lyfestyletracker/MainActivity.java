@@ -2,6 +2,7 @@ package com.example.lyfestyletracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import org.joda.time.DateTime;
@@ -12,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this, SleepTracker.class);
+        startActivity(intent);
 
     }
 }
