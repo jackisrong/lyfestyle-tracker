@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker;
+package com.example.lyfestyletracker.web;
 
 import org.json.JSONArray;
 import org.json.JSONException;
