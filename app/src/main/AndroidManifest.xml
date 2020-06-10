@@ -12,9 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConsultantDashboard"/>
-        <activity android:name=".UserDashboard" />
-        <activity android:name=".Login">
+        <activity
+            android:name=".ConsultantDashboard"
+            android:label="@string/consultant_dashboard_activity_title"/>
+        <activity
+            android:name=".UserDashboard"
+            android:label="@string/dashboard_activity_title"/>
+        <activity
+            android:name=".Login"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +30,8 @@
         <activity android:name=".DatePicker" />
         <activity
             android:name=".SleepTracker"
-            android:parentActivityName=".UserDashboard">
+            android:parentActivityName=".UserDashboard"
+            android:label="@string/sleep_activity_title">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".UserDashboard" />

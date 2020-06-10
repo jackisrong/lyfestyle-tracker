@@ -12,12 +12,17 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="remember_me_switch">Remember Me</string>
+
+    <string name="sleep_activity_title">Sleep</string>
     <string name="monthly">monthly</string>
     <string name="weekly">weekly</string>
 
+    <string name="dashboard_activity_title">Dashboard</string>
     <string name="dashboard_nav_button_food">Food</string>
     <string name="dashboard_nav_button_workouts">Exercise</string>
     <string name="dashboard_nav_button_sleep">Sleep</string>
     <string name="dashboard_nav_button_consultant">Consultants</string>
+
+    <string name="consultant_dashboard_activity_title">Consultant Dashboard</string>
 
 </resources>
