@@ -11,17 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import com.example.lyfestyletracker.ui.main.ExerciseSectionsPagerAdapter;
+import com.example.lyfestyletracker.ui.main.UserConsultantsSectionsPagerAdapter;
 
-public class ExerciseDashboard extends AppCompatActivity {
+public class UserConsultantsDashboard extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_dashboard);
-        ExerciseSectionsPagerAdapter exerciseSectionsPagerAdapter = new ExerciseSectionsPagerAdapter(this, getSupportFragmentManager());
+        setContentView(R.layout.activity_user_consultants_dashboard);
+        UserConsultantsSectionsPagerAdapter userConsultantsSectionsPagerAdapter = new UserConsultantsSectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(exerciseSectionsPagerAdapter);
+        viewPager.setAdapter(userConsultantsSectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = findViewById(R.id.fab);

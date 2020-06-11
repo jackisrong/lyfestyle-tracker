@@ -11,18 +11,20 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.lyfestyletracker.ExerciseLog;
 import com.example.lyfestyletracker.ExerciseWorkoutPlans;
 import com.example.lyfestyletracker.R;
+import com.example.lyfestyletracker.SleepTab1;
+import com.example.lyfestyletracker.SleepTab2;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class SleepSectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.exercise_tab_text_1, R.string.exercise_tab_text_2};
+    private static final int[] TAB_TITLES = new int[]{R.string.sleep_tab_text_1, R.string.sleep_tab_text_2};
     private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SleepSectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
     }
@@ -34,10 +36,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = new ExerciseLog();
+                fragment = new SleepTab1();
                 break;
             case 1:
-                fragment = new ExerciseWorkoutPlans();
+                fragment = new SleepTab2();
                 break;
             default:
                 fragment = null;

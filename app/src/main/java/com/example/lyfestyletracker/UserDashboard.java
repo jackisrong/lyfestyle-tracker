@@ -18,13 +18,13 @@ public class UserDashboard extends AppCompatActivity {
         int buttonId = view.getId();
         Intent intent;
         if (buttonId == R.id.nav_button_food) {
-            intent = new Intent(this, UserDashboard.class);
+            intent = new Intent(this, FoodDashboard.class);
         } else if (buttonId == R.id.nav_button_workouts) {
             intent = new Intent(this, ExerciseDashboard.class);
         } else if (buttonId == R.id.nav_button_sleep) {
-            intent = new Intent(this, SleepTracker.class);
+            intent = new Intent(this, SleepDashboard.class);
         } else if (buttonId == R.id.nav_button_consultants) {
-            intent = new Intent(this, UserDashboard.class);
+            intent = new Intent(this, UserConsultantsDashboard.class);
         } else {
             // this should never happen, but just in case...
             intent = new Intent(this, UserDashboard.class);
