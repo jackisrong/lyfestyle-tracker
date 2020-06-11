@@ -24,7 +24,7 @@ public class UserDashboard extends AppCompatActivity {
         } else if (buttonId == R.id.nav_button_sleep) {
             intent = new Intent(this, SleepDashboard.class);
         } else if (buttonId == R.id.nav_button_consultants) {
-            intent = new Intent(this, UserDashboard.class);
+            intent = new Intent(this, UserConsultantsDashboard.class);
         } else {
             // this should never happen, but just in case...
             intent = new Intent(this, UserDashboard.class);

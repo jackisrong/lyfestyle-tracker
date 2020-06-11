@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".UserConsultantsDashboard"
+            android:label="@string/user_consultants_dashboard_activity_title"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".SleepDashboard"
             android:label="@string/sleep_dashboard_activity_title"
             android:theme="@style/AppTheme.NoActionBar" />

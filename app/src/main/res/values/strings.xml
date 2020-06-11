@@ -35,5 +35,8 @@
     <string name="sleep_dashboard_activity_title">Sleep</string>
     <string name="sleep_tab_text_1">Sleep Tab 1</string>
     <string name="sleep_tab_text_2">Sleep Tab 2</string>
+    <string name="user_consultants_dashboard_activity_title">Consultants</string>
+    <string name="user_consultants_tab_text_1">Consultants</string>
+    <string name="user_consultants_tab_text_2">Suggested Plans</string>
 
 </resources>
