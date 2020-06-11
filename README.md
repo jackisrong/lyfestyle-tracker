@@ -8,16 +8,17 @@ Sure, there might be 100 other apps out there that do the same thing, but we mad
 Here are some features that we've currently implemented:
 * Web JSON API endpoint written in PHP to pass on Oracle database access (not currently secured or authenticated in any way)
 * JSON API access and parsing from our Android app to access our database
+* Base login UI
+* Base dashboard UI
 
 Here are some features that we'll be implementing (hopefully):
-* Login with not-secure-but-totally-works authentication
-* Account creation with not-secure-but-totally-works authentication
-* Dashboard
-* Meal tracking
-* Workout tracking
+* Login & account creation
+* Dashboard graphs
+* Meal tracking & diets UI
+* Exercise tracking & workout plans UI
 * Sleep tracking
-* Diets
-* Workout Plans
+* Consultant hiring
+* Consultant dashboard with plans and users
 * A beautiful UI and delightful UX
 
 Future ideas after the end of this course if we still have the motivation to maintain this:
