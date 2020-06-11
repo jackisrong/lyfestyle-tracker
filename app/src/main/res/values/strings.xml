@@ -25,9 +25,12 @@
 
     <string name="consultant_dashboard_activity_title">Consultant Dashboard</string>
     <string name="exercise_dashboard_activity_title">Exercise</string>
-    <string name="exercise_tab_text_1">Log</string>
+    <string name="exercise_tab_text_1">Exercise Log</string>
     <string name="exercise_tab_text_2">Workout Plans</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="food_dashboard_activity_title">Food</string>
+    <string name="food_tab_text_1">Meal Log</string>
+    <string name="food_tab_text_2">Diet Plans</string>
 
 </resources>

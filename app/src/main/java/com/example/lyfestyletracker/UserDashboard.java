@@ -18,7 +18,7 @@ public class UserDashboard extends AppCompatActivity {
         int buttonId = view.getId();
         Intent intent;
         if (buttonId == R.id.nav_button_food) {
-            intent = new Intent(this, UserDashboard.class);
+            intent = new Intent(this, FoodDashboard.class);
         } else if (buttonId == R.id.nav_button_workouts) {
             intent = new Intent(this, ExerciseDashboard.class);
         } else if (buttonId == R.id.nav_button_sleep) {

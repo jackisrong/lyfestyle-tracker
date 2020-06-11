@@ -13,9 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".FoodDashboard"
+            android:label="@string/food_dashboard_activity_title"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ExerciseDashboard"
             android:label="@string/exercise_dashboard_activity_title"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ConsultantDashboard"
             android:label="@string/consultant_dashboard_activity_title" />

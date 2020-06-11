@@ -8,21 +8,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.lyfestyletracker.ExerciseLog;
-import com.example.lyfestyletracker.ExerciseWorkoutPlans;
 import com.example.lyfestyletracker.R;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class FoodSectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.exercise_tab_text_1, R.string.exercise_tab_text_2};
+    private static final int[] TAB_TITLES = new int[]{R.string.food_tab_text_1, R.string.food_tab_text_2};
     private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public FoodSectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
     }
@@ -31,19 +29,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        Fragment fragment;
-        switch (position) {
-            case 0:
-                fragment = new ExerciseLog();
-                break;
-            case 1:
-                fragment = new ExerciseWorkoutPlans();
-                break;
-            default:
-                fragment = null;
-                break;
-        }
-        return fragment;
+        return PlaceholderFragment.newInstance(position + 1);
     }
 
     @Nullable
