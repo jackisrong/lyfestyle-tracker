@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".SleepTab2">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/BarChart2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="This is the sleep tab 2 fragment" />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="300dp"
+        android:layout_marginTop="32dp"/>
 
 </FrameLayout>

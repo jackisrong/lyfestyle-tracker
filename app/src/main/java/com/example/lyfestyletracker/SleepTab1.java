@@ -8,6 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lyfestyletracker.web.QueryExecutable;
+
+import org.json.JSONArray;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SleepTab1#newInstance} factory method to
@@ -53,6 +60,21 @@ public class SleepTab1 extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Map<String,Object> map = new LinkedHashMap<>();
+
+        map.put("query_type", "special");
+        map.put("columns", "all");
+        map.put("table", "userPerson");
+        map.put("username", "bob123");
+        map.put("password", "12345;)");
+        map.put("extra", "Select up.username, us.sleepTime from userPerson up, UserSleepEntry us WHERE up.username = us.username");
+        //map.put("extra", "UPDATE People SET name = 'Luis E' WHERE username = 'Luis'");
+
+        //"https://www.students.cs.ubc.ca/~luigi28/hello.php?query_type=select&columns=all&table=userperson&username=bob123&password=12345;)"
+        QueryExecutable qe = new QueryExecutable(map);
+        JSONArray res = qe.run();
+        System.out.println(res);
+
     }
 
     @Override
