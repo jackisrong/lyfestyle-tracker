@@ -1,0 +1,1 @@
+Select up.username, us.sleepTime from userPerson up, UserSleepEntry us WHERE up.username = us.username
