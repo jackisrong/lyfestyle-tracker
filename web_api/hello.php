@@ -1,5 +1,5 @@
 <?php
-    $con = oci_connect("xxxxx", "xxxxx", "xxxxx");
+    $con = oci_connect("ora_XXX", "aXXXXXX", "XXXXXX");
     if ($con) {
 		//echo "Successfully connected to Oracle.<br>\n";
 	} else {
@@ -12,6 +12,7 @@
     $table = $_POST['table'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $extra = $_POST['extra']; // USed to put in whole sql query if query_type == "Special"
 
     $s;
     if ($query_type == 'select' && $columns == 'all') {
@@ -39,18 +40,28 @@
         $row = oci_fetch_row($s);
 
         if ($row == "") {
-            echo "user does not exist";
+            echo ('[{"result":"user does not exist"}]');
         } else {
             if ($row[2] == $password) {
-                echo "success";
+              echo ('[{"result":"sucess"}]');
             } else {
-                echo 'incorrect password';
+              echo ('[{"result":"incorrect password"}]');
             }
         }
 
         oci_free_statement($s);
         oci_close($con);
         exit();
+    } else if ($query_type == 'special') {
+      $s = oci_parse($con, $extra);
+    } else if ($query_type == 'special_change') {
+      $s = oci_parse($con, $extra);
+      oci_execute($s, OCI_DEFAULT);
+      echo ('[{"result":"inserted"}]');
+      oci_commit($con);
+      oci_free_statement($s);
+      oci_close($con);
+      exit();
     }
 
 

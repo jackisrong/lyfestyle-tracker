@@ -23,12 +23,13 @@ public class SleepTracker extends AppCompatActivity {
 
         Map<String,Object> map = new LinkedHashMap<>();
 
-        map.put("query_type", "select");
+        map.put("query_type", "special");
         map.put("columns", "all");
         map.put("table", "userPerson");
         map.put("username", "bob123");
         map.put("password", "12345;)");
-
+        map.put("extra", "Select up.username, us.sleepTime from userPerson up, UserSleepEntry us WHERE up.username = us.username");
+        //map.put("extra", "UPDATE People SET name = 'Luis E' WHERE username = 'Luis'");
 
         //"https://www.students.cs.ubc.ca/~luigi28/hello.php?query_type=select&columns=all&table=userperson&username=bob123&password=12345;)"
         QueryExecutable qe = new QueryExecutable(map);
