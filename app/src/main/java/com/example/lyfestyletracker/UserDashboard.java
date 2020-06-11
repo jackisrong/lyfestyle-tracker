@@ -22,7 +22,7 @@ public class UserDashboard extends AppCompatActivity {
         } else if (buttonId == R.id.nav_button_workouts) {
             intent = new Intent(this, ExerciseDashboard.class);
         } else if (buttonId == R.id.nav_button_sleep) {
-            intent = new Intent(this, SleepTracker.class);
+            intent = new Intent(this, SleepDashboard.class);
         } else if (buttonId == R.id.nav_button_consultants) {
             intent = new Intent(this, UserDashboard.class);
         } else {

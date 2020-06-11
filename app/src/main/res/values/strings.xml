@@ -32,5 +32,8 @@
     <string name="food_dashboard_activity_title">Food</string>
     <string name="food_tab_text_1">Meal Log</string>
     <string name="food_tab_text_2">Diet Plans</string>
+    <string name="sleep_dashboard_activity_title">Sleep</string>
+    <string name="sleep_tab_text_1">Sleep Tab 1</string>
+    <string name="sleep_tab_text_2">Sleep Tab 2</string>
 
 </resources>
