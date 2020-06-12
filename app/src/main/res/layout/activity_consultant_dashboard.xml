@@ -17,48 +17,27 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/nav_button_food"
+            android:id="@+id/nav_button_clients"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:drawableTop="@android:drawable/btn_star_big_on"
             android:onClick="navigation"
-            android:text="@string/dashboard_nav_button_food"
+            android:text="@string/clients"
             android:textColor="@android:color/primary_text_dark" />
 
         <Button
-            android:id="@+id/nav_button_workouts"
+            android:id="@+id/nav_button_plans"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:drawableTop="@android:drawable/btn_star_big_on"
             android:onClick="navigation"
-            android:text="@string/dashboard_nav_button_workouts"
+            android:text="@string/my_plans"
             android:textColor="@android:color/primary_text_dark" />
 
-        <Button
-            android:id="@+id/nav_button_sleep"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@android:drawable/btn_star_big_on"
-            android:onClick="navigation"
-            android:text="@string/dashboard_nav_button_sleep"
-            android:textColor="@android:color/primary_text_dark" />
-
-        <Button
-            android:id="@+id/nav_button_consultants"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@android:drawable/btn_star_big_on"
-            android:onClick="navigation"
-            android:text="@string/dashboard_nav_button_consultant"
-            android:textColor="@android:color/primary_text_dark" />
     </TableRow>
 
     <ScrollView

@@ -28,7 +28,7 @@
             android:textColor="@android:color/primary_text_dark" />
 
         <Button
-            android:id="@+id/nav_button_workouts"
+            android:id="@+id/nav_button_clients"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:textColor="@android:color/primary_text_dark" />
 
         <Button
-            android:id="@+id/nav_button_sleep"
+            android:id="@+id/nav_button_plans"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

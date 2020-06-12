@@ -43,6 +43,8 @@
     <string name="add_entry">Add Entry</string>
     <string name="sleep_time">Sleep Time</string>
     <string name="sleep_rating">Sleep Rating</string>
+    <string name="clients">Clients</string>
+    <string name="my_plans">My Plans</string>
 
 
     <string-array name="planets_array">
