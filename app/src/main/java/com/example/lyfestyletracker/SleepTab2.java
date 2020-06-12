@@ -41,6 +41,7 @@ public class SleepTab2 extends Fragment {
     private String mParam1;
     private String mParam2;
     private String username;
+    private View thisView;
 
     public SleepTab2() {
         // Required empty public constructor
@@ -80,9 +81,9 @@ public class SleepTab2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_sleep_tab2, container, false);
-        updateMonthlyGraph(view);
-        return view;
+        thisView = inflater.inflate(R.layout.fragment_sleep_tab2, container, false);
+        updateMonthlyGraph(thisView);
+        return thisView;
     }
 
 
@@ -127,30 +128,19 @@ public class SleepTab2 extends Fragment {
 
         barChart2.setData(data);
         barChart3.setData(data2);
-        XAxis xAxis = barChart2.getXAxis();
-        XAxis xAxis2 = barChart3.getXAxis();
         barChart2.getAxisLeft().setAxisMinimum(0);
         barChart3.getAxisLeft().setAxisMinimum(0);
         barChart2.getAxisRight().setAxisMinimum(0);
         barChart3.getAxisRight().setAxisMinimum(0);
 
-        xAxis.setValueFormatter(new XaxisValueFormatter(dates));
-        xAxis2.setValueFormatter(new XaxisValueFormatter(dates));
 
 
 
     }
 
-    public static class XaxisValueFormatter extends IndexAxisValueFormatter {
-
-        private String[] myValues;
-        public  XaxisValueFormatter(String[] values){
-            myValues = values;
-        }
-
-        @Override
-        public String getFormattedValue(float value) {
-            return myValues[(int) value];
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateMonthlyGraph(thisView);
     }
 }

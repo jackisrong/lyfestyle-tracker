@@ -44,6 +44,7 @@ public class SleepTab1 extends Fragment {
     private String mParam1;
     private String mParam2;
     private String username;
+    private View thisView;
 
     public SleepTab1() {
         // Required empty public constructor
@@ -84,9 +85,9 @@ public class SleepTab1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view  = inflater.inflate(R.layout.fragment_sleep_tab1, container, false);
-        updateWeeklyGraph(view);
-        return view;
+        thisView  = inflater.inflate(R.layout.fragment_sleep_tab1, container, false);
+        updateWeeklyGraph(thisView);
+        return thisView;
 
     }
 
@@ -219,5 +220,11 @@ public class SleepTab1 extends Fragment {
         ret.add(Integer.parseInt("20" + str[2]));
 
         return ret;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateWeeklyGraph(thisView);
     }
 }

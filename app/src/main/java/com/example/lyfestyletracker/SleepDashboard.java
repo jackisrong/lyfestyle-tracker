@@ -56,10 +56,16 @@ public class SleepDashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                addSEntry();
             }
         });
     }
 
 
+
+    public void addSEntry (){
+        Intent intent = new Intent(this, addSleepEntry.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
 }

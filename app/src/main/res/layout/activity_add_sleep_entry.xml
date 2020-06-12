@@ -6,4 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".addSleepEntry">
 
+    <TextView
+        android:id="@+id/DateResultView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="87dp"
+        android:layout_marginEnd="88dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/adddatebutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/adddatebutton" />
+
+    <TextView
+        android:id="@+id/Sleep_Rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="95dp"
+        android:layout_marginEnd="87dp"
+        android:layout_marginBottom="14dp"
+        android:text="@string/sleep_rating"
+        app:layout_constraintBottom_toTopOf="@+id/sleep_quality_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DateResultView" />
+
+    <TextView
+        android:id="@+id/sleep_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="87dp"
+        android:layout_marginEnd="89dp"
+        android:text="@string/sleep_time"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Sleep_Rating"
+        app:layout_constraintEnd_toStartOf="@+id/Sleep_Rating"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/adddatebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="146dp"
+        android:onClick="createDateClicked"
+        android:text="@string/Add_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addentrybutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="304dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="200dp"
+        android:onClick="createButtonClicked"
+        android:text="@string/add_entry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DateResultView" />
+
+    <Spinner
+        android:id="@+id/sleep_time_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="113dp"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintEnd_toStartOf="@+id/sleep_quality_spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adddatebutton" />
+
+    <Spinner
+        android:id="@+id/sleep_quality_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sleep_time_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/DateResultView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
