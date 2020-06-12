@@ -38,5 +38,11 @@
     <string name="user_consultants_dashboard_activity_title">Consultants</string>
     <string name="user_consultants_tab_text_1">Consultants</string>
     <string name="user_consultants_tab_text_2">Suggested Plans</string>
+    <string name="title_activity_add_sleep_entry">addSleepEntry</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 
 </resources>
