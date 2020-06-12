@@ -40,6 +40,7 @@ public class SleepTab2 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String username;
 
     public SleepTab2() {
         // Required empty public constructor
@@ -54,11 +55,12 @@ public class SleepTab2 extends Fragment {
      * @return A new instance of fragment SleepTab2.
      */
     // TODO: Rename and change types and number of parameters
-    public static SleepTab2 newInstance(String param1, String param2) {
+    public static SleepTab2 newInstance(String param1, String param2, String username) {
         SleepTab2 fragment = new SleepTab2();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,6 +71,7 @@ public class SleepTab2 extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
         }
     }
 
@@ -91,7 +94,7 @@ public class SleepTab2 extends Fragment {
 
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "select distinct trunc(sleepdate, 'IW') AS weekDate, AVG(sleepTime) AS average, SUM(sleepTime) as sum from UserSleepEntry where username = 'Luis' AND sleepdate >= TRUNC(SYSDATE,'mm') GROUP BY trunc(sleepdate, 'IW') ORDER BY trunc(sleepdate, 'IW')");
+        map.put("extra", "select distinct trunc(sleepdate, 'IW') AS weekDate, AVG(sleepTime) AS average, SUM(sleepTime) as sum from UserSleepEntry where username = '"+ username+ "' AND sleepdate >= TRUNC(SYSDATE,'mm') GROUP BY trunc(sleepdate, 'IW') ORDER BY trunc(sleepdate, 'IW')");
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
@@ -138,7 +141,7 @@ public class SleepTab2 extends Fragment {
 
     }
 
-    public class XaxisValueFormatter extends IndexAxisValueFormatter {
+    public static class XaxisValueFormatter extends IndexAxisValueFormatter {
 
         private String[] myValues;
         public  XaxisValueFormatter(String[] values){

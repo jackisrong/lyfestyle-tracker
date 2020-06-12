@@ -42,10 +42,9 @@ public class SleepDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         username = getIntent().getStringExtra("username");
         setContentView(R.layout.activity_sleep_dashboard);
-        SleepSectionsPagerAdapter sleepSectionsPagerAdapter = new SleepSectionsPagerAdapter(this, getSupportFragmentManager());
+        SleepSectionsPagerAdapter sleepSectionsPagerAdapter = new SleepSectionsPagerAdapter(this, getSupportFragmentManager(), username);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sleepSectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);

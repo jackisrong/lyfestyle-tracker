@@ -43,6 +43,7 @@ public class SleepTab1 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String username;
 
     public SleepTab1() {
         // Required empty public constructor
@@ -57,11 +58,12 @@ public class SleepTab1 extends Fragment {
      * @return A new instance of fragment SleepTab1.
      */
     // TODO: Rename and change types and number of parameters
-    public static SleepTab1 newInstance(String param1, String param2) {
+    public static SleepTab1 newInstance(String param1, String param2,String username) {
         SleepTab1 fragment = new SleepTab1();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,6 +74,7 @@ public class SleepTab1 extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
         }
         Map<String,Object> map = new LinkedHashMap<>();
 
@@ -87,6 +90,7 @@ public class SleepTab1 extends Fragment {
 
     }
 
+    //updates the weekly graph with the queries
     protected void updateWeeklyGraph(View v){
         Map<String,Object> map = new LinkedHashMap<>();
 
@@ -94,8 +98,9 @@ public class SleepTab1 extends Fragment {
         barChart.clear();
 
 
+        //
         map.put("query_type", "special");
-        map.put("extra", "Select username, sleepTime, sleepDate from UserSleepEntry WHERE username = 'Luis' AND sleepDate >= TRUNC(SYSDATE, 'DY') AND sleepDate < TRUNC(SYSDATE, 'DY') + 7 ORDER BY sleepdate");
+        map.put("extra", "Select username, sleepTime, sleepDate from UserSleepEntry WHERE username = '"+ username + "' AND sleepDate >= TRUNC(SYSDATE, 'DY') AND sleepDate < TRUNC(SYSDATE, 'DY') + 7 ORDER BY sleepdate");
         //map.put("extra", "UPDATE People SET name = 'Luis E' WHERE username = 'Luis'");
 
         QueryExecutable qe = new QueryExecutable(map);
@@ -105,6 +110,8 @@ public class SleepTab1 extends Fragment {
 
         HashMap<String, Integer> sleepTimes = new HashMap<>();
 
+
+        //gets the week day from the date format
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E");
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
@@ -146,7 +153,7 @@ public class SleepTab1 extends Fragment {
 
     }
 
-    public class XaxisValueFormatter extends IndexAxisValueFormatter {
+    public static class XaxisValueFormatter extends IndexAxisValueFormatter {
 
         private String[] myValues;
         public  XaxisValueFormatter(String[] values){
@@ -163,6 +170,7 @@ public class SleepTab1 extends Fragment {
 
 
 
+    //gets the integer values from the oracle date
     public ArrayList<Integer> getDate(String s){
         String[] str = s.split("-");
         ArrayList<Integer> ret = new ArrayList<>();

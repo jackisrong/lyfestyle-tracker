@@ -20,13 +20,15 @@ import com.example.lyfestyletracker.SleepTab2;
  */
 public class SleepSectionsPagerAdapter extends FragmentPagerAdapter {
 
+    String username;
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.sleep_tab_text_1, R.string.sleep_tab_text_2};
     private final Context mContext;
 
-    public SleepSectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SleepSectionsPagerAdapter(Context context, FragmentManager fm, String username) {
         super(fm);
         mContext = context;
+        this.username = username;
     }
 
     @Override
@@ -36,10 +38,10 @@ public class SleepSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = new SleepTab1();
+                fragment = SleepTab1.newInstance("1","2", username);
                 break;
             case 1:
-                fragment = new SleepTab2();
+                fragment = SleepTab2.newInstance("1","2", username);
                 break;
             default:
                 fragment = null;
