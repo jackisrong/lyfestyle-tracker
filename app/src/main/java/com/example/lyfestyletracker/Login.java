@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 
@@ -27,30 +28,57 @@ public class Login extends AppCompatActivity {
 
         EditText eEdit = (EditText) findViewById(R.id.email_box);
         EditText pEdit = (EditText) findViewById(R.id.password_box);
-
+        Switch consultant = (Switch) findViewById(R.id.consultant_switch);
+        JSONArray res;
         Map<String,Object> map = new LinkedHashMap<>();
+        Intent intent = null;
 
-        map.put("query_type", "authenticate");
-        map.put("username", eEdit.getText());
-        map.put("password", pEdit.getText());
+        if (consultant.isChecked()){
+            //If you are a consultant
+            map.put("query_type", "authenticate_c");
+            map.put("username", eEdit.getText());
+            map.put("password", pEdit.getText());
 
 
-        QueryExecutable qe = new QueryExecutable(map);
-        JSONArray res = qe.run();
+            QueryExecutable qe = new QueryExecutable(map);
+            res = qe.run();
 
-        try {
-            if (res.getJSONObject(0).getString("result").equals("sucess")){
-                Intent intent = new Intent(this, UserDashboard.class);
-                intent.putExtra("username", eEdit.getText().toString());
-                startActivity(intent);
-                finish();
+            try {
+                if (res.getJSONObject(0).getString("result").equals("sucess")){
+                    intent = new Intent(this, ConsultantDashboard.class);
+
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
             }
-        }catch (JSONException e){
-            e.printStackTrace();
+
+
+        }else{
+
+            //If you are a user
+            map.put("query_type", "authenticate_u");
+            map.put("username", eEdit.getText());
+            map.put("password", pEdit.getText());
+
+            QueryExecutable qe = new QueryExecutable(map);
+            res = qe.run();
+
+            try {
+                if (res.getJSONObject(0).getString("result").equals("sucess")){
+                    intent = new Intent(this, UserDashboard.class);
+
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+
         }
 
 
-
-
+        if (intent != null){
+            intent.putExtra("username", eEdit.getText().toString());
+            startActivity(intent);
+            finish();
+        }
     }
 }
