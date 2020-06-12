@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity {
         try {
             if (res.getJSONObject(0).getString("result").equals("sucess")){
                 Intent intent = new Intent(this, UserDashboard.class);
-                intent.putExtra("username", eEdit.getText());
+                intent.putExtra("username", eEdit.getText().toString());
                 startActivity(intent);
                 finish();
             }

@@ -8,6 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lyfestyletracker.web.QueryExecutable;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SleepTab2#newInstance} factory method to
@@ -59,6 +76,78 @@ public class SleepTab2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sleep_tab2, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_sleep_tab2, container, false);
+        updateMonthlyGraph(view);
+        return view;
+    }
+
+
+    protected void updateMonthlyGraph(View v){
+        BarChart barChart2 = v.findViewById(R.id.BarChart2);
+        barChart2.clear();
+        BarChart barChart3 = v.findViewById(R.id.BarChart3);
+        barChart3.clear();
+
+        Map<String,Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "select distinct trunc(sleepdate, 'IW') AS weekDate, AVG(sleepTime) AS average, SUM(sleepTime) as sum from UserSleepEntry where username = 'Luis' AND sleepdate >= TRUNC(SYSDATE,'mm') GROUP BY trunc(sleepdate, 'IW') ORDER BY trunc(sleepdate, 'IW')");
+
+        QueryExecutable qe = new QueryExecutable(map);
+        JSONArray res = qe.run();
+
+        ArrayList<BarEntry> barEntries1 = new ArrayList<>();
+        ArrayList<BarEntry> barEntries2 = new ArrayList<>();
+
+        String[] dates = new String[res.length()];
+
+        for (int i = 0; i < res.length(); i ++){
+            try {
+                barEntries1.add(new BarEntry(i, Float.parseFloat(res.getJSONObject(i).getString("AVERAGE"))));
+                barEntries2.add(new BarEntry(i, Integer.parseInt(res.getJSONObject(i).getString("SUM"))));
+                dates[i] = "week" + i;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        BarDataSet barDataSet = new BarDataSet(barEntries1, "avg");
+        BarDataSet barDataSet2 = new BarDataSet(barEntries2, "sum");
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet2.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        BarData data = new BarData(barDataSet);
+        data.setBarWidth(0.9f);
+        BarData data2 = new BarData(barDataSet2);
+        data2.setBarWidth(0.9f);
+
+        barChart2.setData(data);
+        barChart3.setData(data2);
+        XAxis xAxis = barChart2.getXAxis();
+        XAxis xAxis2 = barChart3.getXAxis();
+        barChart2.getAxisLeft().setAxisMinimum(0);
+        barChart3.getAxisLeft().setAxisMinimum(0);
+        barChart2.getAxisRight().setAxisMinimum(0);
+        barChart3.getAxisRight().setAxisMinimum(0);
+
+        xAxis.setValueFormatter(new XaxisValueFormatter(dates));
+        xAxis2.setValueFormatter(new XaxisValueFormatter(dates));
+
+
+
+    }
+
+    public class XaxisValueFormatter extends IndexAxisValueFormatter {
+
+        private String[] myValues;
+        public  XaxisValueFormatter(String[] values){
+            myValues = values;
+        }
+
+        @Override
+        public String getFormattedValue(float value) {
+            return myValues[(int) value];
+        }
     }
 }

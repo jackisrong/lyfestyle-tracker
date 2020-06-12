@@ -29,6 +29,7 @@ public class UserDashboard extends AppCompatActivity {
             // this should never happen, but just in case...
             intent = new Intent(this, UserDashboard.class);
         }
+
         intent.putExtra("username", getIntent().getStringExtra("username"));
         startActivity(intent);
     }
