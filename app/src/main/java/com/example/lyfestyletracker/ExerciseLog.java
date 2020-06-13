@@ -1,5 +1,6 @@
 package com.example.lyfestyletracker;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -38,6 +39,9 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
     private String username;
 
     private View thisView;
+    private String searchTerm = "";
+    private String sortBy = "ele.logtime";
+    private String sortByOrder = "DESC";
 
     public ExerciseLog() {
         // Required empty public constructor
@@ -72,7 +76,7 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         thisView = inflater.inflate(R.layout.fragment_exercise_log, container, false);
-        populateTable("");
+        populateTable();
 
         thisView.findViewById(R.id.exercise_log_container).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -88,7 +92,8 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
         ((SearchView) thisView.findViewById(R.id.exercise_log_search_view)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                loadSearch(s);
+                searchTerm = s;
+                populateTable();
                 thisView.findViewById(R.id.exercise_log_search_view).clearFocus();
                 return true;
             }
@@ -96,20 +101,26 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
             @Override
             public boolean onQueryTextChange(String s) {
                 if (s.equals("")) {
-                    populateTable("");
+                    searchTerm = s;
+                    populateTable();
                     return true;
                 }
                 return false;
             }
         });
 
+        thisView.findViewById(R.id.exercise_log_header_time).setOnClickListener(this);
+        thisView.findViewById(R.id.exercise_log_header_description).setOnClickListener(this);
+        thisView.findViewById(R.id.exercise_log_header_calories_burnt).setOnClickListener(this);
+        thisView.findViewById(R.id.exercise_log_header_length).setOnClickListener(this);
+
         return thisView;
     }
 
-    private void populateTable(String queryCondition) {
-        Map<String,Object> map = new LinkedHashMap<>();
+    private void populateTable() {
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '"+ username + "' " + queryCondition + " ORDER BY uel.logtime DESC");
+        map.put("extra", "SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND LOWER(w.description) LIKE '%" + searchTerm + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
@@ -138,9 +149,9 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
                 }
 
                 TableRow.LayoutParams paramsTime = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.28f);
-                TableRow.LayoutParams paramsDescription = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.42f);
-                TableRow.LayoutParams paramsCaloriesBurnt = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
-                TableRow.LayoutParams paramsLength = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
+                TableRow.LayoutParams paramsDescription = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.36f);
+                TableRow.LayoutParams paramsCaloriesBurnt = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.18f);
+                TableRow.LayoutParams paramsLength = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.18f);
 
                 TextView textTime = new TextView(getContext());
                 textTime.setText(timestamp.toString("MMM dd yyyy\nhh:mm aa", Locale.ENGLISH));
@@ -177,19 +188,76 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
         return LocalDateTime.parse(s, DateTimeFormat.forPattern("dd-MMM-yy hh.mm.ss.SSSSSS aa").withLocale(Locale.ENGLISH));
     }
 
-    private void loadSearch(String s) {
-        populateTable("AND LOWER(w.description) LIKE '%" + s.toLowerCase() + "%'");
-    }
-
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.exercise_log_search_view) {
             SearchView search = (SearchView) view;
             search.onActionViewExpanded();
         } else {
-            System.out.println("BYE" + view.getClass());
             thisView.findViewById(R.id.exercise_log_search_view).clearFocus();
         }
+
+        if (view.getId() == R.id.exercise_log_header_time) {
+            TextView v = (TextView) view;
+            if (v.getTag().equals("desc")) {
+                // currently descending, want to sort ascending
+                clearHeaderDrawablesAndTags();
+                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_up_float, 0, 0, 0);
+                v.setTag("asc");
+                sortByOrder = "ASC";
+            } else {
+                // current ascending, want to sort descending OR default (ie. just started to sort by time)
+                clearHeaderDrawablesAndTags();
+                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_down_float, 0, 0, 0);
+                v.setTag("desc");
+                sortByOrder = "DESC";
+            }
+            sortBy = "ele.logtime";
+            populateTable();
+        } else if (view.getId() == R.id.exercise_log_header_description || view.getId() == R.id.exercise_log_header_calories_burnt || view.getId() == R.id.exercise_log_header_length) {
+            TextView v = (TextView) view;
+            if (v.getTag().equals("asc")) {
+                // current ascending, want to sort descending
+                clearHeaderDrawablesAndTags();
+                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_down_float, 0, 0, 0);
+                v.setTag("desc");
+                sortByOrder = "DESC";
+            } else {
+                // currently descending, want to sort ascending OR default (ie. just started to sort by description)
+                clearHeaderDrawablesAndTags();
+                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_up_float, 0, 0, 0);
+                v.setTag("asc");
+                sortByOrder = "ASC";
+            }
+
+            if (view.getId() == R.id.exercise_log_header_description) {
+                sortBy = "w.description";
+            } else if (view.getId() == R.id.exercise_log_header_calories_burnt) {
+                sortBy = "w.caloriesburnt";
+            } else if (view.getId() == R.id.exercise_log_header_length) {
+                sortBy = "w.timeworkout";
+            }
+
+            populateTable();
+        }
+    }
+
+    // utility method for sorting
+    private void clearHeaderDrawablesAndTags() {
+        TextView time = thisView.findViewById(R.id.exercise_log_header_time);
+        TextView description = thisView.findViewById(R.id.exercise_log_header_description);
+        TextView caloriesBurnt = thisView.findViewById(R.id.exercise_log_header_calories_burnt);
+        TextView length = thisView.findViewById(R.id.exercise_log_header_length);
+
+        time.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        description.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        caloriesBurnt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        length.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+        time.setTag("");
+        description.setTag("");
+        caloriesBurnt.setTag("");
+        length.setTag("");
     }
 }
 

@@ -37,7 +37,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.28"
+            android:drawableLeft="@android:drawable/arrow_down_float"
             android:gravity="center"
+            android:tag="desc"
             android:text="@string/exercise_log_header_time"
             android:textColor="@android:color/primary_text_dark" />
 
@@ -45,8 +47,9 @@
             android:id="@+id/exercise_log_header_description"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.42"
+            android:layout_weight="0.36"
             android:gravity="center"
+            android:tag="placeholder"
             android:text="@string/exercise_log_header_description"
             android:textColor="@android:color/primary_text_dark" />
 
@@ -54,8 +57,9 @@
             android:id="@+id/exercise_log_header_calories_burnt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.15"
+            android:layout_weight="0.18"
             android:gravity="center"
+            android:tag="placeholder"
             android:text="@string/exercise_log_header_calories_burnt"
             android:textColor="@android:color/primary_text_dark" />
 
@@ -63,8 +67,9 @@
             android:id="@+id/exercise_log_header_length"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.15"
+            android:layout_weight="0.18"
             android:gravity="center"
+            android:tag="placeholder"
             android:text="@string/exercise_log_header_length"
             android:textColor="@android:color/primary_text_dark" />
     </TableRow>
