@@ -73,5 +73,7 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="Add_date">Add Date</string>
+    <string name="Confirm_Password">Confirm Password</string>
+    <string name="Sign_UP">Register Account</string>
 
 </resources>
