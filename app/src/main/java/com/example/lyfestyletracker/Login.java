@@ -33,7 +33,14 @@ public class Login extends AppCompatActivity {
         Map<String,Object> map = new LinkedHashMap<>();
         Intent intent = null;
 
-        if (consultant.isChecked()){
+        // todo: REMOVE THIS LATER
+        Switch bypass = findViewById(R.id.login_bypass_switch);
+
+        if (bypass.isChecked() && !consultant.isChecked()) {
+            intent = new Intent(this, UserDashboard.class);
+        } else if (bypass.isChecked() && consultant.isChecked()) {
+            intent = new Intent(this, ConsultantDashboard.class);
+        } else if (consultant.isChecked()){
             //If you are a consultant
             map.put("query_type", "authenticate_c");
             map.put("username", eEdit.getText());

@@ -12,7 +12,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="remember_me_switch">Remember Me</string>
+    <string name="remember_me_switch">Bypass Login</string>
 
     <string name="sleep_activity_title">Sleep</string>
     <string name="monthly">monthly</string>

@@ -26,12 +26,12 @@
         android:layout_marginBottom="32dp"
         android:onClick="authenticate"
         android:text="@string/action_sign_in_short"
-        app:layout_constraintBottom_toTopOf="@+id/remember_me_switch"
+        app:layout_constraintBottom_toTopOf="@+id/login_bypass_switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
-        android:id="@+id/remember_me_switch"
+        android:id="@+id/login_bypass_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
