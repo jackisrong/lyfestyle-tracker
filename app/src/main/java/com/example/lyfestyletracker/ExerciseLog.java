@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -29,7 +31,7 @@ import java.util.Map;
  * Use the {@link ExerciseLog#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ExerciseLog extends Fragment {
+public class ExerciseLog extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters
@@ -70,20 +72,49 @@ public class ExerciseLog extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         thisView = inflater.inflate(R.layout.fragment_exercise_log, container, false);
-        populateTable();
+        populateTable("");
+
+        thisView.findViewById(R.id.exercise_log_container).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                thisView.findViewById(R.id.exercise_log_search_view).clearFocus();
+                view.performClick();
+                return true;
+            }
+        });
+
+        thisView.findViewById(R.id.exercise_log_search_view).setOnClickListener(this);
+
+        ((SearchView) thisView.findViewById(R.id.exercise_log_search_view)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                loadSearch(s);
+                thisView.findViewById(R.id.exercise_log_search_view).clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                loadSearch(s);
+                return true;
+
+            }
+        });
+
         return thisView;
     }
 
-    private void populateTable() {
+    private void populateTable(String queryCondition) {
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '"+ username + "' ORDER BY uel.logtime DESC");
+        map.put("extra", "SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '"+ username + "' " + queryCondition + " ORDER BY uel.logtime DESC");
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
         System.out.println(ans);
 
         TableLayout mainTable = thisView.findViewById(R.id.exercise_log_main_table);
+        mainTable.removeAllViews();
 
         if (ans == null) {
             return;
@@ -97,6 +128,7 @@ public class ExerciseLog extends Fragment {
                 TableRow row = new TableRow(getContext());
                 row.setWeightSum(1.0f);
                 row.setPadding(0, 10, 0, 10);
+                row.setOnClickListener(this);
                 if (i % 2 == 0) {
                     row.setBackgroundColor(getContext().getColor(R.color.table_light1));
                 } else {
@@ -141,6 +173,21 @@ public class ExerciseLog extends Fragment {
     // parse method to parse timestamp from SQL query into a LocalDateTime object
     public LocalDateTime parseTimestamp(String s) {
         return LocalDateTime.parse(s, DateTimeFormat.forPattern("dd-MMM-yy hh.mm.ss.SSSSSS aa").withLocale(Locale.ENGLISH));
+    }
+
+    private void loadSearch(String s) {
+        populateTable("AND LOWER(w.description) LIKE '%" + s.toLowerCase() + "%'");
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.exercise_log_search_view) {
+            SearchView search = (SearchView) view;
+            search.onActionViewExpanded();
+        } else {
+            System.out.println("BYE" + view.getClass());
+            thisView.findViewById(R.id.exercise_log_search_view).clearFocus();
+        }
     }
 }
 

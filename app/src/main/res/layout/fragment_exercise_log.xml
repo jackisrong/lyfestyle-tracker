@@ -2,11 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/exercise_log_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExerciseLog">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <SearchView
+        android:id="@+id/exercise_log_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:iconifiedByDefault="true"
+        android:queryHint="Search based on description..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TableRow
         android:id="@+id/exercise_log_headers_row"
@@ -18,7 +30,7 @@
         android:weightSum="1.0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/exercise_log_search_view">
 
         <TextView
             android:id="@+id/exercise_log_header_time"
@@ -67,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/exercise_log_headers_row">
 
         <LinearLayout
+            android:id="@+id/exercise_log_row_container"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
