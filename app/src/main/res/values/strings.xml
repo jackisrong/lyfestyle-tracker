@@ -61,6 +61,7 @@
     <string name="plans">Plans</string>
     <string name="email">Email</string>
     <string name="contract_number">Contract No.</string>
+    <string name="num_servings"># Servings</string>
 
 
     <string-array name="planets_array">
