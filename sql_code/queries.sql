@@ -17,3 +17,8 @@ map.put(
 
 'SELECT * FROM People p, UserPerson up WHERE up.username = \'' . $username . '\' AND p.username = up.username'
 'SELECT * FROM People p, Consultant c WHERE c.username = \'' . $username . '\' AND c.username = p.username'
+
+
+"SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '"+ username + "' ORDER BY uel.logtime DESC"
+
+"SELECT uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = 'bob123' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime ORDER BY mle.logTime DESC"

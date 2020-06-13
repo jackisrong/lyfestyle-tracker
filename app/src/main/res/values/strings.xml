@@ -50,6 +50,9 @@
     <string name="clients">Clients</string>
     <string name="my_plans">My Plans</string>
     <string name="delete_account">Delete Account</string>
+    <string name="total_calories">Total Calories</string>
+    <string name="number_of_servings"># Servings</string>
+    <string name="type">Type</string>
 
 
     <string-array name="planets_array">

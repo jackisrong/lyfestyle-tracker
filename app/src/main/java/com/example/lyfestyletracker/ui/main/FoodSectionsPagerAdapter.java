@@ -38,10 +38,10 @@ public class FoodSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = FoodLog.newInstance(username, "");
+                fragment = FoodLog.newInstance(username, "", username);
                 break;
             case 1:
-                fragment = FoodDiets.newInstance(username, "");
+                fragment = FoodDiets.newInstance(username, "", username);
                 break;
             default:
                 fragment = null;

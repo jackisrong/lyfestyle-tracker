@@ -23,6 +23,7 @@ public class FoodDiets extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String username;
 
     public FoodDiets() {
         // Required empty public constructor
@@ -37,11 +38,12 @@ public class FoodDiets extends Fragment {
      * @return A new instance of fragment FoodDiets.
      */
     // TODO: Rename and change types and number of parameters
-    public static FoodDiets newInstance(String param1, String param2) {
+    public static FoodDiets newInstance(String param1, String param2, String username) {
         FoodDiets fragment = new FoodDiets();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,6 +54,7 @@ public class FoodDiets extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
         }
     }
 
