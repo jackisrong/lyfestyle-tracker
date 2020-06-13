@@ -37,8 +37,10 @@ public class Login extends AppCompatActivity {
         Switch bypass = findViewById(R.id.login_bypass_switch);
 
         if (bypass.isChecked() && !consultant.isChecked()) {
+            eEdit.setText("bob123");
             intent = new Intent(this, UserDashboard.class);
         } else if (bypass.isChecked() && consultant.isChecked()) {
+            eEdit.setText("bob123");
             intent = new Intent(this, ConsultantDashboard.class);
         } else if (consultant.isChecked()){
             //If you are a consultant
