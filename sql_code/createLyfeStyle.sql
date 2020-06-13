@@ -217,7 +217,7 @@ grant select on UserMealLog to public;
 
 CREATE TABLE Consultant (
 	username VARCHAR(20) PRIMARY KEY,
-	rating INTEGER,
+	result INTEGER,
 	FOREIGN KEY (username) REFERENCES People(username)
 		ON DELETE CASCADE
 );
@@ -294,6 +294,9 @@ insert into Company values (1, 'INTEL','53 Main st, Vancouver BC');
 insert into ConsultantWorksForCompany values ('Erin', 0);
 
 insert into ConsultantWorksForCompany values ('David', 1);
+
+
+insert into ConsultantWorksForCompany values ('consultant', 1);
 
 insert into UserHiresConsultant values ('bob123', 'David', 145);
 

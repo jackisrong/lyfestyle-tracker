@@ -4,9 +4,25 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import com.example.lyfestyletracker.web.QueryExecutable;
+
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +39,7 @@ public class UserConsultantsList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private View thisView;
     public UserConsultantsList() {
         // Required empty public constructor
     }
@@ -59,6 +75,67 @@ public class UserConsultantsList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_consultants_list, container, false);
+        thisView = inflater.inflate(R.layout.fragment_user_consultants_list, container, false);
+        populateTable();
+        return thisView;
     }
+
+    public void populateTable(){
+        Map<String,Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"') ORDER BY c.result");
+
+        QueryExecutable qe = new QueryExecutable(map);
+        JSONArray ans = qe.run();
+        System.out.println(ans);
+
+        TableLayout mainTable = thisView.findViewById(R.id.consultant_log_main_table);
+
+        if (ans == null) {
+            return;
+        }
+
+        for (int i = 0; i < ans.length(); i++) {
+            try {
+                JSONObject o = ans.getJSONObject(i);
+
+                TableRow row = new TableRow(getContext());
+                row.setWeightSum(1.0f);
+                row.setPadding(0, 10, 0, 10);
+                if (i % 2 == 0) {
+                    row.setBackgroundColor(getContext().getColor(R.color.table_light1));
+                } else {
+                    row.setBackgroundColor(getContext().getColor(R.color.table_light2));
+                }
+
+                TableRow.LayoutParams paramsusername = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.28f);
+                TableRow.LayoutParams paramsCompany = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.42f);
+                TableRow.LayoutParams paramsRating = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
+
+
+                TextView usernameText = new TextView(getContext());
+                usernameText.setText(o.getString("USERNAME"));
+                usernameText.setLayoutParams(paramsusername);
+                usernameText.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                TextView companyText = new TextView(getContext());
+                companyText.setText(o.getString("NAME"));
+                companyText.setLayoutParams(paramsCompany);
+
+                TextView ratingText = new TextView(getContext());
+                ratingText.setText(o.getString("RESULT"));
+                ratingText.setLayoutParams(paramsRating);
+                ratingText.setGravity(Gravity.CENTER_HORIZONTAL);
+
+
+                row.addView(usernameText);
+                row.addView(companyText);
+                row.addView(ratingText);
+                mainTable.addView(row);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
