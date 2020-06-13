@@ -36,7 +36,7 @@ public class ExerciseSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = ExerciseLog.newInstance(username, "");
+                fragment = ExerciseLog.newInstance(username);
                 break;
             case 1:
                 fragment = ExerciseWorkoutPlans.newInstance(username, "");

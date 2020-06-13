@@ -4,9 +4,25 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import com.example.lyfestyletracker.web.QueryExecutable;
+
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,13 +32,10 @@ import android.view.ViewGroup;
 public class ExerciseLog extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    // the fragment initialization parameters
+    private String username;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private View thisView;
 
     public ExerciseLog() {
         // Required empty public constructor
@@ -32,16 +45,14 @@ public class ExerciseLog extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param username Username of current user.
      * @return A new instance of fragment ExerciseLog.
      */
     // TODO: Rename and change types and number of parameters
-    public static ExerciseLog newInstance(String param1, String param2) {
+    public static ExerciseLog newInstance(String username) {
         ExerciseLog fragment = new ExerciseLog();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,8 +61,7 @@ public class ExerciseLog extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
         }
     }
 
@@ -59,6 +69,90 @@ public class ExerciseLog extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exercise_log, container, false);
+        thisView = inflater.inflate(R.layout.fragment_exercise_log, container, false);
+        populateTable();
+        return thisView;
+    }
+
+    private void populateTable() {
+        Map<String,Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '"+ username + "' ORDER BY uel.logtime DESC");
+
+        QueryExecutable qe = new QueryExecutable(map);
+        JSONArray ans = qe.run();
+        System.out.println(ans);
+
+        TableLayout mainTable = thisView.findViewById(R.id.exercise_log_main_table);
+
+        if (ans == null) {
+            return;
+        }
+
+        for (int i = 0; i < ans.length(); i++) {
+            try {
+                JSONObject o = ans.getJSONObject(i);
+                LocalDateTime timestamp = parseTimestamp(o.getString("LOGTIME"));
+
+                TableRow row = new TableRow(getContext());
+                row.setWeightSum(1.0f);
+                row.setPadding(0, 5, 0, 5);
+                if (i % 2 == 0) {
+                    row.setBackgroundColor(getContext().getColor(R.color.table_light1));
+                } else {
+                    row.setBackgroundColor(getContext().getColor(R.color.table_light2));
+                }
+
+                TableRow.LayoutParams paramsTime = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.3f);
+                TableRow.LayoutParams paramsDescription = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.5f);
+                TableRow.LayoutParams paramsCaloriesBurnt = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.1f);
+                TableRow.LayoutParams paramsLength = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.1f);
+
+                TextView textTime = new TextView(getContext());
+                textTime.setText(timestamp.toString("MMM dd yyyy\nhh:mm aa", Locale.ENGLISH));
+                textTime.setLayoutParams(paramsTime);
+                textTime.setGravity(Gravity.CENTER);
+
+                TextView textDescription = new TextView(getContext());
+                textDescription.setText(o.getString("DESCRIPTION"));
+                textDescription.setLayoutParams(paramsDescription);
+
+                TextView textCaloriesBurnt = new TextView(getContext());
+                textCaloriesBurnt.setText(o.getString("CALORIESBURNT"));
+                textCaloriesBurnt.setLayoutParams(paramsCaloriesBurnt);
+                textCaloriesBurnt.setGravity(Gravity.CENTER);
+
+                TextView textLength = new TextView(getContext());
+                textLength.setText(o.getString("TIMEWORKOUT"));
+                textLength.setLayoutParams(paramsLength);
+                textLength.setGravity(Gravity.CENTER);
+
+                row.addView(textTime);
+                row.addView(textDescription);
+                row.addView(textCaloriesBurnt);
+                row.addView(textLength);
+                mainTable.addView(row);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // parse method to parse timestamp from SQL query into a LocalDateTime object
+    public LocalDateTime parseTimestamp(String s) {
+        return LocalDateTime.parse(s, DateTimeFormat.forPattern("dd-MMM-yy hh.mm.ss.SSSSSS aa").withLocale(Locale.ENGLISH));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

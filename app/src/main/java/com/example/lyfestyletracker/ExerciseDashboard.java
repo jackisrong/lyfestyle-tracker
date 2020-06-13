@@ -15,9 +15,12 @@ import com.example.lyfestyletracker.ui.main.ExerciseSectionsPagerAdapter;
 
 public class ExerciseDashboard extends AppCompatActivity {
 
+    private String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        username = getIntent().getStringExtra("username");
         setContentView(R.layout.activity_exercise_dashboard);
         ExerciseSectionsPagerAdapter exerciseSectionsPagerAdapter = new ExerciseSectionsPagerAdapter(this, getSupportFragmentManager(), getIntent().getStringExtra("username"));
         ViewPager viewPager = findViewById(R.id.view_pager);
