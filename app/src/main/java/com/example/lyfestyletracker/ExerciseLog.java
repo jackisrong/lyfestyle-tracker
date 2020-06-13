@@ -96,17 +96,17 @@ public class ExerciseLog extends Fragment {
 
                 TableRow row = new TableRow(getContext());
                 row.setWeightSum(1.0f);
-                row.setPadding(0, 5, 0, 5);
+                row.setPadding(0, 10, 0, 10);
                 if (i % 2 == 0) {
                     row.setBackgroundColor(getContext().getColor(R.color.table_light1));
                 } else {
                     row.setBackgroundColor(getContext().getColor(R.color.table_light2));
                 }
 
-                TableRow.LayoutParams paramsTime = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.3f);
-                TableRow.LayoutParams paramsDescription = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.5f);
-                TableRow.LayoutParams paramsCaloriesBurnt = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.1f);
-                TableRow.LayoutParams paramsLength = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.1f);
+                TableRow.LayoutParams paramsTime = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.28f);
+                TableRow.LayoutParams paramsDescription = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.42f);
+                TableRow.LayoutParams paramsCaloriesBurnt = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
+                TableRow.LayoutParams paramsLength = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
 
                 TextView textTime = new TextView(getContext());
                 textTime.setText(timestamp.toString("MMM dd yyyy\nhh:mm aa", Locale.ENGLISH));

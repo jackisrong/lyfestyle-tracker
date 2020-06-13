@@ -2,68 +2,82 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExerciseLog">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TableLayout
-        android:id="@+id/exercise_log_main_table"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TableRow
+        android:id="@+id/exercise_log_headers_row"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:weightSum="1.0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow
-            android:id="@+id/exercise_log_table_headers"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/exercise_log_header_time"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:weightSum="1.0">
+            android:layout_weight="0.28"
+            android:gravity="center"
+            android:text="@string/exercise_log_header_time"
+            android:textColor="@android:color/primary_text_dark" />
 
-            <TextView
-                android:id="@+id/exercise_log_header_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.3"
-                android:gravity="center"
-                android:text="@string/exercise_log_header_time"
-                android:textColor="@android:color/primary_text_dark" />
+        <TextView
+            android:id="@+id/exercise_log_header_description"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.42"
+            android:gravity="center"
+            android:text="@string/exercise_log_header_description"
+            android:textColor="@android:color/primary_text_dark" />
 
-            <TextView
-                android:id="@+id/exercise_log_header_description"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:text="@string/exercise_log_header_description"
-                android:textColor="@android:color/primary_text_dark" />
+        <TextView
+            android:id="@+id/exercise_log_header_calories_burnt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:gravity="center"
+            android:text="@string/exercise_log_header_calories_burnt"
+            android:textColor="@android:color/primary_text_dark" />
 
-            <TextView
-                android:id="@+id/exercise_log_header_calories_burnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:gravity="center"
-                android:text="@string/exercise_log_header_calories_burnt"
-                android:textColor="@android:color/primary_text_dark" />
+        <TextView
+            android:id="@+id/exercise_log_header_length"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:gravity="center"
+            android:text="@string/exercise_log_header_length"
+            android:textColor="@android:color/primary_text_dark" />
+    </TableRow>
 
-            <TextView
-                android:id="@+id/exercise_log_header_length"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:gravity="center"
-                android:text="@string/exercise_log_header_length"
-                android:textColor="@android:color/primary_text_dark" />
-        </TableRow>
+    <ScrollView
+        android:id="@+id/exercise_log_scroll_container"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_log_headers_row">
 
-    </TableLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/exercise_log_main_table"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
