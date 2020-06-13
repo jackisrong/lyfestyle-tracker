@@ -444,6 +444,7 @@ insert into UserExerciseLog values ('Luis',TO_TIMESTAMP('2020-06-11 13:15:00',  
 insert into UserExerciseLog values ('Luis',TO_TIMESTAMP('2020-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
 
 insert into ConsultantSuggestsPlan values ('bob123', 'David', 0,TO_TIMESTAMP('2020-05-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ConsultantSuggestsPlan values ('bob123', 'David', 1,TO_TIMESTAMP('2020-05-20 10:42:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ConsultantSuggestsPlan values ('IluvHs', 'David', 9,TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ConsultantSuggestsPlan values ('bob123', 'Erin', 1,TO_TIMESTAMP('2020-04-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ConsultantSuggestsPlan values ('IluvHs', 'Erin', 5,TO_TIMESTAMP('2020-01-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'));

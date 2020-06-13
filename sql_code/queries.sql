@@ -25,3 +25,8 @@ map.put(
 
 "Select c.username, c.rating, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"') ORDER BY c.rating"
 "Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = 'bob123') ORDER BY c.result"
+
+
+"Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" +mParam1+ "'"
+
+"Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" +mParam1+ "' AND NOT EXISTS ((Select planId FROM Plan WHERE createdByUsername = uhc.consultantUsername) MINUS (Select csp.planId FROM ConsultantSuggestsPlan csp Where csp.userUsername = u.username AND csp.consultantUsername = uhc.consultantUsername))"

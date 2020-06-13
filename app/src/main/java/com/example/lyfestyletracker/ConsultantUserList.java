@@ -1,11 +1,24 @@
 package com.example.lyfestyletracker;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.lyfestyletracker.web.QueryExecutable;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ConsultantUserList extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -17,6 +30,7 @@ public class ConsultantUserList extends Fragment {
     private String mParam1;
     private String mParam2;
     private String username;
+    private View thisView;
 
     public ConsultantUserList() {
         // Required empty public constructor
@@ -53,6 +67,66 @@ public class ConsultantUserList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_consultant_user_dashboard, container, false);
+        thisView = inflater.inflate(R.layout.fragment_consultant_user_division, container, false);
+        populateTable();
+        return thisView;
+    }
+
+
+    public void populateTable(){
+        Map<String,Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" +mParam1+ "'");
+        QueryExecutable qe = new QueryExecutable(map);
+        JSONArray ans = qe.run();
+        System.out.println(ans);
+
+        TableLayout mainTable = thisView.findViewById(R.id.user_log_main_table);
+
+        if (ans == null) {
+            return;
+        }
+
+        for (int i = 0; i < ans.length(); i++) {
+            try {
+                JSONObject o = ans.getJSONObject(i);
+
+                TableRow row = new TableRow(getContext());
+                row.setWeightSum(1.0f);
+                row.setPadding(0, 10, 0, 10);
+                if (i % 2 == 0) {
+                    row.setBackgroundColor(getContext().getColor(R.color.table_light1));
+                } else {
+                    row.setBackgroundColor(getContext().getColor(R.color.table_light2));
+                }
+
+                TableRow.LayoutParams paramsusername = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.28f);
+                TableRow.LayoutParams paramsEmail = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.42f);
+                TableRow.LayoutParams paramsContract = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
+
+
+                TextView usernameText = new TextView(getContext());
+                usernameText.setText(o.getString("USERNAME"));
+                usernameText.setLayoutParams(paramsusername);
+                usernameText.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                TextView emailText = new TextView(getContext());
+                emailText.setText(o.getString("EMAIL"));
+                emailText.setLayoutParams(paramsEmail);
+
+                TextView contractText = new TextView(getContext());
+                contractText.setText(o.getString("CONTRACTNUMBER"));
+                contractText.setLayoutParams(paramsContract);
+                contractText.setGravity(Gravity.CENTER_HORIZONTAL);
+
+
+                row.addView(usernameText);
+                row.addView(emailText);
+                row.addView(contractText);
+                mainTable.addView(row);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

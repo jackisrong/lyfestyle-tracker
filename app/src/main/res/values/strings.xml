@@ -59,6 +59,8 @@
     <string name="rating">Rating</string>
     <string name="company">Company</string>
     <string name="plans">Plans</string>
+    <string name="email">Email</string>
+    <string name="contract_number">Contract No.</string>
 
 
     <string-array name="planets_array">
