@@ -21,10 +21,12 @@ public class ExerciseSectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.exercise_tab_text_1, R.string.exercise_tab_text_2};
     private final Context mContext;
+    private String username;
 
-    public ExerciseSectionsPagerAdapter(Context context, FragmentManager fm) {
+    public ExerciseSectionsPagerAdapter(Context context, FragmentManager fm, String username) {
         super(fm);
         mContext = context;
+        this.username = username;
     }
 
     @Override
@@ -34,10 +36,10 @@ public class ExerciseSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = new ExerciseLog();
+                fragment = ExerciseLog.newInstance(username, "");
                 break;
             case 1:
-                fragment = new ExerciseWorkoutPlans();
+                fragment = ExerciseWorkoutPlans.newInstance(username, "");
                 break;
             default:
                 fragment = null;

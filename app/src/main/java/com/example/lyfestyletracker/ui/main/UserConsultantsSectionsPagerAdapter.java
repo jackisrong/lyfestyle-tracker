@@ -23,10 +23,12 @@ public class UserConsultantsSectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.user_consultants_tab_text_1, R.string.user_consultants_tab_text_2};
     private final Context mContext;
+    private String username;
 
-    public UserConsultantsSectionsPagerAdapter(Context context, FragmentManager fm) {
+    public UserConsultantsSectionsPagerAdapter(Context context, FragmentManager fm, String username) {
         super(fm);
         mContext = context;
+        this.username = username;
     }
 
     @Override
@@ -36,10 +38,10 @@ public class UserConsultantsSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = new UserConsultantsList();
+                fragment = UserConsultantsList.newInstance(username, "");
                 break;
             case 1:
-                fragment = new UserConsultantsPlans();
+                fragment = UserConsultantsPlans.newInstance(username, "");
                 break;
             default:
                 fragment = null;

@@ -19,7 +19,7 @@ public class UserConsultantsDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_consultants_dashboard);
-        UserConsultantsSectionsPagerAdapter userConsultantsSectionsPagerAdapter = new UserConsultantsSectionsPagerAdapter(this, getSupportFragmentManager());
+        UserConsultantsSectionsPagerAdapter userConsultantsSectionsPagerAdapter = new UserConsultantsSectionsPagerAdapter(this, getSupportFragmentManager(), getIntent().getStringExtra("username"));
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(userConsultantsSectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);

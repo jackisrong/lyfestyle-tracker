@@ -19,7 +19,7 @@ public class FoodDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_dashboard);
-        FoodSectionsPagerAdapter foodSectionsPagerAdapter = new FoodSectionsPagerAdapter(this, getSupportFragmentManager());
+        FoodSectionsPagerAdapter foodSectionsPagerAdapter = new FoodSectionsPagerAdapter(this, getSupportFragmentManager(), getIntent().getStringExtra("username"));
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(foodSectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);

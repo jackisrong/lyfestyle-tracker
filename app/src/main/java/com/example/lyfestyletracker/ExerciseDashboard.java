@@ -19,7 +19,7 @@ public class ExerciseDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_dashboard);
-        ExerciseSectionsPagerAdapter exerciseSectionsPagerAdapter = new ExerciseSectionsPagerAdapter(this, getSupportFragmentManager());
+        ExerciseSectionsPagerAdapter exerciseSectionsPagerAdapter = new ExerciseSectionsPagerAdapter(this, getSupportFragmentManager(), getIntent().getStringExtra("username"));
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(exerciseSectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);

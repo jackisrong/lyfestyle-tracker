@@ -23,10 +23,12 @@ public class FoodSectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.food_tab_text_1, R.string.food_tab_text_2};
     private final Context mContext;
+    private String username;
 
-    public FoodSectionsPagerAdapter(Context context, FragmentManager fm) {
+    public FoodSectionsPagerAdapter(Context context, FragmentManager fm, String username) {
         super(fm);
         mContext = context;
+        this.username = username;
     }
 
     @Override
@@ -36,10 +38,10 @@ public class FoodSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = new FoodLog();
+                fragment = FoodLog.newInstance(username, "");
                 break;
             case 1:
-                fragment = new FoodDiets();
+                fragment = FoodDiets.newInstance(username, "");
                 break;
             default:
                 fragment = null;
