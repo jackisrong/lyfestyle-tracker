@@ -95,9 +95,11 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                loadSearch(s);
-                return true;
-
+                if (s.equals("")) {
+                    populateTable("");
+                    return true;
+                }
+                return false;
             }
         });
 
