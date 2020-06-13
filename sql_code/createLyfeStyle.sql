@@ -62,7 +62,7 @@ CREATE TABLE UserPerson (
 	age INTEGER,
 	height INTEGER,
 	PRIMARY KEY (username),
-	FOREIGN KEY (username) REFERENCES People(username)
+	FOREIGN KEY (username) REFERENCES People(username) ON DELETE CASCADE
 );
 
 grant select on UserPerson to public;
@@ -276,12 +276,15 @@ insert into People values ('bob123', 'bob' ,'12345;)','bob123@gmail.com');
 insert into People values ('IluvHs','Susan','1D<3,', 'email@hotmail.com');
 insert into People values ('Erin','Erin','pass<*<$', 'erin@gmail.com');
 insert into People values ('David','David','catsTheMusical','dobrik@gmail.com');
-
+insert into People values ('consultant', 'c', '123', 'email@gmail.com');
+insert into People values ('Luis', 'Luis', 'password', 'luis@gmail.com');
 
 insert into UserPerson values ('bob123', 600, 140, 35, 180);
 insert into UserPerson values ('IluvHs', 800, 90, 14, 100);
+insert into UserPerson values ('Luis', 850, 160, 20, 185);
 insert into Consultant values ('Erin',2);
 insert into Consultant values ('David',5);
+insert into Consultant values ('consultant', 8);
 
 
 insert into Company values (0, 'BELL','54 Main st, Vancouver BC');
@@ -308,6 +311,8 @@ insert into Workout values (0, 'Tennis, singles', 626, 70);
 insert into Workout values (1, 'Basketball, intense', 715, 80);
 insert into Workout values (5, 'walk, medium', 353, 60);
 insert into Workout values (6, 'run', 380, 35);
+insert into Workout values (11, 'reading, hard', 1000, 200);
+insert into Workout values (12, 'flying, fast', 10000, 1200);
 
 insert into Sport values (0, 4, 'Tennis');
 insert into Sport values (1, 7, 'Basketball');
@@ -317,44 +322,123 @@ insert into Cardio values (6, 5, 9);
 
 insert into Plan values (0, 'David');
 insert into Plan values (1, 'David');
+insert into Plan values (5, 'Erin');
+insert into Plan values (9, 'Erin');
+insert into Plan values (8, 'consultant');
+insert into Plan values (10, 'consultant');
 
 insert into WorkoutPlan values (0, 2100);
 insert into WorkoutPlan values (1, 1000);
+insert into WorkoutPlan values (8, 9000);
 
 insert into WorkoutPlanContainsWorkout values (0, 0);
 insert into WorkoutPlanContainsWorkout values (1, 1);
+insert into WorkoutPlanContainsWorkout values (1, 6);
+insert into WorkoutPlanContainsWorkout values (1, 11);
+insert into WorkoutPlanContainsWorkout values (1, 12);
+insert into WorkoutPlanContainsWorkout values (1, 5);
+insert into WorkoutPlanContainsWorkout values (8, 1);
+insert into WorkoutPlanContainsWorkout values (8, 12);
 
 insert into MealCalories values (79, 47, 26, 778);
 insert into MealCalories values (38, 28, 12, 372);
+insert into MealCalories values (85, 45, 2, 882);
 
 insert into Meal values (0, 'Breakfast', 'Scrambled eggs, banana yogurt', 500, 79, 47, 26);
 insert into Meal values (1, 'Lunch', 'salmon sandwich', 300, 38, 28, 12);
+insert into Meal values (2, 'Pasta', 'Pasta', 500, 79, 47, 26);
+insert into Meal values (3, 'Dinner', 'Pasta thing', 850, 85, 45, 2);
 
-insert into Plan values (5, 'Erin');
-insert into Plan values (9, 'Erin');
+
 
 insert into Diet values (5, 9000);
 insert into Diet values (9, 20000);
+insert into Diet values (10, 8000);
 
 insert into MealLogEntry values (0,TO_TIMESTAMP('2020-05-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
 insert into MealLogEntry values (1,TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
+insert into MealLogEntry values (2, TO_TIMESTAMP('2020-07-18 12:25:00',  'YYYY-MM-DD HH24:MI:SS'), 3);
+insert into MealLogEntry values (3, TO_TIMESTAMP('2020-07-19 13:25:00',  'YYYY-MM-DD HH24:MI:SS'), 2);
 
 insert into UserMealLog values ('IluvHs',TO_TIMESTAMP('2020-05-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'), 0);
 insert into UserMealLog values ('bob123',TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
+insert into UserMealLog values ('bob123',TO_TIMESTAMP('2020-07-18 12:25:00',  'YYYY-MM-DD HH24:MI:SS'), 2);
+insert into UserMealLog values ('bob123',TO_TIMESTAMP('2020-07-19 13:25:00',  'YYYY-MM-DD HH24:MI:SS'), 3);
+insert into UserMealLog values ('Luis',TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
+insert into UserMealLog values ('Luis',TO_TIMESTAMP('2020-07-18 12:25:00',  'YYYY-MM-DD HH24:MI:SS'), 2);
+insert into UserMealLog values ('Luis',TO_TIMESTAMP('2020-07-19 13:25:00',  'YYYY-MM-DD HH24:MI:SS'), 3);
+
 
 insert into DietContainsMealLog values (5,TO_TIMESTAMP('2020-05-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'), 0);
 insert into DietContainsMealLog values (9,TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
+insert into DietContainsMealLog values (9,TO_TIMESTAMP('2020-07-19 13:25:00',  'YYYY-MM-DD HH24:MI:SS') , 3);
+insert into DietContainsMealLog values (10,TO_TIMESTAMP('2020-07-18 12:25:00',  'YYYY-MM-DD HH24:MI:SS') , 2);
 
 
 insert into UserSleepEntry values ('bob123',TO_DATE('2020-05-28', 'YYYY-MM-DD'),1,5);
 insert into UserSleepEntry values ('IluvHs',TO_DATE('2020-05-28', 'YYYY-MM-DD'),5,7);
+insert into UserSleepEntry values ('Luis',TO_DATE('2020-06-13', 'YYYY-MM-DD'),5,4);
+insert into UserSleepEntry values ('Luis',TO_DATE('2020-06-11', 'YYYY-MM-DD'),8,1);
+insert into UserSleepEntry values ('Luis',TO_DATE('2020-06-10', 'YYYY-MM-DD'),9,6);
+insert into UserSleepEntry values ('Luis',TO_DATE('2020-06-17', 'YYYY-MM-DD'),3,4);
+insert into UserSleepEntry values ('Luis',TO_DATE('2020-06-18', 'YYYY-MM-DD'),2,8);
+insert into UserSleepEntry values ('Luis',TO_DATE('2020-06-01', 'YYYY-MM-DD'),7,7);
+insert into UserSleepEntry values ('Luis',TO_DATE('2020-06-02', 'YYYY-MM-DD'),7,7);
 
 
 insert into ExerciseLogEntry values (0, TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ExerciseLogEntry values (1, TO_TIMESTAMP('2020-09-22 23:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (1, TO_TIMESTAMP('2020-07-22 23:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (5, TO_TIMESTAMP('2020-06-17 23:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (6, TO_TIMESTAMP('2020-06-16 10:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (11, TO_TIMESTAMP('2020-06-11 13:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-06-22 19:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-06-19 19:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-06-18 09:25:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2010-06-18 01:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2019-06-18 09:05:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-05-20 1-:15:10',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2018-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2019-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2015-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2004-12-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2000-01-08 19:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2025-12-09 09:55:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2021-08-12 03:45:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2022-09-15 02:55:00',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2023-10-28 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
+
 
 insert into UserExerciseLog values ('IluvHs', TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 0);
 insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-09-22 23:15:00',  'YYYY-MM-DD HH24:MI:SS'),1);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-07-22 23:15:00',  'YYYY-MM-DD HH24:MI:SS'),1);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-17 23:15:00',  'YYYY-MM-DD HH24:MI:SS'),5);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-16 10:15:00',  'YYYY-MM-DD HH24:MI:SS'),6);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-11 13:15:00',  'YYYY-MM-DD HH24:MI:SS'),11);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-22 19:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-19 19:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-18 09:25:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2010-06-18 01:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2019-06-18 09:05:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-05-20 1-:15:10',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2018-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2019-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2015-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2004-12-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2000-01-08 19:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2025-12-09 09:55:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2021-08-12 03:45:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2022-09-15 02:55:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2023-10-28 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
+
+insert into UserExerciseLog values ('Luis',TO_TIMESTAMP('2020-09-22 23:15:00',  'YYYY-MM-DD HH24:MI:SS'),1);
+insert into UserExerciseLog values ('Luis',TO_TIMESTAMP('2020-07-22 23:15:00',  'YYYY-MM-DD HH24:MI:SS'),1);
+insert into UserExerciseLog values ('Luis',TO_TIMESTAMP('2020-06-17 23:15:00',  'YYYY-MM-DD HH24:MI:SS'),5);
+insert into UserExerciseLog values ('Luis',TO_TIMESTAMP('2020-06-16 10:15:00',  'YYYY-MM-DD HH24:MI:SS'),6);
+insert into UserExerciseLog values ('Luis',TO_TIMESTAMP('2020-06-11 13:15:00',  'YYYY-MM-DD HH24:MI:SS'),11);
+insert into UserExerciseLog values ('Luis',TO_TIMESTAMP('2020-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
 
 insert into ConsultantSuggestsPlan values ('bob123', 'David', 0,TO_TIMESTAMP('2020-05-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ConsultantSuggestsPlan values ('IluvHs', 'David', 9,TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'));

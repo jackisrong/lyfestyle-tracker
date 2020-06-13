@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 
 public class UserDashboard extends AppCompatActivity {
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
+        username = getIntent().getStringExtra("username");
     }
 
     public void navigation(View view) {
@@ -32,5 +34,12 @@ public class UserDashboard extends AppCompatActivity {
 
         intent.putExtra("username", getIntent().getStringExtra("username"));
         startActivity(intent);
+
+
     }
+
+    private void deleteAccount(View view){
+
+    }
+
 }

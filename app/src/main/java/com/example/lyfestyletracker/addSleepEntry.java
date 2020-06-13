@@ -65,12 +65,7 @@ public class addSleepEntry extends AppCompatActivity implements DatePickerDialog
                             +"', 'YYYY-MM-DD'), "
                             + s1.getSelectedItem().toString() + ", " + s2.getSelectedItem().toString() +")");
 
-            System.out.println("INSERT INTO userSleepEntry VALUES ("
-                    + username
-                    + ", TO_DATE('"
-                    + dateResult.getText()
-                    +"', 'YYYY-MM-DD'), "
-                    + s1.getSelectedItem().toString() + ", " + s1.getSelectedItem().toString() +")");
+
             QueryExecutable qe = new QueryExecutable(map);
             JSONArray res = qe.run();
 
