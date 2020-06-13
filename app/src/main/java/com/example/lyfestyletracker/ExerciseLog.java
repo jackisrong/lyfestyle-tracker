@@ -111,7 +111,7 @@ public class ExerciseLog extends Fragment {
                 TextView textTime = new TextView(getContext());
                 textTime.setText(timestamp.toString("MMM dd yyyy\nhh:mm aa", Locale.ENGLISH));
                 textTime.setLayoutParams(paramsTime);
-                textTime.setGravity(Gravity.CENTER);
+                textTime.setGravity(Gravity.CENTER_HORIZONTAL);
 
                 TextView textDescription = new TextView(getContext());
                 textDescription.setText(o.getString("DESCRIPTION"));
@@ -120,12 +120,12 @@ public class ExerciseLog extends Fragment {
                 TextView textCaloriesBurnt = new TextView(getContext());
                 textCaloriesBurnt.setText(o.getString("CALORIESBURNT"));
                 textCaloriesBurnt.setLayoutParams(paramsCaloriesBurnt);
-                textCaloriesBurnt.setGravity(Gravity.CENTER);
+                textCaloriesBurnt.setGravity(Gravity.CENTER_HORIZONTAL);
 
                 TextView textLength = new TextView(getContext());
                 textLength.setText(o.getString("TIMEWORKOUT"));
                 textLength.setLayoutParams(paramsLength);
-                textLength.setGravity(Gravity.CENTER);
+                textLength.setGravity(Gravity.CENTER_HORIZONTAL);
 
                 row.addView(textTime);
                 row.addView(textDescription);
