@@ -39,11 +39,12 @@ public class ConsultantDashboard extends AppCompatActivity {
         Intent intent;
 
         if (buttonId == R.id.nav_button_clients) {
-            intent = new Intent(this, FoodDashboard.class); ///FIX THISS
-
+            intent = new Intent(this, ConsultantUserDashboard.class);
+        } else if(buttonId == R.id.nav_button_plans){
+            intent = new Intent(this, ConsultantPlansDashboard.class);
         } else {
             // this should never happen, but just in case...
-            intent = new Intent(this, UserDashboard.class);  ///FIX THISS
+            intent = new Intent(this, ConsultantDashboard.class);  ///FIX THISS
         }
 
         intent.putExtra("username", getIntent().getStringExtra("username"));

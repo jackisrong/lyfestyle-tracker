@@ -22,8 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:onClick="navigate"
             android:drawableTop="@android:drawable/btn_star_big_on"
+            android:onClick="navigate"
             android:text="@string/clients"
             android:textColor="@android:color/primary_text_dark" />
 
@@ -32,9 +32,9 @@
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="navigate"
             android:background="@android:color/transparent"
             android:drawableTop="@android:drawable/btn_star_big_on"
+            android:onClick="navigate"
             android:text="@string/my_plans"
             android:textColor="@android:color/primary_text_dark" />
 

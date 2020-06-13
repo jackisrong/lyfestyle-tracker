@@ -12,11 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ConsultantPlansDashboard"
+            android:label="@string/title_activity_consultant_plans"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ConsultantUserDashboard"
+            android:label="@string/title_activity_consultant_user_dashboard"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".addSleepEntry"
-            android:label="Add an Entry">
-
-
-        </activity>
+            android:label="Add an Entry"></activity>
         <activity
             android:name=".UserConsultantsDashboard"
             android:label="@string/user_consultants_dashboard_activity_title"
