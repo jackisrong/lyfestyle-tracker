@@ -276,12 +276,14 @@ insert into People values ('bob123', 'bob' ,'12345;)','bob123@gmail.com');
 insert into People values ('IluvHs','Susan','1D<3,', 'email@hotmail.com');
 insert into People values ('Erin','Erin','pass<*<$', 'erin@gmail.com');
 insert into People values ('David','David','catsTheMusical','dobrik@gmail.com');
+insert into People values ('consultant', 'c', '123', 'email@gmail.com');
 
 
 insert into UserPerson values ('bob123', 600, 140, 35, 180);
 insert into UserPerson values ('IluvHs', 800, 90, 14, 100);
 insert into Consultant values ('Erin',2);
 insert into Consultant values ('David',5);
+insert into Consultant values ('consultant', 8);
 
 
 insert into Company values (0, 'BELL','54 Main st, Vancouver BC');
@@ -317,24 +319,32 @@ insert into Cardio values (6, 5, 9);
 
 insert into Plan values (0, 'David');
 insert into Plan values (1, 'David');
+insert into Plan values (5, 'Erin');
+insert into Plan values (9, 'Erin');
+insert into Plan values (8, 'consultant');
+insert into Plan values (10, 'consultant');
 
 insert into WorkoutPlan values (0, 2100);
 insert into WorkoutPlan values (1, 1000);
+insert into WorkoutPlan values (8, 9000);
 
 insert into WorkoutPlanContainsWorkout values (0, 0);
 insert into WorkoutPlanContainsWorkout values (1, 1);
 
 insert into MealCalories values (79, 47, 26, 778);
 insert into MealCalories values (38, 28, 12, 372);
+insert into MealCalories values (85, 45, 2, 882);
 
 insert into Meal values (0, 'Breakfast', 'Scrambled eggs, banana yogurt', 500, 79, 47, 26);
 insert into Meal values (1, 'Lunch', 'salmon sandwich', 300, 38, 28, 12);
+insert into Meal values (2, 'Pasta', 'Pasta', 500, 79, 47, 26);
+insert into Meal values (3, 'Dinner', 'Pasta thing', 850, 85, 45, 2);
 
-insert into Plan values (5, 'Erin');
-insert into Plan values (9, 'Erin');
+
 
 insert into Diet values (5, 9000);
 insert into Diet values (9, 20000);
+insert into Diet values (10, 8000);
 
 insert into MealLogEntry values (0,TO_TIMESTAMP('2020-05-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
 insert into MealLogEntry values (1,TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
