@@ -9,8 +9,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.lyfestyletracker.R;
-import com.example.lyfestyletracker.SleepTab1;
-import com.example.lyfestyletracker.SleepTab2;
 import com.example.lyfestyletracker.UserConsultantsList;
 import com.example.lyfestyletracker.UserConsultantsPlans;
 

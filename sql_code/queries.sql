@@ -15,8 +15,8 @@ map.put(
                             + s1.getSelectedItem().toString() + ", " + s2.getSelectedItem().toString() +")");
 
 
-'SELECT * FROM People p, UserPerson up WHERE up.username = \'' . $username . '\' AND p.username = up.username'
-'SELECT * FROM People p, Consultant c WHERE c.username = \'' . $username . '\' AND c.username = p.username'
+'SELECT * FROM People p, UserPerson up WHERE up.username = '' + username + '' AND p.username = up.username'
+'SELECT * FROM People p, Consultant c WHERE c.username = ' + username  + ' AND c.username = p.username'
 
 
 "SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '"+ username + "' ORDER BY uel.logtime DESC"
@@ -30,3 +30,8 @@ map.put(
 "Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" +mParam1+ "'"
 
 "Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" +mParam1+ "' AND NOT EXISTS ((Select planId FROM Plan WHERE createdByUsername = uhc.consultantUsername) MINUS (Select csp.planId FROM ConsultantSuggestsPlan csp Where csp.userUsername = u.username AND csp.consultantUsername = uhc.consultantUsername))"
+
+
+"Select age, weight, height from UserPerson where username = '" + username + "'"
+
+"UPDATE userPerson SET " + column + " = " + setTo + " where username = '" + username + "'"

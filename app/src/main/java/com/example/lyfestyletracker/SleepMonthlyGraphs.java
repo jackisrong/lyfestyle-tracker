@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
@@ -27,10 +24,10 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SleepTab2#newInstance} factory method to
+ * Use the {@link SleepMonthlyGraphs#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SleepTab2 extends Fragment {
+public class SleepMonthlyGraphs extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +40,7 @@ public class SleepTab2 extends Fragment {
     private String username;
     private View thisView;
 
-    public SleepTab2() {
+    public SleepMonthlyGraphs() {
         // Required empty public constructor
     }
 
@@ -56,8 +53,8 @@ public class SleepTab2 extends Fragment {
      * @return A new instance of fragment SleepTab2.
      */
     // TODO: Rename and change types and number of parameters
-    public static SleepTab2 newInstance(String param1, String param2, String username) {
-        SleepTab2 fragment = new SleepTab2();
+    public static SleepMonthlyGraphs newInstance(String param1, String param2, String username) {
+        SleepMonthlyGraphs fragment = new SleepMonthlyGraphs();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

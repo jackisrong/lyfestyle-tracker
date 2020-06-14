@@ -1,6 +1,5 @@
 package com.example.lyfestyletracker;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -30,10 +29,10 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SleepTab1#newInstance} factory method to
+ * Use the {@link SleepWeeklyGraph#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SleepTab1 extends Fragment {
+public class SleepWeeklyGraph extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,7 +45,7 @@ public class SleepTab1 extends Fragment {
     private String username;
     private View thisView;
 
-    public SleepTab1() {
+    public SleepWeeklyGraph() {
         // Required empty public constructor
     }
 
@@ -59,8 +58,8 @@ public class SleepTab1 extends Fragment {
      * @return A new instance of fragment SleepTab1.
      */
     // TODO: Rename and change types and number of parameters
-    public static SleepTab1 newInstance(String param1, String param2,String username) {
-        SleepTab1 fragment = new SleepTab1();
+    public static SleepWeeklyGraph newInstance(String param1, String param2, String username) {
+        SleepWeeklyGraph fragment = new SleepWeeklyGraph();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

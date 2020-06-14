@@ -8,11 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.lyfestyletracker.ExerciseLog;
-import com.example.lyfestyletracker.ExerciseWorkoutPlans;
 import com.example.lyfestyletracker.R;
-import com.example.lyfestyletracker.SleepTab1;
-import com.example.lyfestyletracker.SleepTab2;
+import com.example.lyfestyletracker.SleepWeeklyGraph;
+import com.example.lyfestyletracker.SleepMonthlyGraphs;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -38,10 +36,10 @@ public class SleepSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = SleepTab1.newInstance("1","2", username);
+                fragment = SleepWeeklyGraph.newInstance("1","2", username);
                 break;
             case 1:
-                fragment = SleepTab2.newInstance("1","2", username);
+                fragment = SleepMonthlyGraphs.newInstance("1","2", username);
                 break;
             default:
                 fragment = null;

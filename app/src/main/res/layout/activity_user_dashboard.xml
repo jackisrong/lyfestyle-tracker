@@ -78,15 +78,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button6"
+                app:layout_constraintTop_toBottomOf="@+id/logout_button"
                 tools:srcCompat="@android:drawable/ic_delete" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/logout_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Button"
+                android:onClick="log_out"
+                android:text="@string/logout_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -101,7 +102,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/imageView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/button6" />
+                app:layout_constraintTop_toBottomOf="@+id/logout_button" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -130,58 +131,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
-            <ToggleButton
-                android:id="@+id/toggleButton"
+            <EditText
+                android:id="@+id/enter_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ToggleButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/switch1" />
-
-            <EditText
-                android:id="@+id/editTextTextMultiLine"
-                android:layout_width="190dp"
-                android:layout_height="328dp"
-                android:layout_marginTop="16dp"
                 android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
+                android:hint="@string/weight_message"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+                app:layout_constraintTop_toBottomOf="@+id/enter_age" />
 
             <EditText
-                android:id="@+id/editTextDate"
+                android:id="@+id/enter_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:ems="10"
-                android:inputType="date"
+                android:hint="@string/height_message"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
-
-            <EditText
-                android:id="@+id/editTextNumberDecimal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
-
-            <EditText
-                android:id="@+id/editTextTextPostalAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:ems="10"
-                android:inputType="textPostalAddress"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
+                app:layout_constraintTop_toBottomOf="@+id/enter_weight" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
@@ -190,7 +162,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPostalAddress"
+                app:layout_constraintTop_toBottomOf="@+id/enter_height"
                 app:srcCompat="@android:drawable/presence_video_online" />
 
             <TextView
@@ -202,6 +174,92 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+
+            <EditText
+                android:id="@+id/enter_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:hint="@string/age_message"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/height_text" />
+
+            <TextView
+                android:id="@+id/age_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="34dp"
+
+                android:text="TextView"
+                android:textSize="@dimen/large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+            <TextView
+                android:id="@+id/weight_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textSize="@dimen/large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/age_text" />
+
+            <TextView
+                android:id="@+id/height_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/weight_text" />
+
+            <Button
+                android:id="@+id/age_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:onClick="updateUserDetails"
+                android:text="@string/update_age_message"
+                android:textSize="12sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/enter_age"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/enter_weight" />
+
+            <Button
+                android:id="@+id/weight_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:onClick="updateUserDetails"
+                android:text="@string/update_weight_message"
+                android:textSize="12sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/enter_weight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/enter_weight" />
+
+            <Button
+                android:id="@+id/height_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:onClick="updateUserDetails"
+                android:text="@string/update_height_message"
+                android:textSize="12sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/enter_height"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/enter_height" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

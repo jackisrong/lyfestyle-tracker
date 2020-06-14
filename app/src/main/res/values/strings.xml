@@ -40,8 +40,8 @@
     <string name="food_tab_text_1">Meal Log</string>
     <string name="food_tab_text_2">Diet Plans</string>
     <string name="sleep_dashboard_activity_title">Sleep</string>
-    <string name="sleep_tab_text_1">Sleep Tab 1</string>
-    <string name="sleep_tab_text_2">Sleep Tab 2</string>
+    <string name="sleep_tab_text_1">Weekly</string>
+    <string name="sleep_tab_text_2">Monthly</string>
     <string name="user_consultants_dashboard_activity_title">Consultants</string>
     <string name="user_consultants_tab_text_1">Consultants</string>
     <string name="user_consultants_tab_text_2">Suggested Plans</string>
@@ -62,6 +62,13 @@
     <string name="email">Email</string>
     <string name="contract_number">Contract No.</string>
     <string name="num_servings"># Servings</string>
+    <string name="age_message">Enter New Age</string>
+    <string name="weight_message">Enter New Weight</string>
+    <string name="height_message">Enter New Height</string>
+    <string name="update_age_message">Update Age</string>
+    <string name="update_weight_message">Update Weight</string>
+    <string name="update_height_message">Update Height</string>
+    <string name="logout_button">Log Out</string>
 
 
     <string-array name="planets_array">
