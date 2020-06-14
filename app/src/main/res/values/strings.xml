@@ -110,5 +110,7 @@
     <string name="title_activity_consultant_plans">ConsultantPlans</string>
     <string name="title_activity_create_user_consultant">CreateUserConsultant</string>
     <string name="CreateAccount">Create Account</string>
+    <string name="peopleName">Name</string>
+    <string name="signupPrompt">Register for LyfeStyle Tracking</string>
 
 </resources>

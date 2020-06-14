@@ -3,7 +3,7 @@ package com.example.lyfestyletracker.ui.login;
 import android.app.Activity;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +25,9 @@ import android.widget.Toast;
 
 import com.example.lyfestyletracker.Login;
 import com.example.lyfestyletracker.R;
-import com.example.lyfestyletracker.ui.login.LoginViewModel;
-import com.example.lyfestyletracker.ui.login.LoginViewModelFactory;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class CreateUserConsultant extends AppCompatActivity {
 
@@ -36,13 +37,15 @@ public class CreateUserConsultant extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_user_consultant);
-        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = findViewById(R.id.username);
+        final EditText usernameEditText = findViewById(R.id.userEmail);
         final EditText passwordEditText = findViewById(R.id.password);
         final EditText passwordEditText2 = findViewById(R.id.password2);
-        final Button loginButton = findViewById(R.id.login);
+        final EditText inputUsername = findViewById(R.id.userName);
+        final EditText inputPersonName = findViewById(R.id.personName);
+        final Button registerButton = findViewById(R.id.registerButton);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -51,12 +54,15 @@ public class CreateUserConsultant extends AppCompatActivity {
                 if (loginFormState == null) {
                     return;
                 }
-                loginButton.setEnabled(loginFormState.isDataValid());
+                registerButton.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
                 if (loginFormState.getPasswordError() != null) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
+                }
+                if (loginFormState.getPasswordError() != null) {
+                    passwordEditText2.setError(getString(loginFormState.getPasswordError()));
                 }
             }
         });
@@ -69,10 +75,14 @@ public class CreateUserConsultant extends AppCompatActivity {
                 }
                 loadingProgressBar.setVisibility(View.GONE);
                 if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
+                    if (!matchingPassword(passwordEditText.getText().toString(), (passwordEditText2.getText().toString()))){
+                        showSignupFailed(loginResult.getError());
+                    }
                 }
                 if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
+                    if (matchingPassword(passwordEditText.getText().toString(), (passwordEditText2.getText().toString()))) {
+                        updateUiWithUser(loginResult.getSuccess());
+                    }
                 }
                 setResult(Activity.RESULT_OK);
 
@@ -112,7 +122,7 @@ public class CreateUserConsultant extends AppCompatActivity {
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
@@ -122,14 +132,30 @@ public class CreateUserConsultant extends AppCompatActivity {
         });
     }
 
+    public boolean usernameAvail(String username){
+        //TODO: NEED TO QUERY DB TO SEE IF USERNAME IS TAKEN
+        return false;
+    }
+
+    public void addToDatabase(String name, String username, String email, String password) {
+        Map<String,Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special_change");
+        //TODO: NEED TO IMPLEMENT THE DATABASE
+    }
+
+    public boolean matchingPassword(String string1, String string2) {
+        return string1.equals(string2);
+    }
+
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome = "Please Sign In";
         Intent intent = new Intent(CreateUserConsultant.this, Login.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    private void showSignupFailed(@StringRes Integer errorString) {
+        String sorry = "Registration Unable to Process, Please Retry";
+        Toast.makeText(getApplicationContext(), sorry, Toast.LENGTH_SHORT).show();
     }
 }
