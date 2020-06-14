@@ -11,17 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AddMeal"
+            android:label="@string/add_meal"/>
+        <activity android:name=".AddWorkout"
+            android:label="@string/add_exercise"/>
         <activity
             android:name=".ConsultantPlansDashboard"
             android:label="@string/title_activity_consultant_plans"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ConsultantUserDashboard"
             android:label="@string/title_activity_consultant_user_dashboard"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".addSleepEntry"
-            android:label="Add an Entry"></activity>
+            android:label="Add an Entry" />
         <activity
             android:name=".UserConsultantsDashboard"
             android:label="@string/user_consultants_dashboard_activity_title"
