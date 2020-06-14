@@ -37,6 +37,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
     private EditText workoutDesc;
     private EditText workoutCaloriesBurnt;
     private EditText workoutLength;
+    private String typeOfAdd;
 
 
 
@@ -48,6 +49,8 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
 
         cardioTexts = new ArrayList<>();
         sportTexts = new ArrayList<>();
+
+        typeOfAdd = getIntent().getStringExtra("type");
 
         cardioSwitch = (Switch) findViewById(R.id.cardio_switch);
         sportSwitch = (Switch) findViewById(R.id.sport_switch);
@@ -112,6 +115,28 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
                 }
             }
         });
+
+
+        if (typeOfAdd == "insertSame"){
+            workoutId.setText(getIntent().getIntExtra("workoutId",0));
+            workoutDesc.setText(getIntent().getStringExtra("workoutDescription"));
+            workoutCaloriesBurnt.setText(getIntent().getIntExtra("workoutCalories",0));
+            workoutLength.setText(getIntent().getIntExtra("workoutLength",0));
+
+            if (getIntent().getBooleanExtra("cardio", false)){
+                cardioSwitch.setChecked(true);
+                cardioTexts.get(0).setText(((Double) getIntent().getDoubleExtra("distance", 0.0)).toString());
+                cardioTexts.get(1).setText(((Double) getIntent().getDoubleExtra("avgSpeed", 0.0)).toString());
+            }
+
+            if (getIntent().getBooleanExtra("sport", false)){
+                sportSwitch.setChecked(true);
+                sportTexts.get(0).setText(((Integer)getIntent().getIntExtra("intensity",0)).toString());
+                sportTexts.get(1).setText(getIntent().getStringExtra("sportType"));
+            }
+        }
+
+
 
     }
 
@@ -186,10 +211,10 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         }else if (workoutLength.getText().toString().equals("")){
             Snackbar.make(view, "Invalid Workout Length", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-        }else if (dateResult.equals("")){
+        }else if (dateResult.equals("") && typeOfAdd != "plan"){
             Snackbar.make(view, "Invalid Date", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-        }else if (timeResult.equals("")){
+        }else if (timeResult.equals("") && typeOfAdd != "plan"){
             Snackbar.make(view, "Invalid Time", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }else{
@@ -241,29 +266,39 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
                 res = qe.run();
             }
 
-            map.clear();
-            map.put("query_type", "special_change");
-            map.put("extra", "Insert into ExerciseLogEntry Values(" + workoutId.getText().toString()
-                    + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'))");
+            if (typeOfAdd != "plan"){
+                map.clear();
+                map.put("query_type", "special_change");
+                map.put("extra", "Insert into ExerciseLogEntry Values(" + workoutId.getText().toString()
+                        + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'))");
 
 
-            qe = new QueryExecutable(map);
-            res = qe.run();
+                qe = new QueryExecutable(map);
+                res = qe.run();
 
-            map.clear();
-            map.put("query_type", "special_change");
-            map.put("extra", "Insert into UserExerciseLog Values('" + getIntent().getStringExtra("username")
-                    + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId.getText().toString()+")");
+                map.clear();
+                map.put("query_type", "special_change");
+                map.put("extra", "Insert into UserExerciseLog Values('" + getIntent().getStringExtra("username")
+                        + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId.getText().toString()+")");
 
 
-            qe = new QueryExecutable(map);
-            res = qe.run();
+                qe = new QueryExecutable(map);
+                res = qe.run();
+            }else {
+               addToPlan();
+            }
+
 
             Snackbar.make(view, "Successfully added the workout", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
         }
 
+    }
+
+
+    private void addToPlan(){
+        //ADD THIS
     }
 
 

@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardio_switch"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/cardio_switch"/>
 
     <EditText
         android:id="@+id/enter_workout_id"
@@ -136,7 +136,7 @@
         android:layout_marginStart="28dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sport_switch"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/sport_switch"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

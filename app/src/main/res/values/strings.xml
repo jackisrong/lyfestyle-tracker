@@ -79,6 +79,14 @@
     <string name="sport_switch">Sport?</string>
     <string name="add_exercise">Add Exercise</string>
     <string name="add_meal">Add Meal</string>
+    <string name="enter_meal_id">Enter Meal Id</string>
+    <string name="enter_meal_desc">Enter Meal Description</string>
+    <string name="enter_meal_serving_size">Enter Serving Size (g)</string>
+    <string name="enter_meal_carbohydrates">Enter Carbohydrates (g)</string>
+    <string name="enter_meal_type">Enter Meal Type</string>
+    <string name="enter_meal_protein">Enter Proteins (g)</string>
+    <string name="enter_fat">Enter Fat (g)</string>
+    <string name="enter_num_servings">Enter Number of Servings</string>
 
 
     <string-array name="planets_array">

@@ -279,6 +279,12 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
         caloriesBurnt.setTag("");
         length.setTag("");
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateTable();
+    }
 }
 
 

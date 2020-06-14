@@ -270,4 +270,10 @@ public class FoodLog extends Fragment implements View.OnClickListener{
         totalCalories.setTag("");
         type.setTag("");
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateTable();
+    }
 }
