@@ -70,6 +70,10 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (buttonView.isChecked()){
+
+                    if (sportSwitch.isChecked()){
+                        sportSwitch.setChecked(false);
+                    }
                     String[] str = {"Enter WorkoutDistance", "Enter avg Speed"};
                     for (int i = 0; i < 2; i++){
                         EditText et = new EditText(AddWorkout.this);
@@ -95,6 +99,10 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (buttonView.isChecked()){
+
+                    if (cardioSwitch.isChecked()){
+                        cardioSwitch.setChecked(false);
+                    }
                     String[] str = {"Enter Sport Intensity", "Enter Sport Type"};
                     int[] ints = {InputType.TYPE_CLASS_NUMBER, InputType.TYPE_CLASS_TEXT};
                     for (int i = 0; i < 2; i++){
