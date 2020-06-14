@@ -23,6 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -120,7 +122,7 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
     private void populateTable() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND LOWER(w.description) LIKE '%" + searchTerm + "%' ORDER BY " + sortBy + " " + sortByOrder);
+        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND LOWER(w.description) LIKE '%" + searchTerm + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
@@ -142,6 +144,7 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
                 row.setWeightSum(1.0f);
                 row.setPadding(0, 10, 0, 10);
                 row.setOnClickListener(this);
+                row.setTag(o.getString("WORKOUTID"));
                 if (i % 2 == 0) {
                     row.setBackgroundColor(getContext().getColor(R.color.table_light1));
                 } else {
@@ -239,6 +242,23 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
             }
 
             populateTable();
+        }
+
+        if (view.getClass().equals(TableRow.class)) {
+            String workoutId = (String) view.getTag();
+            TextView time = (TextView) ((TableRow) view).getChildAt(0);
+            String rawTime = time.getText().toString().replace("\n", " ");
+            LocalDateTime ldt = LocalDateTime.parse(rawTime, DateTimeFormat.forPattern("MMM dd yyyy hh:mm aa").withLocale(Locale.ENGLISH));
+            Timestamp ts = new Timestamp(ldt.toDateTime().getMillis());
+            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(ts);
+
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("query_type", "special");
+            map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND w.workoutid = '" + workoutId + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
+
+            QueryExecutable qe = new QueryExecutable(map);
+            JSONArray ans = qe.run();
+            System.out.println(ans);
         }
     }
 
