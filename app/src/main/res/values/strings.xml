@@ -69,6 +69,16 @@
     <string name="update_weight_message">Update Weight</string>
     <string name="update_height_message">Update Height</string>
     <string name="logout_button">Log Out</string>
+    <string name="add_time">Add Time</string>
+    <string name="enter_workout_id">Enter Workout ID</string>
+    <string name="enter_description">Enter Description</string>
+    <string name="enter_calories_burnt">Enter Calories Burnt</string>
+    <string name="enter_workout_time">Enter Workout Length</string>
+    <string name="enter_exercise">Enter Exercise</string>
+    <string name="cardio_switch">Cardio?</string>
+    <string name="sport_switch">Sport?</string>
+    <string name="add_exercise">Add Exercise</string>
+    <string name="add_meal">Add Meal</string>
 
 
     <string-array name="planets_array">
