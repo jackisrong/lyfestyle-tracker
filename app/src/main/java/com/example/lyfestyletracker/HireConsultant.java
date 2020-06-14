@@ -2,19 +2,25 @@ package com.example.lyfestyletracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
+import com.google.android.material.snackbar.Snackbar;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class HireConsultant extends AppCompatActivity {
     private String username;
@@ -58,6 +64,46 @@ public class HireConsultant extends AppCompatActivity {
     }
 
     public void hirePerson(View view){
+
+        String spinnerContent = spinner.getSelectedItem().toString();
+
+        String[] split = spinnerContent.split(" ");
+        String usernameC = "";
+
+        if (split.length > 0){
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("query_type", "special_change");
+
+
+
+            usernameC = split[0];
+
+            Integer rand = new Random().nextInt(Integer.MAX_VALUE);
+
+            System.out.println(usernameC);
+            System.out.println(username);
+
+            map.put("extra", "Insert Into UserHiresConsultant Values('" + username + "', '" + usernameC +
+                    "', " + rand + ")");
+
+
+            //String timeStamp = ldt.getYear() +  "-" + monthOfYear + "-" + dayOfMonth+ " " + hourOfDay + ":" + minuteOfHour + ":" + seconds;
+            //map.put("extra", "Insert Into UserHiresConsultant Values('" + username + "', '" + usernameC +
+            //                    "', TO_TIMESTAMP('" + timeStamp +"', 'YYYY-MM-DD HH24:MI:SS'))");
+
+
+
+            QueryExecutable qe = new QueryExecutable(map);
+            JSONArray ans = qe.run();
+
+            finish();
+
+        }else {
+            Snackbar.make(view, "Invalid Consultant", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+
+
 
     }
 }

@@ -24,6 +24,9 @@ map.put(
 "SELECT uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = 'bob123' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime ORDER BY mle.logTime DESC"
 
 "Select c.username, c.rating, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"') ORDER BY c.rating"
+"Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"') ORDER BY c.result"
+
+
 "Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = 'bob123') ORDER BY c.result"
 
 
@@ -49,7 +52,7 @@ map.put(
                          "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + mealId.getText().toString() + ")"
 
 
- //Inserting a Workout
+ //Inserting a Workou//ADDING A WORKOUT
  "Insert Into Workout Values (" + workoutId.getText().toString() + ", '"
                      + workoutDesc.getText().toString() + "', " + workoutCaloriesBurnt.getText().toString() + ", "
                      + workoutLength.getText().toString() + ")"
@@ -62,3 +65,8 @@ map.put(
                          + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'))"
  "Insert into UserExerciseLog Values('" + getIntent().getStringExtra("username")
                          + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId.getText().toString()+")"
+
+
+
+
+ "Insert Into UserHiresConsultant Values('" + username + "', '" + usernameC +"', TO_TIMESTAMP('" + timeStamp +"', 'YYYY-MM-DD HH24:MI:SS'))"
