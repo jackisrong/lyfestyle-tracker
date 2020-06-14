@@ -17,6 +17,7 @@ import org.w3c.dom.Text;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class UserDashboard extends AppCompatActivity {
     private String username;
@@ -26,7 +27,15 @@ public class UserDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
         username = getIntent().getStringExtra("username");
-        set_details();
+
+        String[] subgreetings = {"Did you eat your fiber today?", "Do you like pie?", "What are your thoughts on golf?",
+        "Is pasta better than pizza?", "Did you exercise today?", "Stop drinking so much bubble tea",
+        "Bubble tea isn't a personality", "Bubble tea is not a replacement for water"};
+        Random random = new Random();
+        ((TextView) findViewById(R.id.user_dashboard_welcome_prompt)).setText("Welcome " + username + "!");
+        ((TextView) findViewById(R.id.user_dashboard_subgreeting)).setText(subgreetings[random.nextInt(subgreetings.length)]);
+
+        setDetails();
     }
 
     public void navigation(View view) {
@@ -51,7 +60,7 @@ public class UserDashboard extends AppCompatActivity {
 
     }
 
-    private void set_details(){
+    private void setDetails(){
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
         map.put("extra", "Select age, weight, height from UserPerson where username = '" + username + "'");
@@ -102,7 +111,7 @@ public class UserDashboard extends AppCompatActivity {
         QueryExecutable qe = new QueryExecutable(map);
         qe.run();
 
-        set_details();
+        setDetails();
     }
 
     public void log_out(View view){
