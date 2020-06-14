@@ -89,6 +89,9 @@
     <string name="enter_fat">Enter Fat (g)</string>
     <string name="enter_num_servings">Enter Number of Servings</string>
 
+    <string name="available_consultants">Available consultants:</string>
+    <string name="hire_consultants">Hire consultant:</string>
+
 
     <string name="add_exercise_workout_id_label">Workout ID</string>
     <string name="add_exercise_description_label">Description</string>
