@@ -1,5 +1,6 @@
 package com.example.lyfestyletracker;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -138,7 +139,7 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
         for (int i = 0; i < ans.length(); i++) {
             try {
                 JSONObject o = ans.getJSONObject(i);
-                LocalDateTime timestamp = parseTimestamp(o.getString("LOGTIME"));
+                LocalDateTime timestamp = TimestampUtility.parseDatabaseTimestamp(o.getString("LOGTIME"));
 
                 TableRow row = new TableRow(getContext());
                 row.setWeightSum(1.0f);
@@ -184,11 +185,6 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
-    }
-
-    // parse method to parse timestamp from SQL query into a LocalDateTime object
-    public LocalDateTime parseTimestamp(String s) {
-        return LocalDateTime.parse(s, DateTimeFormat.forPattern("dd-MMM-yy hh.mm.ss.SSSSSS aa").withLocale(Locale.ENGLISH));
     }
 
     @Override
@@ -252,6 +248,7 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
             Timestamp ts = new Timestamp(ldt.toDateTime().getMillis());
             String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(ts);
 
+            /*
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("query_type", "special");
             map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND w.workoutid = '" + workoutId + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
@@ -259,6 +256,14 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
             QueryExecutable qe = new QueryExecutable(map);
             JSONArray ans = qe.run();
             System.out.println(ans);
+             */
+
+            Intent intent = new Intent(getActivity(), AddWorkout.class);
+            intent.putExtra("username", username);
+            intent.putExtra("type", "prefill");
+            intent.putExtra("workoutId", workoutId);
+            intent.putExtra("timestampString", timestamp);
+            startActivity(intent);
         }
     }
 

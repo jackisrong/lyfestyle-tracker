@@ -6,15 +6,101 @@
     android:layout_height="match_parent"
     tools:context=".AddWorkout">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardio_layout"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardio_switch"/>
+        app:layout_constraintStart_toStartOf="@+id/cardio_switch"
+        app:layout_constraintTop_toBottomOf="@+id/cardio_switch">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_exercise_cardio_distance_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/enter_cardio_distance"
+            app:layout_constraintEnd_toStartOf="@+id/enter_cardio_distance" />
+
+        <EditText
+            android:id="@+id/enter_cardio_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/add_exercise_cardio_enter_distance"
+            android:inputType="numberDecimal"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_exercise_cardio_avg_speed_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/enter_cardio_avg_speed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/enter_cardio_avg_speed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/add_exercise_cardio_enter_avg_speed"
+            android:inputType="numberDecimal"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/enter_cardio_distance" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sport_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@+id/sport_switch"
+        app:layout_constraintTop_toBottomOf="@+id/sport_switch">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_exercise_sport_intensity_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/enter_sport_intensity"
+            app:layout_constraintEnd_toStartOf="@+id/enter_sport_intensity" />
+
+        <EditText
+            android:id="@+id/enter_sport_intensity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/add_exercise_sport_enter_intensity"
+            android:inputType="number"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_exercise_sport_type_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/enter_sport_type"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/enter_sport_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/add_exercise_sport_enter_type"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/enter_sport_intensity" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/enter_workout_id"
@@ -25,9 +111,7 @@
         android:hint="@string/enter_workout_id"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/enter_workout_length"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -38,9 +122,7 @@
         android:hint="@string/enter_description"
         android:inputType="text"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/enter_workout_length"
         app:layout_constraintTop_toBottomOf="@+id/enter_workout_id" />
 
     <EditText
@@ -51,9 +133,7 @@
         android:hint="@string/enter_calories_burnt"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/enter_workout_length"
         app:layout_constraintTop_toBottomOf="@+id/enter_description" />
 
     <EditText
@@ -64,46 +144,35 @@
         android:hint="@string/enter_workout_time"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/enter_calories_burnt" />
 
     <Switch
         android:id="@+id/sport_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="285dp"
         android:text="@string/sport_switch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardio_layout" />
 
     <Switch
         android:id="@+id/cardio_switch"
-        android:layout_width="94dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="275dp"
+        android:layout_marginTop="16dp"
         android:text="@string/cardio_switch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_workout_length" />
+        app:layout_constraintTop_toBottomOf="@+id/selected_date_label" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/add_exercise_submit_button"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="170dp"
         android:onClick="addWorkout"
-        android:text="@string/enter_exercise"
+        android:text="@string/submit_new_exercise"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,30 +182,76 @@
         android:id="@+id/add_date_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="27dp"
+        android:layout_marginTop="16dp"
         android:onClick="createDateClicked"
         android:text="@string/Add_date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/enter_workout_id"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/add_time_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_workout_length" />
 
     <Button
         android:id="@+id/add_time_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="27dp"
+        android:layout_marginTop="16dp"
         android:onClick="createTimeClicked"
         android:text="@string/add_time"
-        app:layout_constraintBaseline_toBaselineOf="@+id/enter_calories_burnt"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/add_date_button"
+        app:layout_constraintTop_toBottomOf="@+id/enter_workout_length" />
 
-    <LinearLayout
-        android:id="@+id/sport_layout"
-        android:layout_width="200dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sport_switch"/>
+        android:labelFor="@id/enter_workout_id"
+        android:text="@string/add_exercise_workout_id_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_workout_id"
+        app:layout_constraintEnd_toStartOf="@+id/enter_workout_id" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/enter_description"
+        android:text="@string/add_exercise_description_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_description"
+        app:layout_constraintEnd_toStartOf="@+id/enter_description" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/enter_calories_burnt"
+        android:text="@string/add_exercise_calories_burnt_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_calories_burnt"
+        app:layout_constraintEnd_toStartOf="@+id/enter_calories_burnt" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:labelFor="@id/enter_workout_length"
+        android:text="@string/add_exercise_length_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_workout_length"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/selected_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_date_set_label"
+        app:layout_constraintStart_toStartOf="@+id/add_date_button"
+        app:layout_constraintTop_toBottomOf="@+id/add_date_button" />
+
+    <TextView
+        android:id="@+id/selected_time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_time_set_label"
+        app:layout_constraintStart_toStartOf="@+id/add_time_button"
+        app:layout_constraintTop_toBottomOf="@+id/add_time_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

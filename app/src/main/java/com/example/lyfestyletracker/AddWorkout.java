@@ -1,6 +1,7 @@
 package com.example.lyfestyletracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -13,22 +14,27 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.joda.time.LocalDateTime;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AddWorkout extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    private ArrayList<EditText> cardioTexts;
-    private ArrayList<EditText> sportTexts;
+    //private ArrayList<EditText> cardioTexts;
+    //private ArrayList<EditText> sportTexts;
     private Switch cardioSwitch;
     private Switch sportSwitch;
     private String dateResult;
@@ -38,8 +44,12 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
     private EditText workoutCaloriesBurnt;
     private EditText workoutLength;
     private String typeOfAdd;
-
-
+    private TextView selectedDateLabel;
+    private TextView selectedTimeLabel;
+    private EditText cardioDistance;
+    private EditText cardioAvgSpeed;
+    private EditText sportIntensity;
+    private EditText sportType;
 
 
     @Override
@@ -47,50 +57,38 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
 
-        cardioTexts = new ArrayList<>();
-        sportTexts = new ArrayList<>();
-
         typeOfAdd = getIntent().getStringExtra("type");
-
         cardioSwitch = (Switch) findViewById(R.id.cardio_switch);
         sportSwitch = (Switch) findViewById(R.id.sport_switch);
         workoutId = (EditText) findViewById(R.id.enter_workout_id);
         workoutDesc = (EditText) findViewById(R.id.enter_description);
         workoutCaloriesBurnt = (EditText) findViewById(R.id.enter_calories_burnt);
         workoutLength = (EditText) findViewById(R.id.enter_workout_length);
+        selectedDateLabel = (TextView) findViewById(R.id.selected_date_label);
+        selectedTimeLabel = (TextView) findViewById(R.id.selected_time_label);
+        cardioDistance = (EditText) findViewById(R.id.enter_cardio_distance);
+        cardioAvgSpeed = (EditText) findViewById(R.id.enter_cardio_avg_speed);
+        sportIntensity = (EditText) findViewById(R.id.enter_sport_intensity);
+        sportType = (EditText) findViewById(R.id.enter_sport_type);
         dateResult = "";
         timeResult = "";
 
-        final LinearLayout cardioLayout = (LinearLayout) findViewById(R.id.cardio_layout);
-        final LinearLayout sportLayout = (LinearLayout) findViewById(R.id.sport_layout);
+        final ConstraintLayout cardioLayout = (ConstraintLayout) findViewById(R.id.cardio_layout);
+        final ConstraintLayout sportLayout = (ConstraintLayout) findViewById(R.id.sport_layout);
+
+        cardioLayout.setVisibility(View.GONE);
+        sportLayout.setVisibility(View.GONE);
 
         cardioSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            //creates and destroys relevant text boxes when checked and unchecked
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()){
-
-                    if (sportSwitch.isChecked()){
+                if (buttonView.isChecked()) {
+                    cardioLayout.setVisibility(View.VISIBLE);
+                    if (sportSwitch.isChecked()) {
                         sportSwitch.setChecked(false);
                     }
-                    String[] str = {"Enter WorkoutDistance", "Enter avg Speed"};
-                    for (int i = 0; i < 2; i++){
-                        EditText et = new EditText(AddWorkout.this);
-
-                        et.setId(i + 1);
-                        et.setTextSize(14);
-                        et.setHint(str[i]);
-                        et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                        cardioLayout.addView(et);
-                        cardioTexts.add(et);
-                    }
-
-                }else{
-                    for (EditText s: cardioTexts){
-                        cardioLayout.removeView(s);
-                    }
-                    cardioTexts.clear();
+                } else {
+                    cardioLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -98,57 +96,23 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         sportSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()){
-
-                    if (cardioSwitch.isChecked()){
+                if (buttonView.isChecked()) {
+                    sportLayout.setVisibility(View.VISIBLE);
+                    if (cardioSwitch.isChecked()) {
                         cardioSwitch.setChecked(false);
                     }
-                    String[] str = {"Enter Sport Intensity", "Enter Sport Type"};
-                    int[] ints = {InputType.TYPE_CLASS_NUMBER, InputType.TYPE_CLASS_TEXT};
-                    for (int i = 0; i < 2; i++){
-                        EditText et = new EditText(AddWorkout.this);
-                        et.setId(i + 1);
-                        et.setTextSize(14);
-                        et.setHint(str[i]);
-                        et.setInputType(ints[i]);
-                        sportLayout.addView(et);
-                        sportTexts.add(et);
-                    }
-
-                }else{
-                    for (EditText s: sportTexts){
-                        sportLayout.removeView(s);
-                    }
-                    sportTexts.clear();
+                } else {
+                    sportLayout.setVisibility(View.GONE);
                 }
             }
         });
 
-
-        if (typeOfAdd == "insertSame"){
-            workoutId.setText(getIntent().getIntExtra("workoutId",0));
-            workoutDesc.setText(getIntent().getStringExtra("workoutDescription"));
-            workoutCaloriesBurnt.setText(getIntent().getIntExtra("workoutCalories",0));
-            workoutLength.setText(getIntent().getIntExtra("workoutLength",0));
-
-            if (getIntent().getBooleanExtra("cardio", false)){
-                cardioSwitch.setChecked(true);
-                cardioTexts.get(0).setText(((Double) getIntent().getDoubleExtra("distance", 0.0)).toString());
-                cardioTexts.get(1).setText(((Double) getIntent().getDoubleExtra("avgSpeed", 0.0)).toString());
-            }
-
-            if (getIntent().getBooleanExtra("sport", false)){
-                sportSwitch.setChecked(true);
-                sportTexts.get(0).setText(((Integer)getIntent().getIntExtra("intensity",0)).toString());
-                sportTexts.get(1).setText(getIntent().getStringExtra("sportType"));
-            }
+        if (typeOfAdd != null && typeOfAdd.equals("prefill")) {
+            prefillWithExtras();
         }
-
-
-
     }
 
-    public void createDateClicked(View view){
+    public void createDateClicked(View view) {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
                 this,
@@ -161,89 +125,81 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String monthS = Integer.toString(month + 1);
-        String dayOfMonthS = Integer.toString(dayOfMonth);
+        String monthString = Integer.toString(month + 1);
+        String dayOfMonthString = Integer.toString(dayOfMonth);
 
-        if (month < 10){
-            monthS = "0" + monthS;
-        }
-        if (dayOfMonth < 10){
-            dayOfMonthS = "0" + dayOfMonthS;
+        if (month < 10) {
+            monthString = "0" + monthString;
         }
 
-        String date = year + "-" + monthS + "-" + dayOfMonthS;
-        dateResult = date;
-        System.out.println(date + "=====================");
+        if (dayOfMonth < 10) {
+            dayOfMonthString = "0" + dayOfMonthString;
+        }
+
+        dateResult = year + "-" + monthString + "-" + dayOfMonthString;
+        selectedDateLabel.setText(dateResult);
     }
 
-    public void createTimeClicked(View view){
-
+    public void createTimeClicked(View view) {
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 this,
-                this, 0,0,true);
-
+                this, 0, 0, true);
         timePickerDialog.show();
     }
 
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String ShourOfDay = Integer.toString(hourOfDay);
-        String Sminute = Integer.toString(minute);
+        String hourOfDayString = Integer.toString(hourOfDay);
+        String minuteString = Integer.toString(minute);
 
-        if (hourOfDay < 10){
-            ShourOfDay = "0" + ShourOfDay;
+        if (hourOfDay < 10) {
+            hourOfDayString = "0" + hourOfDayString;
         }
 
-        if (minute < 10){
-            ShourOfDay = "0" + Sminute;
+        if (minute < 10) {
+            hourOfDayString = "0" + minuteString;
         }
 
-        timeResult = ShourOfDay+":"+Sminute+":"+"00";
-        System.out.println(timeResult + "=====================");
+        timeResult = hourOfDayString + ":" + minuteString + ":" + "00";
+        selectedTimeLabel.setText(hourOfDayString + ":" + minuteString);
     }
 
-    public void addWorkout(View view){
-        Map<String,Object> map = new LinkedHashMap<>();
+    public void addWorkout(View view) {
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special_change");
 
-        if (workoutId.getText().toString().equals("")){
+        if (workoutId.getText().toString().equals("")) {
             Snackbar.make(view, "Invalid WorkoutId", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-        }else if (workoutDesc.getText().toString().equals("")){
+        } else if (workoutDesc.getText().toString().equals("")) {
             Snackbar.make(view, "Invalid Workout Description", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-        }else if (workoutCaloriesBurnt.getText().toString().equals("")){
+        } else if (workoutCaloriesBurnt.getText().toString().equals("")) {
             Snackbar.make(view, "Invalid number of Calories Burnt", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-        }else if (workoutLength.getText().toString().equals("")){
+        } else if (workoutLength.getText().toString().equals("")) {
             Snackbar.make(view, "Invalid Workout Length", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-        }else if (dateResult.equals("") && typeOfAdd != "plan"){
+        } else if (dateResult.equals("") && typeOfAdd != "plan") {
             Snackbar.make(view, "Invalid Date", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-        }else if (timeResult.equals("") && typeOfAdd != "plan"){
+        } else if (timeResult.equals("") && typeOfAdd != "plan") {
             Snackbar.make(view, "Invalid Time", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-        }else{
-
-            if (cardioSwitch.isChecked()){
-                for (EditText e: cardioTexts){
-                    if (e.getText().toString().equals("")){
-                        Snackbar.make(view, "Invalid Cardio Input", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        return;
-                    }
+        } else {
+            if (cardioSwitch.isChecked()) {
+                if (cardioDistance.getText().toString().equals("") || cardioAvgSpeed.getText().toString().equals("")) {
+                    Snackbar.make(view, "Invalid Cardio Input", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
-
             }
-            if (sportSwitch.isChecked()){
-                for (EditText e: sportTexts){
-                    if (e.getText().toString().equals("")){
-                        Snackbar.make(view, "Invalid Sport Input", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        return;
-                    }
+
+            if (sportSwitch.isChecked()) {
+                if (sportIntensity.getText().toString().equals("") || sportType.getText().toString().equals("")) {
+                    Snackbar.make(view, "Invalid Sport Input", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
                 }
             }
 
@@ -255,31 +211,30 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             JSONArray res = qe.run();
 
 
-            if (cardioSwitch.isChecked()){
+            if (cardioSwitch.isChecked()) {
                 map.clear();
                 map.put("query_type", "special_change");
                 map.put("extra", "Insert Into Cardio Values(" + workoutId.getText().toString() + ", "
-                        + cardioTexts.get(0).getText().toString() + ", " + cardioTexts.get(1).getText().toString() + ")");
+                        + cardioDistance.getText().toString() + ", " + cardioAvgSpeed.getText().toString() + ")");
                 qe = new QueryExecutable(map);
                 res = qe.run();
 
             }
 
-            if (sportSwitch.isChecked()){
+            if (sportSwitch.isChecked()) {
                 map.clear();
                 map.put("query_type", "special_change");
                 map.put("extra", "Insert Into SPORT Values(" + workoutId.getText().toString() + ", "
-                        + sportTexts.get(0).getText().toString() + ", '" + sportTexts.get(1).getText().toString() + "')");
+                        + sportIntensity.getText().toString() + ", '" + sportType.getText().toString() + "')");
                 qe = new QueryExecutable(map);
                 res = qe.run();
             }
 
-            if (typeOfAdd != "plan"){
+            if (typeOfAdd != "plan") {
                 map.clear();
                 map.put("query_type", "special_change");
                 map.put("extra", "Insert into ExerciseLogEntry Values(" + workoutId.getText().toString()
                         + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'))");
-
 
                 qe = new QueryExecutable(map);
                 res = qe.run();
@@ -287,15 +242,13 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
                 map.clear();
                 map.put("query_type", "special_change");
                 map.put("extra", "Insert into UserExerciseLog Values('" + getIntent().getStringExtra("username")
-                        + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId.getText().toString()+")");
-
+                        + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId.getText().toString() + ")");
 
                 qe = new QueryExecutable(map);
                 res = qe.run();
-            }else {
-               addToPlan();
+            } else {
+                addToPlan();
             }
-
 
             Snackbar.make(view, "Successfully added the workout", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -304,11 +257,84 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
 
     }
 
+    private void prefillWithExtras() {
+        String username = getIntent().getStringExtra("username");
+        String id = getIntent().getStringExtra("workoutId");
+        String timestamp = getIntent().getStringExtra("timestampString");
+        String exerciseType = "";
 
-    private void addToPlan(){
-        //ADD THIS
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout, c.distance, c.avgspeed FROM workout w, exerciselogentry ele, userexerciselog uel, cardio c WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND w.workoutid = c.workoutid AND uel.username = '" + username + "' AND w.workoutid = '" + id + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
+        QueryExecutable qe = new QueryExecutable(map);
+        JSONArray cardioAns = qe.run();
+
+        map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout, s.intensity, s.sporttype FROM workout w, exerciselogentry ele, userexerciselog uel, sport s WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND w.workoutid = s.workoutid AND uel.username = '" + username + "' AND w.workoutid = '" + id + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
+        qe = new QueryExecutable(map);
+        JSONArray sportAns = qe.run();
+
+        map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND w.workoutid = '" + id + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
+        qe = new QueryExecutable(map);
+        JSONArray regularAns = qe.run();
+
+        System.out.println("CARDIO: " + cardioAns);
+        System.out.println("SPORT: " + sportAns);
+        System.out.println("REGULAR:" + regularAns);
+
+        JSONArray finalAns;
+
+        if (cardioAns.length() == 0 && sportAns.length() == 0) {
+            exerciseType = "";
+            finalAns = regularAns;
+        } else if (cardioAns.length() != 0) {
+            exerciseType = "cardio";
+            finalAns = cardioAns;
+        } else if (sportAns.length() != 0) {
+            exerciseType = "sport";
+            finalAns = sportAns;
+        } else {
+            // should never happen, but just in case our database is messed up
+            exerciseType = "";
+            finalAns = regularAns;
+        }
+
+        try {
+            JSONObject o = finalAns.getJSONObject(0);
+            workoutId.setText(id);
+            workoutDesc.setText(o.getString("DESCRIPTION"));
+            workoutCaloriesBurnt.setText(o.getString("CALORIESBURNT"));
+            workoutLength.setText(o.getString("TIMEWORKOUT"));
+
+            if (exerciseType.equals("cardio")) {
+                cardioSwitch.setChecked(true);
+                cardioDistance.setText(o.getString("DISTANCE"));
+                cardioAvgSpeed.setText(o.getString("AVGSPEED"));
+            } else if (exerciseType.equals("sport")) {
+                sportSwitch.setChecked(true);
+                sportIntensity.setText(o.getString("INTENSITY"));
+                sportType.setText(o.getString("SPORTTYPE"));
+            }
+
+            LocalDateTime ldt = TimestampUtility.parseDatabaseTimestamp(o.getString("LOGTIME"));
+            dateResult = ldt.toString("yyyy-MM-dd", Locale.ENGLISH);
+            selectedDateLabel.setText(dateResult);
+            timeResult = ldt.toString("HH:mm:00", Locale.ENGLISH);
+            selectedTimeLabel.setText(ldt.toString("HH:mm", Locale.ENGLISH));
+
+            ((TextView) findViewById(R.id.add_exercise_submit_button)).setText(R.string.update_existing_exercise);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
+
+    private void addToPlan() {
+        //ADD THIS
+    }
 
 
 }

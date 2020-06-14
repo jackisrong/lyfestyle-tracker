@@ -69,12 +69,13 @@
     <string name="update_weight_message">Update Weight</string>
     <string name="update_height_message">Update Height</string>
     <string name="logout_button">Log Out</string>
-    <string name="add_time">Add Time</string>
+    <string name="add_time">Set Time</string>
     <string name="enter_workout_id">Enter Workout ID</string>
     <string name="enter_description">Enter Description</string>
     <string name="enter_calories_burnt">Enter Calories Burnt</string>
-    <string name="enter_workout_time">Enter Workout Length</string>
-    <string name="enter_exercise">Enter Exercise</string>
+    <string name="enter_workout_time">Enter Exercise Length</string>
+    <string name="submit_new_exercise">Add Exercise</string>
+    <string name="update_existing_exercise">Update Exercise</string>
     <string name="cardio_switch">Cardio?</string>
     <string name="sport_switch">Sport?</string>
     <string name="add_exercise">Add Exercise</string>
@@ -88,6 +89,21 @@
     <string name="enter_fat">Enter Fat (g)</string>
     <string name="enter_num_servings">Enter Number of Servings</string>
 
+
+    <string name="add_exercise_workout_id_label">Workout ID</string>
+    <string name="add_exercise_description_label">Description</string>
+    <string name="add_exercise_calories_burnt_label">Calories Burnt</string>
+    <string name="add_exercise_length_label">Length (minutes)</string>
+    <string name="no_date_set_label">No Date Set</string>
+    <string name="no_time_set_label">No Time Set</string>
+    <string name="add_exercise_cardio_distance_label">Distance</string>
+    <string name="add_exercise_cardio_avg_speed_label">Average Speed</string>
+    <string name="add_exercise_sport_intensity_label">Intensity</string>
+    <string name="add_exercise_sport_type_label">Sport Type</string>
+    <string name="add_exercise_cardio_enter_distance">Enter Distance</string>
+    <string name="add_exercise_cardio_enter_avg_speed">Enter Average Speed</string>
+    <string name="add_exercise_sport_enter_intensity">Enter Intensity</string>
+    <string name="add_exercise_sport_enter_type">Enter Sport Type</string>
 
     <string-array name="planets_array">
         <item>1</item>
@@ -109,7 +125,7 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
-    <string name="Add_date">Add Date</string>
+    <string name="Add_date">Set Date</string>
     <string name="Confirm_Password">Confirm Password</string>
     <string name="Sign_UP">Register Account</string>
     <string name="title_activity_consultant_user_dashboard">ConsultantUserDashboard</string>
