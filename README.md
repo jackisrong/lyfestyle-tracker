@@ -7,27 +7,30 @@ Sure, there might be 100 other apps out there that do the same thing, but we mad
 
 Here are some features that we've currently implemented:
 * Web JSON API
-  * Web API written in PHP to pass on Oracle database access to app (not currently secured or authenticated) for proper 3-tier architecture
-  * API access from Android app using POST HTTP connection and parsing received JSON data
+  * Web API written in PHP to pass on Oracle database access to app (currently not secured) for proper 3-tier architecture
+  * API access from Android app using POST HTTP connection and parsing of received JSON data
 * Login
-  * Functional with username/password verification with database for both users and consultants
+  * Username and password verification using database for both users and consultants, includes message if credentials are incorrect
 * Meal and exercise tracking
-  * Meal logs for the user are populated from database and displayed in a nice table that is searchable by description terms and sortable ascending and descending by any column
+  * Meal and exercise logs for the user are populated from the database and displayed in a nice table that is searchable by description terms and sortable ascending or descending by any column so you can see which meals you got the most calories from and yell at yourself internally (searching and sorting are both done with SQL queries since this is a databases course even though it isn't efficient)
+  * Ability to add new meal or exercise log entries for that mediocre pasta you made yourself for dinner or that intense basketball game you had earlier today
 * Sleep tracking
-  * Graphs created (using external library) using user's sleep data from database
-  * Ability to create new sleep logs
-* User consultant hiring
+  * Graphs created (with external library) using user's sleep data from the database so you can visualize your weekly patterns of exactly when you decided you've played enough League of Legends and should probably sleep
+  * Ability to create new sleep logs so you can look back at your sleep patterns when you wonder why you're tired all the time
+* User consultant management
+ * Beautiful table laying out the consultants you've hired so you can finally get that summer bod you've been telling yourself you'll get even though it's already July
 
-Here are some features that we'll be implementing (hopefully):
-* Account creation 
-* Dashboard graphs and data
-* Add new meal/exercise logs and diet/workout plans
+Here are some features that we'll be implementing very very soon:
+* Account creation
+* Dashboard graphs, data, and summary
+* Add new diet/workout plans
+* Edit/delete existing meal/exercise logs and diet/workout plans
 * Consultant hiring
-* Consultant version of dashboard with plans and users
-* A beautiful UI and delightful UX
+* Consultant version of app with list of users and plans
+* Cleaning up code and names, minimising coupling and cohesion, adding comments for readability
 
 Future ideas after the end of this course if we still have the motivation to maintain this:
-* Water intake tracker
-* API tokens
+* Water intake tracker so you remember to stay hydrated and live that healthy life
+* API tokens so our API isn't _that_ insecure (don't be insecure haha... you're beautiful!)
 
 Thank you for reading. Send food.
