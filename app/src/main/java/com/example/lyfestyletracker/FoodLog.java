@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -29,7 +31,7 @@ import java.util.Map;
  * Use the {@link FoodLog#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FoodLog extends Fragment {
+public class FoodLog extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,6 +43,9 @@ public class FoodLog extends Fragment {
     private String mParam2;
     private String username;
     private View thisView;
+    private String searchTerm = "";
+    private String sortBy = "uml.logtime";
+    private String sortByOrder = "DESC";
 
     public FoodLog() {
         // Required empty public constructor
@@ -81,18 +86,57 @@ public class FoodLog extends Fragment {
         // Inflate the layout for this fragment
         thisView = inflater.inflate(R.layout.fragment_food_log, container, false);
         populateTable();
+
+        thisView.findViewById(R.id.food_log_container).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                thisView.findViewById(R.id.food_log_search_view).clearFocus();
+                view.performClick();
+                return true;
+            }
+        });
+
+        thisView.findViewById(R.id.food_log_search_view).setOnClickListener(this);
+
+        ((SearchView) thisView.findViewById(R.id.food_log_search_view)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchTerm = s;
+                populateTable();
+                thisView.findViewById(R.id.food_log_search_view).clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (s.equals("")) {
+                    searchTerm = s;
+                    populateTable();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        thisView.findViewById(R.id.food_log_header_time).setOnClickListener(this);
+        thisView.findViewById(R.id.food_log_header_description).setOnClickListener(this);
+        thisView.findViewById(R.id.food_log_header_num_servings).setOnClickListener(this);
+        thisView.findViewById(R.id.food_log_type).setOnClickListener(this);
+
         return thisView;
     }
 
     public void populateTable(){
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = '" + username + "' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime ORDER BY mle.logTime DESC");
+        map.put("extra", "SELECT uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = '" + username + "' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime AND LOWER(m.description) LIKE '%" + searchTerm + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
         System.out.println(ans);
+
         TableLayout mainTable = thisView.findViewById(R.id.food_log_main_table);
+        mainTable.removeAllViews();
         if (ans == null) {
             return;
         }
@@ -152,5 +196,78 @@ public class FoodLog extends Fragment {
 
     public LocalDateTime parseTimestamp(String s) {
         return LocalDateTime.parse(s, DateTimeFormat.forPattern("dd-MMM-yy hh.mm.ss.SSSSSS aa").withLocale(Locale.ENGLISH));
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.food_log_search_view) {
+            SearchView search = (SearchView) view;
+            search.onActionViewExpanded();
+        } else {
+            thisView.findViewById(R.id.food_log_search_view).clearFocus();
+        }
+
+        if (view.getId() == R.id.food_log_header_time) {
+            TextView v = (TextView) view;
+            if (v.getTag().equals("desc")) {
+                // currently descending, want to sort ascending
+                clearHeaderDrawablesAndTags();
+                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_up_float, 0, 0, 0);
+                v.setTag("asc");
+                sortByOrder = "ASC";
+            } else {
+                // current ascending, want to sort descending OR default (ie. just started to sort by time)
+                clearHeaderDrawablesAndTags();
+                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_down_float, 0, 0, 0);
+                v.setTag("desc");
+                sortByOrder = "DESC";
+            }
+            sortBy = "uml.logtime";
+            populateTable();
+        } else if (view.getId() == R.id.food_log_header_description || view.getId() == R.id.food_log_header_num_servings || view.getId() == R.id.food_log_type) {
+            TextView v = (TextView) view;
+            if (v.getTag().equals("asc")) {
+                // current ascending, want to sort descending
+                clearHeaderDrawablesAndTags();
+                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_down_float, 0, 0, 0);
+                v.setTag("desc");
+                sortByOrder = "DESC";
+            } else {
+                // currently descending, want to sort ascending OR default (ie. just started to sort by description)
+                clearHeaderDrawablesAndTags();
+                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_up_float, 0, 0, 0);
+                v.setTag("asc");
+                sortByOrder = "ASC";
+            }
+
+            if (view.getId() == R.id.food_log_header_description) {
+                sortBy = "m.description";
+            } else if (view.getId() == R.id.food_log_header_num_servings) {
+                sortBy = "mle.numberOfServings";
+            } else if (view.getId() == R.id.food_log_type) {
+                sortBy = "m.type";
+            }
+
+            populateTable();
+        }
+    }
+
+    // utility method for sorting
+    private void clearHeaderDrawablesAndTags() {
+        TextView time = thisView.findViewById(R.id.food_log_header_time);
+        TextView description = thisView.findViewById(R.id.food_log_header_description);
+        TextView totalCalories = thisView.findViewById(R.id.food_log_header_num_servings);
+        TextView type = thisView.findViewById(R.id.food_log_type);
+
+        time.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        description.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        totalCalories.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        type.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+        time.setTag("");
+        description.setTag("");
+        totalCalories.setTag("");
+        type.setTag("");
     }
 }
