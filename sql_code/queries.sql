@@ -35,3 +35,30 @@ map.put(
 "Select age, weight, height from UserPerson where username = '" + username + "'"
 
 "UPDATE userPerson SET " + column + " = " + setTo + " where username = '" + username + "'"
+
+
+//Inserting a MEAL
+"INSERT INTO MealCalories Values(" + carbs + ", " + fat + ", " + protein + ", " + calories + ")"
+ "INSERT INTO MEAL Values(" + mealId.getText().toString() + ", '" + mealType.getText().toString() + "', '" +
+                    mealDesc.getText().toString() + "', " + mealServingSize.getText().toString() + ", " + carbs + ", " + fat + ", " + protein + ")
+
+ "INSERT INTO MealLogEntry Values(" + mealId.getText().toString() +
+                     ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + mealServingNum.getText().toString() + ")"
+
+ "INSERT INTO UserMealLog Values('" + getIntent().getStringExtra("username") +
+                         "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + mealId.getText().toString() + ")"
+
+
+ //Inserting a Workout
+ "Insert Into Workout Values (" + workoutId.getText().toString() + ", '"
+                     + workoutDesc.getText().toString() + "', " + workoutCaloriesBurnt.getText().toString() + ", "
+                     + workoutLength.getText().toString() + ")"
+ "Insert Into Cardio Values(" + workoutId.getText().toString() + ", "
+                         + cardioTexts.get(0).getText().toString() + ", " + cardioTexts.get(1).getText().toString() + ")"
+ "Insert Into SPORT Values(" + workoutId.getText().toString() + ", "
+                         + sportTexts.get(0).getText().toString() + ", '" + sportTexts.get(1).getText().toString() + "')"
+
+ "Insert into ExerciseLogEntry Values(" + workoutId.getText().toString()
+                         + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'))"
+ "Insert into UserExerciseLog Values('" + getIntent().getStringExtra("username")
+                         + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId.getText().toString()+")"
