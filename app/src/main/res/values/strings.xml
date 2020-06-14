@@ -98,5 +98,7 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="title_activity_consultant_plans">ConsultantPlans</string>
+    <string name="title_activity_create_user_consultant">CreateUserConsultant</string>
+    <string name="CreateAccount">Create Account</string>
 
 </resources>

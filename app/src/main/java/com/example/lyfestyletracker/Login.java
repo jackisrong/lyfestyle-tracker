@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import com.example.lyfestyletracker.ui.login.CreateUserConsultant;
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,10 +21,18 @@ import java.util.Map;
 
 public class Login extends AppCompatActivity {
 
+    private Button createAcc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        createAcc = findViewById(R.id.createAcc_button);
+    }
+
+    public void initializeSignup(View view) {
+        Intent intent = new Intent(Login.this, CreateUserConsultant.class);
+        startActivity(intent);
     }
 
     public void authenticate(View view) {
@@ -34,8 +44,10 @@ public class Login extends AppCompatActivity {
         Map<String,Object> map = new LinkedHashMap<>();
         Intent intent = null;
 
+
         // todo: REMOVE THIS LATER
         Switch bypass = findViewById(R.id.login_bypass_switch);
+
 
         if (bypass.isChecked() && !consultant.isChecked()) {
             eEdit.setText("bob123");
