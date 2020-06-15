@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity {
             } else if (sp.getString("type", "").equals("consultant")) {
                 consultant.setChecked(true);
             }
-            authenticate(null);
+            //authenticate(null);
         }
     }
 

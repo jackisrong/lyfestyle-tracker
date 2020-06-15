@@ -106,9 +106,7 @@ public class ConsultantDashboard extends AppCompatActivity {
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
 
-        Intent intent = new Intent(this, Login.class);
-        startActivity(intent);
-        finish();
+        logOut(null);
     }
 
     public void navigate(View view){
