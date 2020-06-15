@@ -64,12 +64,13 @@
     <string name="email">Email</string>
     <string name="contract_number">Contract No.</string>
     <string name="num_servings"># of\nServings</string>
+    <string name="age_label">Age</string>
+    <string name="weight_label">Weight (lbs)</string>
+    <string name="height_label">Height (cm)</string>
     <string name="age_message">Enter New Age</string>
     <string name="weight_message">Enter New Weight</string>
     <string name="height_message">Enter New Height</string>
-    <string name="update_age_message">Update Age</string>
-    <string name="update_weight_message">Update Weight</string>
-    <string name="update_height_message">Update Height</string>
+    <string name="update_dashboard_data_message">Update Details</string>
     <string name="logout_button">Log Out</string>
     <string name="add_time">Set Time</string>
     <string name="enter_workout_id">Enter Workout ID</string>

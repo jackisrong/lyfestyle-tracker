@@ -237,7 +237,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             }
 
             if (typeOfAdd.equals("update")) {
-                Toast.makeText(this, "Successfully updated exercise log entry!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Successfully updated exercise log entry!", Toast.LENGTH_SHORT).show();
                 finish();
             } else if (typeOfAdd.equals("new")) {
                 Snackbar.make(view, "Successfully added the exercise to your log!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -345,7 +345,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         qe = new QueryExecutable(map);
         qe.run();
 
-        Toast.makeText(this, "Successfully deleted exercise log entry!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Successfully deleted exercise log entry!", Toast.LENGTH_SHORT).show();
         finish();
     }
 

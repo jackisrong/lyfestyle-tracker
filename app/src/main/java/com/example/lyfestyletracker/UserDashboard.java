@@ -6,17 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,11 +25,19 @@ import java.util.Random;
 public class UserDashboard extends AppCompatActivity {
     private String username;
 
+    private EditText age;
+    private EditText weight;
+    private EditText height;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
         username = getIntent().getStringExtra("username");
+
+        age = (EditText) findViewById(R.id.enter_age);
+        weight = (EditText) findViewById(R.id.enter_weight);
+        height = (EditText) findViewById(R.id.enter_height);
 
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
@@ -71,62 +79,40 @@ public class UserDashboard extends AppCompatActivity {
 
         intent.putExtra("username", getIntent().getStringExtra("username"));
         startActivity(intent);
-
-
     }
 
     private void setDetails(){
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "Select age, weight, height from UserPerson where username = '" + username + "'");
+        map.put("extra", "SELECT age, weight, height FROM UserPerson WHERE username = '" + username + "'");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
 
-        TextView age = (TextView) findViewById(R.id.age_text);
-        TextView weight = (TextView) findViewById(R.id.weight_text);
-        TextView height = (TextView) findViewById(R.id.height_text);
-
         try{
             JSONObject o = res.getJSONObject(0);
-            age.setText("Age: " + o.getString("AGE"));
-            weight.setText("Weight: " + o.getString("WEIGHT") + "lbs");
-            height.setText("Height: " + o.getString("HEIGHT") + "cm");
-
+            age.setText(o.getString("AGE"));
+            weight.setText(o.getString("WEIGHT"));
+            height.setText(o.getString("HEIGHT"));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
     public void updateUserDetails(View view){
-        int buttonId = view.getId();
-
-        String column;
-        String setTo;
-
-        if (buttonId == R.id.age_button){
-            column = "age";
-            setTo = ((EditText) findViewById(R.id.enter_age)).getText().toString();
-        }else if (buttonId == R.id.weight_button){
-            column = "weight";
-            setTo = ((EditText) findViewById(R.id.enter_weight)).getText().toString();
-        }else if (buttonId == R.id.height_button){
-            column = "height";
-            setTo = ((EditText) findViewById(R.id.enter_height)).getText().toString();
-        }else {
-            return;
-        }
-
-        if (setTo.equals("")) {
+        if (age.getText().toString().equals("") || weight.getText().toString().equals("") || height.getText().toString().equals("")) {
             return;
         }
 
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special_change");
-        map.put("extra", "UPDATE userPerson SET " + column + " = " + setTo + " where username = '" + username + "'");
+        map.put("extra", "UPDATE userPerson SET age = " + age.getText().toString() + ", weight = " + weight.getText().toString() + ", height = " + height.getText().toString() + " WHERE username = '" + username + "'");
         QueryExecutable qe = new QueryExecutable(map);
         qe.run();
 
-        setDetails();
+        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
+        getCurrentFocus().clearFocus();
+
+        Toast.makeText(this, "Successfully updated user details!", Toast.LENGTH_SHORT).show();
     }
 
     public void logOut(View view){
