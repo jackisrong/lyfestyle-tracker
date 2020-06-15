@@ -11,6 +11,7 @@ Here are some features that we've currently implemented:
   * API access from Android app using POST HTTP connection and parsing of received JSON data
 * Login
   * Username and password verification using database for both users and consultants, includes message if credentials are incorrect
+  * App remembers your username and password to automatically log you in on app restart (currently no encryption is used)
 * Meal and exercise tracking
   * Meal and exercise logs for the user are populated from the database and displayed in a nice table that is searchable by description terms and sortable ascending or descending by any column so you can see which meals you got the most calories from and yell at yourself internally (searching and sorting are both done with SQL queries since this is a databases course even though it isn't efficient)
   * Ability to add new meal or exercise log entry for that mediocre pasta you made yourself for dinner or that sweaty basketball game you had earlier today
