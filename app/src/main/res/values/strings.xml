@@ -118,6 +118,10 @@
     <string name="add_meal_fat_label">Fat (g)</string>
     <string name="add_meal_protein_label">Protein (g)</string>
     <string name="add_meal_number_of_servings_label">Number of Servings</string>
+    <string name="companies_in_database">Companies:</string>
+    <string name="add_new_companies_text">Companies:</string>
+    <string name="add_new_company">Add New Company</string>
+
 
 
 
