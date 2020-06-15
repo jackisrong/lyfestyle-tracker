@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="user_login_data_file_key">user_login_data</string>
+
     <string name="app_name">LyfeStyle Tracker</string>
     <string name="login_title_text">Welcome to LyfeStyle Fitness Tracker!</string>
     <string name="login_is_consultant_toggle">Consultant?</string>

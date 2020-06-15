@@ -2,8 +2,11 @@ package com.example.lyfestyletracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -126,7 +129,15 @@ public class UserDashboard extends AppCompatActivity {
         setDetails();
     }
 
-    public void log_out(View view){
+    public void logOut(View view){
+        SharedPreferences sp = getSharedPreferences(getString(R.string.user_login_data_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor spe = sp.edit();
+        spe.putBoolean("loggedIn", false);
+        spe.putString("type", "");
+        spe.putString("username", "");
+        spe.putString("password", "");
+        spe.commit();
+
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
         finish();
