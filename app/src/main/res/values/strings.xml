@@ -109,6 +109,7 @@
     <string name="add_exercise_cardio_enter_avg_speed">Enter Average Speed</string>
     <string name="add_exercise_sport_enter_intensity">Enter Intensity</string>
     <string name="add_exercise_sport_enter_type">Enter Sport Type</string>
+    <string name="delete_exercise">Delete Exercise</string>
 
     <string name="add_meal_id_label">Meal ID</string>
     <string name="add_meal_type_label">Type</string>
