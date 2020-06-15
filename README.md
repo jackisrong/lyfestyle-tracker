@@ -22,9 +22,11 @@ Here are some features that we've currently implemented:
 * User consultant management
   * Beautiful table laying out the consultants you've hired so you can finally get that summer bod you've been telling yourself you'll get even though it's already July
   * Ability to hire a consultant for that summer bod goal with just 4-ish clicks!
+* Account creation
+  * Ability to create accounts for both User and Consultants, with specific registration requirements established for both.
+  * Accounts require unique usernames
 
 Here are some features that we'll be implementing very very soon:
-* Account creation
 * Dashboard graphs, data, and summary
 * Add new diet/workout plans
 * Edit/delete existing meal/exercise logs and diet/workout plans
