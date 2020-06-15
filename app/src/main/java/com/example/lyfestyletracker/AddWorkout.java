@@ -57,7 +57,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         setContentView(R.layout.activity_add_workout);
 
         username = getIntent().getStringExtra("username");
-        typeOfAdd = getIntent().getStringExtra("type");
+        typeOfAdd = getIntent().getStringExtra("type") != null ? getIntent().getStringExtra("type") : "";
         cardioSwitch = (Switch) findViewById(R.id.cardio_switch);
         sportSwitch = (Switch) findViewById(R.id.sport_switch);
         workoutId = (EditText) findViewById(R.id.enter_workout_id);
@@ -133,7 +133,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
     }
 
     public void createTimeClicked(View view) {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, this, 0, 0, true);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, this, 0, 0, false);
         timePickerDialog.show();
     }
 
@@ -142,8 +142,13 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         String hourOfDayString = hourOfDay < 10 ? "0" + hourOfDay : Integer.toString(hourOfDay);
         String minuteString = minute < 10 ? "0" + minute : Integer.toString(minute);
 
-        timeResult = hourOfDayString + ":" + minuteString + ":" + "00";
-        selectedTimeLabel.setText(hourOfDayString + ":" + minuteString);
+        timeResult = hourOfDayString + ":" + minuteString + ":00";
+
+        int hourOfDayTwelve = hourOfDay == 0 ? 12 : hourOfDay > 12 ? hourOfDay - 12 : hourOfDay;
+        String hourOfDayTwelveString = hourOfDayTwelve < 10 ? "0" + hourOfDayTwelve : Integer.toString(hourOfDayTwelve);
+        String timeTwelveString = hourOfDayTwelveString + ":" + minuteString + " " + (hourOfDay >= 12 ? "PM" : "AM");
+
+        selectedTimeLabel.setText(timeTwelveString);
     }
 
     public void addWorkout(View view) {
@@ -302,7 +307,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             dateResult = ldt.toString("yyyy-MM-dd", Locale.ENGLISH);
             selectedDateLabel.setText(dateResult);
             timeResult = ldt.toString("HH:mm:00", Locale.ENGLISH);
-            selectedTimeLabel.setText(ldt.toString("HH:mm", Locale.ENGLISH));
+            selectedTimeLabel.setText(ldt.toString("hh:mm aa", Locale.ENGLISH));
 
             ((TextView) findViewById(R.id.add_exercise_submit_button)).setText(R.string.update_existing_exercise);
         } catch (JSONException e) {
