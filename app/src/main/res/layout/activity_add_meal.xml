@@ -11,123 +11,101 @@
         android:id="@+id/enter_meal_protein"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/enter_meal_protein"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_fat" />
 
     <EditText
         android:id="@+id/enter_meal_serving_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="@string/number_of_servings"
+        android:hint="@string/enter_num_servings"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_protein" />
 
     <EditText
         android:id="@+id/enter_meal_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/enter_meal_id"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/enter_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/enter_meal_desc"
         android:inputType="text"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_type" />
 
     <EditText
         android:id="@+id/enter_meal_serving_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/enter_meal_serving_size"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/enter_description" />
 
     <EditText
         android:id="@+id/enter_meal_carbohydrates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/enter_meal_carbohydrates"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_serving_size" />
 
     <EditText
         android:id="@+id/enter_meal_fat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/enter_fat"
         android:inputType="number"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_carbohydrates" />
 
     <EditText
         android:id="@+id/enter_meal_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/enter_meal_type"
         android:inputType="text"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_id" />
 
     <Button
         android:id="@+id/add_date_button_meal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="16dp"
         android:onClick="createDateClicked"
         android:text="@string/Add_date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_id"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/add_time_button_meal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_meal_serving_num" />
 
     <Button
         android:id="@+id/add_meal"
@@ -138,17 +116,99 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_meal_serving_num" />
+        app:layout_constraintTop_toBottomOf="@+id/add_meal_selected_date" />
 
     <Button
         android:id="@+id/add_time_button_meal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="16dp"
         android:onClick="createTimeClicked"
         android:text="@string/add_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/add_date_button_meal"
+        app:layout_constraintTop_toBottomOf="@+id/enter_meal_serving_num" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_meal_id_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_id"
+        app:layout_constraintEnd_toStartOf="@+id/enter_meal_serving_num" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_meal_type_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_type"
+        app:layout_constraintEnd_toStartOf="@+id/enter_meal_serving_num" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_meal_description_label"
         app:layout_constraintBaseline_toBaselineOf="@+id/enter_description"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/enter_meal_serving_num" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_meal_serving_size_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_serving_size"
+        app:layout_constraintEnd_toStartOf="@+id/enter_meal_serving_num" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_meal_carbohydrates_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_carbohydrates"
+        app:layout_constraintEnd_toStartOf="@+id/enter_meal_serving_num" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_meal_fat_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_fat"
+        app:layout_constraintEnd_toStartOf="@+id/enter_meal_serving_num" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_meal_protein_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_protein"
+        app:layout_constraintEnd_toStartOf="@+id/enter_meal_serving_num" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/add_meal_number_of_servings_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_serving_num"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/add_meal_selected_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_date_set_label"
+        app:layout_constraintStart_toStartOf="@+id/add_date_button_meal"
+        app:layout_constraintTop_toBottomOf="@+id/add_date_button_meal" />
+
+    <TextView
+        android:id="@+id/add_meal_selected_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_time_set_label"
+        app:layout_constraintStart_toStartOf="@+id/add_time_button_meal"
+        app:layout_constraintTop_toBottomOf="@+id/add_time_button_meal" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

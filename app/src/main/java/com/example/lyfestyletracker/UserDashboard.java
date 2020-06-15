@@ -2,8 +2,11 @@ package com.example.lyfestyletracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,11 +31,23 @@ public class UserDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_user_dashboard);
         username = getIntent().getStringExtra("username");
 
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "SELECT name FROM people WHERE username = '" + username + "'");
+        QueryExecutable qe = new QueryExecutable(map);
+        String welcomeString = "Welcome!";
+        try {
+            welcomeString = "Welcome " + qe.run().getJSONObject(0).getString("NAME") + "!";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ((TextView) findViewById(R.id.user_dashboard_welcome_prompt)).setText(welcomeString);
+
         String[] subgreetings = {"Did you eat your fiber today?", "Do you like pie?", "What are your thoughts on golf?",
         "Is pasta better than pizza?", "Did you exercise today?", "Stop drinking so much bubble tea",
-        "Bubble tea isn't a personality", "Bubble tea is not a replacement for water"};
+        "Bubble tea isn't a personality", "Bubble tea is not a replacement for water", "Damn you looking good!",
+        "Guac is extra", "Guac shouldn't be extra, change my mind", "Did you know water is good for you?"};
         Random random = new Random();
-        ((TextView) findViewById(R.id.user_dashboard_welcome_prompt)).setText("Welcome " + username + "!");
         ((TextView) findViewById(R.id.user_dashboard_subgreeting)).setText(subgreetings[random.nextInt(subgreetings.length)]);
 
         setDetails();
@@ -114,7 +129,15 @@ public class UserDashboard extends AppCompatActivity {
         setDetails();
     }
 
-    public void log_out(View view){
+    public void logOut(View view){
+        SharedPreferences sp = getSharedPreferences(getString(R.string.user_login_data_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor spe = sp.edit();
+        spe.putBoolean("loggedIn", false);
+        spe.putString("type", "");
+        spe.putString("username", "");
+        spe.putString("password", "");
+        spe.commit();
+
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
         finish();
