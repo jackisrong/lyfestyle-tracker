@@ -123,7 +123,7 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
     private void populateTable() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND LOWER(w.description) LIKE '%" + searchTerm + "%' ORDER BY " + sortBy + " " + sortByOrder);
+        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND LOWER(w.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
@@ -248,19 +248,9 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
             Timestamp ts = new Timestamp(ldt.toDateTime().getMillis());
             String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(ts);
 
-            /*
-            Map<String, Object> map = new LinkedHashMap<>();
-            map.put("query_type", "special");
-            map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND w.workoutid = '" + workoutId + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
-
-            QueryExecutable qe = new QueryExecutable(map);
-            JSONArray ans = qe.run();
-            System.out.println(ans);
-             */
-
             Intent intent = new Intent(getActivity(), AddWorkout.class);
             intent.putExtra("username", username);
-            intent.putExtra("type", "prefill");
+            intent.putExtra("type", "update");
             intent.putExtra("workoutId", workoutId);
             intent.putExtra("timestampString", timestamp);
             startActivity(intent);

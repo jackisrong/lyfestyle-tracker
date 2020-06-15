@@ -129,7 +129,7 @@ public class FoodLog extends Fragment implements View.OnClickListener{
     public void populateTable(){
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = '" + username + "' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime AND LOWER(m.description) LIKE '%" + searchTerm + "%' ORDER BY " + sortBy + " " + sortByOrder);
+        map.put("extra", "SELECT uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = '" + username + "' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
