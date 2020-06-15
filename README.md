@@ -12,6 +12,9 @@ Here are some features that we've currently implemented:
 * Login
   * Username and password verification using database for both users and consultants, includes message if credentials are incorrect
   * App remembers your username and password to automatically log you in on app restart (currently no encryption is used)
+* Account creation
+  * Ability to create accounts for both users and consultants with specific registration requirements established for both
+  * Accounts require unique usernames just like every other account thing out there (wow look at us go with these features)
 * Meal and exercise tracking
   * Meal and exercise logs for the user are populated from the database and displayed in a nice table that is searchable by description terms and sortable ascending or descending by any column so you can see which meals you got the most calories from and yell at yourself internally (searching and sorting are both done with SQL queries since this is a databases course even though it isn't efficient)
   * Ability to add new meal or exercise log entry for that mediocre pasta you made yourself for dinner or that sweaty basketball game you had earlier today
@@ -22,16 +25,16 @@ Here are some features that we've currently implemented:
 * User consultant management
   * Beautiful table laying out the consultants you've hired so you can finally get that summer bod you've been telling yourself you'll get even though it's already July
   * Ability to hire a consultant for that summer bod goal with just 4-ish clicks!
-* Account creation
-  * Ability to create accounts for both User and Consultants, with specific registration requirements established for both.
-  * Accounts require unique usernames
+* Consultant version of app
+  * Dashboard specifically for consultants with a welcome message and ability to delete their account
+  * Ability to see all their clients that they'll be helping get their summer bod
 
 Here are some features that we'll be implementing very very soon:
-* Dashboard graphs, data, and summary
+* Dashboard graphs and summaries
 * Add new diet/workout plans
 * Edit/delete existing meal/exercise logs and diet/workout plans
 * Consultant version of app with list of users and plans
-* Cleaning up code and names, minimising coupling and cohesion, adding comments for readability
+* Cleaning up code and names, minimising coupling, maximizing cohesion, adding comments for readability
 
 Future ideas after the end of this course if we still have the motivation to maintain this:
 * Water intake tracker so you remember to stay hydrated and live that healthy life
