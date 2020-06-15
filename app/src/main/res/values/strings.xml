@@ -139,5 +139,7 @@
     <string name="CreateAccount">Create Account</string>
     <string name="peopleName">Name</string>
     <string name="signupPrompt">Register for LyfeStyle Tracking</string>
+    <string name="consCompany">Company Name</string>
+    <string name="title_activity_create_user_user">CreateUserUser</string>
 
 </resources>

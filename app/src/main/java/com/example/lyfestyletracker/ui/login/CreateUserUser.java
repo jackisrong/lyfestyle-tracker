@@ -32,14 +32,14 @@ import org.json.JSONArray;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CreateUserConsultant extends AppCompatActivity {
+public class CreateUserUser extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_user_consultant);
+        setContentView(R.layout.create_user_user);
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
@@ -166,7 +166,7 @@ public class CreateUserConsultant extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = "Please Sign In";
-        Intent intent = new Intent(CreateUserConsultant.this, Login.class);
+        Intent intent = new Intent(CreateUserUser.this, Login.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
