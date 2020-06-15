@@ -87,7 +87,7 @@ public class CreateUserConsultant extends AppCompatActivity {
                         if (matchingPassword(passwordEditText.getText().toString(), (passwordEditText2.getText().toString()))) {
                             addToDatabase(inputPersonName.getText().toString(), inputUsername.getText().toString(), userEmailID.getText().toString(), passwordEditText.getText().toString());
                             updateUiWithUser(loginResult.getSuccess());
-                        }
+                        } else showSignupFailed(loginResult.getError());
                     } else showSignupFailed(loginResult.getError());
                 }
                 setResult(Activity.RESULT_OK);
