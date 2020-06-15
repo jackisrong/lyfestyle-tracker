@@ -141,5 +141,8 @@
     <string name="signupPrompt">Register for LyfeStyle Tracking</string>
     <string name="consCompany">Company Name</string>
     <string name="title_activity_create_user_user">CreateUserUser</string>
+    <string name="person_age">Age</string>
+    <string name="person_height">Height (cm)</string>
+    <string name="person_weight">Current Weight (approx.)</string>
 
 </resources>

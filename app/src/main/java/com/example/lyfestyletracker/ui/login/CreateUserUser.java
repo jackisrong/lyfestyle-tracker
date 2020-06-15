@@ -50,6 +50,9 @@ public class CreateUserUser extends AppCompatActivity {
         final EditText inputPersonName = findViewById(R.id.personName);
         final Button registerButton = findViewById(R.id.registerButton);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        final EditText personAge = findViewById(R.id.personAge);
+        final EditText personHeight = findViewById(R.id.personHeight);
+        final EditText personWeight = findViewById(R.id.personWeight);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -84,7 +87,8 @@ public class CreateUserUser extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     if (matchingPassword(passwordEditText.getText().toString(), (passwordEditText2.getText().toString()))) {
-                        addToDatabase(inputPersonName.getText().toString(), inputUsername.getText().toString(), userEmailID.getText().toString(), passwordEditText.getText().toString());
+                        addToDatabase(inputPersonName.getText().toString(), inputUsername.getText().toString(), userEmailID.getText().toString(), passwordEditText.getText().toString(),
+                                Integer.parseInt(personWeight.getText().toString()), Integer.parseInt(personHeight.getText().toString()), Integer.parseInt(personAge.getText().toString()));
                         updateUiWithUser(loginResult.getSuccess());
                     }
                 }
@@ -147,7 +151,7 @@ public class CreateUserUser extends AppCompatActivity {
         } else return false;
     }
 
-    public void addToDatabase(String name, String username, String email, String password) {
+    public void addToDatabase(String name, String username, String email, String password, Integer weight, Integer height, Integer age) {
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special_change");
         map.put("extra", "Insert Into People Values('" + username + "', '" + name + "', '" + password + "', '" + email + "')");
@@ -155,7 +159,7 @@ public class CreateUserUser extends AppCompatActivity {
         JSONArray res = qe.run();
         map.clear();
         map.put("query_type", "special_change");
-        map.put("extra", "Insert Into Consultant Values ('" + username + "', 0)");
+        map.put("extra", "Insert Into UserPerson Values ('" + username + "', 0, " + weight + ", " + age + ", " + height + ")");
         QueryExecutable qe2 = new QueryExecutable(map);
         JSONArray res2 = qe2.run();
     }
