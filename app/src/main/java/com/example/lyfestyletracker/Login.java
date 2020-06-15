@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 import com.example.lyfestyletracker.ui.login.CreateUserConsultant;
+import com.example.lyfestyletracker.ui.login.CreateUserUser;
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -54,11 +55,21 @@ public class Login extends AppCompatActivity {
     }
 
     public void initializeSignup(View view) {
-        Intent intent = new Intent(Login.this, CreateUserConsultant.class);
+        consultant = (Switch) findViewById(R.id.consultant_switch);
+        Intent intent;
+        if (consultant.isChecked()) {
+            intent = new Intent(Login.this, CreateUserConsultant.class);
+        } else {
+            intent = new Intent(Login.this, CreateUserUser.class);
+        }
         startActivity(intent);
     }
 
     public void authenticate(View view) {
+
+        EditText eEdit = (EditText) findViewById(R.id.email_box);
+        EditText pEdit = (EditText) findViewById(R.id.password_box);
+        consultant = (Switch) findViewById(R.id.consultant_switch);
         JSONArray res;
         Map<String, Object> map = new LinkedHashMap<>();
         Intent intent = null;
