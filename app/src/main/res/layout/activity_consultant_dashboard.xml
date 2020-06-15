@@ -111,16 +111,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
+
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/add_new_companies_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_log_out_consultant" />
-
+                app:layout_constraintTop_toBottomOf="@+id/consultant_greeting_extra" />
 
             <LinearLayout
                 android:id="@+id/add_company_layout"
@@ -130,6 +130,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_company_switch"
                 android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/consultant_greeting_extra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/consultant_greeting" />
+
+            <TextView
+                android:id="@+id/consultant_greeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="8dp"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_log_out_consultant" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

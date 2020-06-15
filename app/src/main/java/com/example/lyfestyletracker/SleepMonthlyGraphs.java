@@ -115,8 +115,8 @@ public class SleepMonthlyGraphs extends Fragment {
 
         BarDataSet barDataSet = new BarDataSet(barEntries1, "avg");
         BarDataSet barDataSet2 = new BarDataSet(barEntries2, "sum");
-        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet2.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        barDataSet2.setColors(ColorTemplate.JOYFUL_COLORS);
 
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.9f);
@@ -125,6 +125,9 @@ public class SleepMonthlyGraphs extends Fragment {
 
         barChart2.setData(data);
         barChart3.setData(data2);
+
+        barChart2.getDescription().setEnabled(false);
+        barChart3.getDescription().setEnabled(false);
         barChart2.getAxisLeft().setAxisMinimum(0);
         barChart3.getAxisLeft().setAxisMinimum(0);
         barChart2.getAxisRight().setAxisMinimum(0);

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class ConsultantDashboard extends AppCompatActivity {
     private String username;
@@ -75,6 +77,26 @@ public class ConsultantDashboard extends AppCompatActivity {
                 }
             }
         });
+
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special");
+        map.put("extra", "SELECT name FROM people WHERE username = '" + username + "'");
+        QueryExecutable qe = new QueryExecutable(map);
+        String welcomeString = "Welcome!";
+        try {
+            welcomeString = "Welcome " + qe.run().getJSONObject(0).getString("NAME") + "!";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ((TextView) findViewById(R.id.consultant_greeting)).setText(welcomeString);
+
+        String[] subgreetings = {"Did you eat your fiber today?", "Do you like pie?", "What are your thoughts on golf?",
+                "Is pasta better than pizza?", "Did you exercise today?", "Stop drinking so much bubble tea",
+                "Bubble tea isn't a personality", "Bubble tea is not a replacement for water", "Damn you looking good!",
+                "Guac is extra", "Guac shouldn't be extra, change my mind", "Did you know water is good for you?"};
+        Random random = new Random();
+        ((TextView) findViewById(R.id.consultant_greeting_extra)).setText(subgreetings[random.nextInt(subgreetings.length)]);
     }
 
     public void deleteAccount(View view) {

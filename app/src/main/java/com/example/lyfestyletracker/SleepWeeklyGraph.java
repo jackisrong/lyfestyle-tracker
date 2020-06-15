@@ -140,13 +140,14 @@ public class SleepWeeklyGraph extends Fragment {
             }
         }
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Data Set 1");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Weekly Sleep");
         barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
 
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.9f);
 
         barChart.setData(data);
+        barChart.getDescription().setEnabled(false);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new XaxisValueFormatter(days));
 
