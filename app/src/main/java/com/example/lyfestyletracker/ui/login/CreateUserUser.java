@@ -86,11 +86,13 @@ public class CreateUserUser extends AppCompatActivity {
                     }
                 }
                 if (loginResult.getSuccess() != null) {
-                    if (matchingPassword(passwordEditText.getText().toString(), (passwordEditText2.getText().toString()))) {
-                        addToDatabase(inputPersonName.getText().toString(), inputUsername.getText().toString(), userEmailID.getText().toString(), passwordEditText.getText().toString(),
-                                Integer.parseInt(personWeight.getText().toString()), Integer.parseInt(personHeight.getText().toString()), Integer.parseInt(personAge.getText().toString()));
-                        updateUiWithUser(loginResult.getSuccess());
-                    }
+                    if (usernameAvail(inputUsername.getText().toString())) {
+                        if (matchingPassword(passwordEditText.getText().toString(), (passwordEditText2.getText().toString()))) {
+                            addToDatabase(inputPersonName.getText().toString(), inputUsername.getText().toString(), userEmailID.getText().toString(), passwordEditText.getText().toString(),
+                                    Integer.parseInt(personWeight.getText().toString()), Integer.parseInt(personHeight.getText().toString()), Integer.parseInt(personAge.getText().toString()));
+                            updateUiWithUser(loginResult.getSuccess());
+                        }
+                    } else showSignupFailed(loginResult.getError());
                 }
                 setResult(Activity.RESULT_OK);
 
