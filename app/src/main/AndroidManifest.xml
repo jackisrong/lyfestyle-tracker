@@ -11,9 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".WorkoutPlan"></activity>
+        <activity android:name=".DietPlan" />
         <activity
             android:name=".ui.login.CreateUserUser"
-            android:label="@string/title_activity_create_user_user"></activity>
+            android:label="@string/title_activity_create_user_user" />
         <activity android:name=".HireConsultant" />
         <activity
             android:name=".AddMeal"

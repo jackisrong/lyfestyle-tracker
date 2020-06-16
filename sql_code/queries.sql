@@ -70,3 +70,11 @@ map.put(
 
 
  "Insert Into UserHiresConsultant Values('" + username + "', '" + usernameC +"', TO_TIMESTAMP('" + timeStamp +"', 'YYYY-MM-DD HH24:MI:SS'))"
+
+
+
+ "SELECT planId, createdByUsername, exercisePerWeek FROM Plan, WorkoutPlan WHERE createdByUsername = 'David' AND planId = workoutPlanId"
+
+"SELECT planId, createdByUsername, weeklyCalories FROM Plan, Diet WHERE createdByUsername = '" + username + "' AND planId = dietId"
+
+"SELECT planID, consultantUsername as createdByUsername, logTime FROM ConsultantSuggestsPlan WHERE userUsername = '" + username + "' "

@@ -29,7 +29,7 @@
         android:weightSum="1.0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exercise_log_search_view">
+        app:layout_constraintTop_toBottomOf="@+id/exercise_plans_search_view">
 
         <TextView
             android:id="@+id/exercise_plans_header_1"
@@ -71,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exercise_log_headers_row">
+        app:layout_constraintTop_toBottomOf="@+id/exercise_plans_headers_row">
 
         <LinearLayout
             android:id="@+id/exercise_plans_row_container"

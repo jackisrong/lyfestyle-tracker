@@ -22,6 +22,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -91,24 +92,24 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
             colNames.add("planID");
             colNames.add("createdByUsername");
             colNames.add("exercisePerWeek");
-            searchQuery = "SELECT planId, createdByUsername, exercisePerWeek FROM Plan, WorkoutPlan WHERE createdByUsername = '" + username + "' AND planId = workoutPlanId";
+            searchQuery = "SELECT planId, createdByUsername, exercisePerWeek FROM Plan, WorkoutPlan WHERE createdByUsername = '" + username + "' AND planId = workoutPlanId AND LOWER(createdByUsername)";
 
         }else if (type.equals("diet")){
             numOfTables = 3;
             colNames.add("planID");
             colNames.add("createdByUsername");
             colNames.add("weeklyCalories");
-            searchQuery = "SELECT planId, createdByUsername, weeklyCalories FROM Plan, Diet WHERE createdByUsername = '" + username + "' AND planId = dietId";
+            searchQuery = "SELECT planId, createdByUsername, weeklyCalories FROM Plan, Diet WHERE createdByUsername = '" + username + "' AND planId = dietId AND LOWER(createdByUsername)";
 
 
         }else if (type.equals("suggested")){
             numOfTables = 3;
             colNames.add("planID");
-            colNames.add("consultantUsername");
+            colNames.add("createdByUsername");
             colNames.add("logTime");
             sortBy = "logTime";
 
-            searchQuery = "SELECT planID, consultantUsername, logTime FROM ConsultantSuggestsPlan WHERE userUsername = '" + username;
+            searchQuery = "SELECT planID, consultantUsername as createdByUsername, logTime FROM ConsultantSuggestsPlan WHERE userUsername = '" + username + "' AND LOWER(consultantUsername) ";
 
         }
     }
@@ -154,15 +155,21 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
         thisView.findViewById(R.id.exercise_plans_header_2).setOnClickListener(this);
         thisView.findViewById(R.id.exercise_plans_header_3).setOnClickListener(this);
 
+        ((TextView)thisView.findViewById(R.id.exercise_plans_header_1)).setText(colNames.get(0));
+        ((TextView)thisView.findViewById(R.id.exercise_plans_header_2)).setText(colNames.get(1));
+        ((TextView)thisView.findViewById(R.id.exercise_plans_header_3)).setText(colNames.get(2));
+
         return thisView;
     }
 
     private void populateTable() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", searchQuery);
+        map.put("extra", searchQuery + "LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
+
+
         System.out.println(ans);
 
         TableLayout mainTable = thisView.findViewById(R.id.exercise_plans_main_table);
@@ -172,6 +179,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
             return;
         }
 
+
         for (int i = 0; i < ans.length(); i++) {
             try {
                 JSONObject o = ans.getJSONObject(i);
@@ -180,7 +188,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
                 row.setWeightSum(1.0f);
                 row.setPadding(0, 10, 0, 10);
                 row.setOnClickListener(this);
-                row.setTag(o.getString(colNames.get(0)));
+                row.setTag(o.getString(colNames.get(0).toUpperCase()));
                 if (i % 2 == 0) {
                     row.setBackgroundColor(getContext().getColor(R.color.table_light1));
                 } else {
@@ -194,11 +202,11 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
 
 
                 TextView text1= new TextView(getContext());
-                text1.setText(o.getString(colNames.get(0)));
+                text1.setText(o.getString(colNames.get(0).toUpperCase()));
                 text1.setLayoutParams(params1);
 
                 TextView text2 = new TextView(getContext());
-                text2.setText(o.getString(colNames.get(1)));
+                text2.setText(o.getString(colNames.get(1).toUpperCase()));
                 text2.setLayoutParams(params2);
                 text2.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -209,7 +217,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
                     text3.setText(timestamp.toString("MMM dd yyyy\nhh:mm aa", Locale.ENGLISH));
 
                 }else {
-                    text3.setText(o.getString(colNames.get(2)));
+                    text3.setText(o.getString(colNames.get(2).toUpperCase()));
                 }
 
                 text3.setLayoutParams(params3);

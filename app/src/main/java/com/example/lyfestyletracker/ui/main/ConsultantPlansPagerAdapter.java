@@ -38,10 +38,10 @@ public class ConsultantPlansPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = FoodDiets.newInstance(username, "", username);
+                fragment = ExerciseWorkoutPlans.newInstance(username, "diet");
                 break;
             case 1:
-                fragment = ExerciseWorkoutPlans.newInstance(username, "");
+                fragment = ExerciseWorkoutPlans.newInstance(username, "workout");
                 break;
             default:
                 fragment = null;

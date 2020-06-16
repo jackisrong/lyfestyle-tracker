@@ -325,10 +325,12 @@ insert into Cardio values (6, 5, 9);
 
 insert into Plan values (0, 'David');
 insert into Plan values (1, 'David');
+insert into Plan values (11, 'David');
 insert into Plan values (5, 'Erin');
 insert into Plan values (9, 'Erin');
 insert into Plan values (8, 'consultant');
 insert into Plan values (10, 'consultant');
+insert into Plan values (12, 'David');
 
 insert into WorkoutPlan values (0, 2100);
 insert into WorkoutPlan values (1, 1000);
@@ -357,6 +359,8 @@ insert into Meal values (3, 'Dinner', 'Pasta thing', 850, 85, 45, 2);
 insert into Diet values (5, 9000);
 insert into Diet values (9, 20000);
 insert into Diet values (10, 8000);
+insert into Diet values (11, 18000);
+insert into Diet values (12, 100);
 
 insert into MealLogEntry values (0,TO_TIMESTAMP('2020-05-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
 insert into MealLogEntry values (1,TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
@@ -376,6 +380,11 @@ insert into DietContainsMealLog values (5,TO_TIMESTAMP('2020-05-20 09:42:00',  '
 insert into DietContainsMealLog values (9,TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
 insert into DietContainsMealLog values (9,TO_TIMESTAMP('2020-07-19 13:25:00',  'YYYY-MM-DD HH24:MI:SS') , 3);
 insert into DietContainsMealLog values (10,TO_TIMESTAMP('2020-07-18 12:25:00',  'YYYY-MM-DD HH24:MI:SS') , 2);
+
+insert into DietContainsMealLog values (11,TO_TIMESTAMP('2020-05-20 09:42:00',  'YYYY-MM-DD HH24:MI:SS'), 0);
+insert into DietContainsMealLog values (11,TO_TIMESTAMP('2020-07-02 20:00:00',  'YYYY-MM-DD HH24:MI:SS'), 1);
+insert into DietContainsMealLog values (11,TO_TIMESTAMP('2020-07-19 13:25:00',  'YYYY-MM-DD HH24:MI:SS') , 3);
+insert into DietContainsMealLog values (11,TO_TIMESTAMP('2020-07-18 12:25:00',  'YYYY-MM-DD HH24:MI:SS') , 2);
 
 
 insert into UserSleepEntry values ('bob123',TO_DATE('2020-05-28', 'YYYY-MM-DD'),1,5);
