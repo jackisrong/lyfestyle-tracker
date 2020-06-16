@@ -11,10 +11,14 @@ import android.widget.Spinner;
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -122,9 +126,17 @@ public class ConsultantSuggestsPlan extends AppCompatActivity implements Adapter
         String plan = strings[1];
 
 
+        LocalDateTime ld = new LocalDateTime();
+
+        String formattedDate = ld.toString("dd-MM-yyyy HH:mm:ss");
+
+
+
+
+
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special_change");
-        map.put("extra", "Insert Into ConsultantSuggestsPlan Values('" + userUsername + "', '" + username + "', " + plan + ", TO_TIMESTAMP('2020-06-19 23:15:00',  'YYYY-MM-DD HH24:MI:SS'))");
+        map.put("extra", "Insert Into ConsultantSuggestsPlan Values('" + userUsername + "', '" + username + "', " + plan + ", TO_TIMESTAMP('" + formattedDate + "',  'YYYY-MM-DD HH24:MI:SS'))");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
 
