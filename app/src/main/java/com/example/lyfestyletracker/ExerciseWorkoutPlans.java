@@ -327,24 +327,24 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
                 startActivity(intent);
 
             }else {
+                Map<String, Object> map = new LinkedHashMap<>();
+                map.put("query_type", "special");
+                map.put("extra", "Select * from Diet where dietId =" + view.getTag());
+                QueryExecutable qe = new QueryExecutable(map);
+                JSONArray ans = qe.run();
 
+                if (ans.length() > 0){
+                    Intent intent = new Intent(getActivity(), DietPlan.class);
+                    intent.putExtra("username", username);
+                    intent.putExtra("dietId", Integer.parseInt((String) view.getTag()));
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getActivity(), WorkoutPlan.class);
+                    intent.putExtra("username", username);
+                    intent.putExtra("workoutId", Integer.parseInt((String) view.getTag()));
+                    startActivity(intent);
+                }
             }
-
-            /*
-            String workoutId = (String) view.getTag();
-            TextView time = (TextView) ((TableRow) view).getChildAt(0);
-            String rawTime = time.getText().toString().replace("\n", " ");
-            LocalDateTime ldt = LocalDateTime.parse(rawTime, DateTimeFormat.forPattern("MMM dd yyyy hh:mm aa").withLocale(Locale.ENGLISH));
-            Timestamp ts = new Timestamp(ldt.toDateTime().getMillis());
-            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(ts);
-
-            Intent intent = new Intent(getActivity(), AddWorkout.class);
-            intent.putExtra("username", username);
-            intent.putExtra("type", "update");
-            intent.putExtra("workoutId", workoutId);
-            intent.putExtra("timestampString", timestamp);
-            startActivity(intent);
-            */
 
         }
     }
