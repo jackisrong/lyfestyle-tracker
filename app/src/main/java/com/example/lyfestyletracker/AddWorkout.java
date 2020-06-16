@@ -43,13 +43,15 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
     private EditText workoutDesc;
     private EditText workoutCaloriesBurnt;
     private EditText workoutLength;
-    private String typeOfAdd = "new";
+    private String typeOfAdd;
     private TextView selectedDateLabel;
     private TextView selectedTimeLabel;
     private EditText cardioDistance;
     private EditText cardioAvgSpeed;
     private EditText sportIntensity;
     private EditText sportType;
+    private ConstraintLayout cardioLayout;
+    private ConstraintLayout sportLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         setContentView(R.layout.activity_add_workout);
 
         username = getIntent().getStringExtra("username");
-        typeOfAdd = getIntent().getStringExtra("type") != null ? getIntent().getStringExtra("type") : "";
+        typeOfAdd = getIntent().getStringExtra("type") != null ? getIntent().getStringExtra("type") : "new";
         cardioSwitch = (Switch) findViewById(R.id.cardio_switch);
         sportSwitch = (Switch) findViewById(R.id.sport_switch);
         workoutId = (EditText) findViewById(R.id.enter_workout_id);
@@ -70,11 +72,10 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         cardioAvgSpeed = (EditText) findViewById(R.id.enter_cardio_avg_speed);
         sportIntensity = (EditText) findViewById(R.id.enter_sport_intensity);
         sportType = (EditText) findViewById(R.id.enter_sport_type);
+        cardioLayout = (ConstraintLayout) findViewById(R.id.cardio_layout);
+        sportLayout = (ConstraintLayout) findViewById(R.id.sport_layout);
         dateResult = "";
         timeResult = "";
-
-        final ConstraintLayout cardioLayout = (ConstraintLayout) findViewById(R.id.cardio_layout);
-        final ConstraintLayout sportLayout = (ConstraintLayout) findViewById(R.id.sport_layout);
 
         cardioLayout.setVisibility(View.GONE);
         sportLayout.setVisibility(View.GONE);
@@ -237,10 +238,11 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             }
 
             if (typeOfAdd.equals("update")) {
-                Toast.makeText(this, "Successfully updated exercise log entry!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Successfully updated exercise log entry", Toast.LENGTH_SHORT).show();
                 finish();
             } else if (typeOfAdd.equals("new")) {
-                Snackbar.make(view, "Successfully added the exercise to your log!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Toast.makeText(this, "Successfully added new exercise log entry", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }
@@ -345,7 +347,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         qe = new QueryExecutable(map);
         qe.run();
 
-        Toast.makeText(this, "Successfully deleted exercise log entry!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Successfully deleted exercise log entry", Toast.LENGTH_SHORT).show();
         finish();
     }
 
