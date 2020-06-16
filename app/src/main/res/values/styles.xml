@@ -7,6 +7,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="UserAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/UsercolorPrimary</item>
+        <item name="colorPrimaryDark">@color/UsercolorPrimaryDark</item>
+        <item name="colorAccent">@color/UsercolorAccent</item>
+    </style>
+
+    <style name="ConsultantAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ConsultantcolorPrimary</item>
+        <item name="colorPrimaryDark">@color/ConsultantcolorPrimaryDark</item>
+        <item name="colorAccent">@color/ConsultantcolorAccent</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
