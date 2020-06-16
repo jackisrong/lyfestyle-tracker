@@ -1,5 +1,6 @@
 package com.example.lyfestyletracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -129,7 +132,7 @@ public class FoodLog extends Fragment implements View.OnClickListener{
     public void populateTable(){
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = '" + username + "' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
+        map.put("extra", "SELECT m.mealid, uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = '" + username + "' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
@@ -149,7 +152,8 @@ public class FoodLog extends Fragment implements View.OnClickListener{
                 TableRow row = new TableRow(getContext());
                 row.setWeightSum(1.0f);
                 row.setPadding(0, 10, 0, 10);
-
+                row.setOnClickListener(this);
+                row.setTag(o.getString("MEALID"));
                 if (i % 2 == 0) {
                     row.setBackgroundColor(getContext().getColor(R.color.table_light1));
                 } else {
@@ -250,6 +254,22 @@ public class FoodLog extends Fragment implements View.OnClickListener{
             }
 
             populateTable();
+        }
+
+        if (view.getClass().equals(TableRow.class)) {
+            String mealId = (String) view.getTag();
+            TextView time = (TextView) ((TableRow) view).getChildAt(0);
+            String rawTime = time.getText().toString().replace("\n", " ");
+            LocalDateTime ldt = LocalDateTime.parse(rawTime, DateTimeFormat.forPattern("MMM dd yyyy hh:mm aa").withLocale(Locale.ENGLISH));
+            Timestamp ts = new Timestamp(ldt.toDateTime().getMillis());
+            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(ts);
+
+            Intent intent = new Intent(getActivity(), AddMeal.class);
+            intent.putExtra("username", username);
+            intent.putExtra("type", "update");
+            intent.putExtra("mealId", mealId);
+            intent.putExtra("timestampString", timestamp);
+            startActivity(intent);
         }
     }
 
