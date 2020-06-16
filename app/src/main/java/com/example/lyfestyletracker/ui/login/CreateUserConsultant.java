@@ -140,7 +140,7 @@ public class CreateUserConsultant extends AppCompatActivity {
 
     public boolean usernameAvail(String username){
         Map<String,Object> map = new LinkedHashMap<>();
-        map.put("query_type", "special_change");
+        map.put("query_type", "special");
         map.put("extra", "Select * from People where username = " + username);
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
@@ -154,12 +154,12 @@ public class CreateUserConsultant extends AppCompatActivity {
         map.put("query_type", "special_change");
         map.put("extra", "Insert Into People Values('" + username + "', '" + name + "', '" + password + "', '" + email + "')");
         QueryExecutable qe = new QueryExecutable(map);
-        JSONArray res = qe.run();
+        qe.run();
         map.clear();
         map.put("query_type", "special_change");
         map.put("extra", "Insert Into Consultant Values ('" + username + "', 0)");
         QueryExecutable qe2 = new QueryExecutable(map);
-        JSONArray res2 = qe2.run();
+        qe2.run();
     }
 
     public boolean matchingPassword(String string1, String string2) {

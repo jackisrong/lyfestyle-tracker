@@ -16,8 +16,7 @@
         <activity android:name=".DietPlan" />
         <activity
             android:name=".ui.login.CreateUserUser"
-            android:label="@string/title_activity_create_user_user"
-            android:theme="@style/UserAppTheme" />
+            android:label="@string/title_activity_create_user_user"/>
         <activity
             android:name=".HireConsultant" />
         <activity
@@ -63,8 +62,7 @@
             android:theme="@style/ConsultantAppTheme" />
         <activity
             android:name=".UserDashboard"
-            android:label="@string/dashboard_activity_title"
-            android:theme="@style/UserAppTheme" />
+            android:label="@string/dashboard_activity_title"/>
         <activity
             android:name=".Login"
             android:label="@string/app_name">
