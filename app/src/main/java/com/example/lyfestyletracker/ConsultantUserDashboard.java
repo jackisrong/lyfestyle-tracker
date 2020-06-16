@@ -1,5 +1,6 @@
 package com.example.lyfestyletracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,8 +29,9 @@ public class ConsultantUserDashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                Intent intent = new Intent(ConsultantUserDashboard.this, ConsultantSuggestsPlan.class);
+                intent.putExtra("username", getIntent().getStringExtra("username"));
+                startActivity(intent);
             }
         });
 
