@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:iconifiedByDefault="true"
-        android:queryHint="Search based on description..."
+        android:queryHint="Search based on createdByUsername..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,16 +54,6 @@
 
         <TextView
             android:id="@+id/exercise_plans_header_3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.18"
-            android:gravity="center"
-            android:tag="placeholder"
-            android:text="temp"
-            android:textColor="@android:color/primary_text_dark" />
-
-        <TextView
-            android:id="@+id/exercise_plans_header_4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.18"

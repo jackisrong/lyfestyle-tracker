@@ -239,20 +239,17 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
 
     // utility method for sorting
     private void clearHeaderDrawablesAndTags() {
-        TextView time = thisView.findViewById(R.id.exercise_log_header_time);
-        TextView description = thisView.findViewById(R.id.exercise_log_header_description);
-        TextView caloriesBurnt = thisView.findViewById(R.id.exercise_log_header_calories_burnt);
-        TextView length = thisView.findViewById(R.id.exercise_log_header_length);
+        TextView t1 = thisView.findViewById(R.id.exercise_plans_header_1);
+        TextView t2 = thisView.findViewById(R.id.exercise_plans_header_2);
+        TextView t3 = thisView.findViewById(R.id.exercise_plans_header_3);
 
-        time.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        description.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        caloriesBurnt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        length.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        t1.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        t2.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        t3.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
-        time.setTag("");
-        description.setTag("");
-        caloriesBurnt.setTag("");
-        length.setTag("");
+        t1.setTag("");
+        t2.setTag("");
+        t3.setTag("");
     }
 
     @Override

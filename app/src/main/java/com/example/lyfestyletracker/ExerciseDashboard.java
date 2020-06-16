@@ -3,6 +3,7 @@ package com.example.lyfestyletracker;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -14,6 +15,12 @@ import android.view.View;
 import android.widget.TabHost;
 
 import com.example.lyfestyletracker.ui.main.ExerciseSectionsPagerAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ExerciseDashboard extends AppCompatActivity {
 
@@ -47,7 +54,29 @@ public class ExerciseDashboard extends AppCompatActivity {
                     intent.putExtra("username", username);
                     startActivity(intent);
                 }else{
+                    Intent intent = new Intent(ExerciseDashboard.this, WorkoutPlan.class);
+                    intent.putExtra("username", username);
 
+
+                    MaxPlan mp = new MaxPlan();
+                    Integer maxInt = mp.getMaxPlan();
+                    Map<String, Object> map = new LinkedHashMap<>();
+                    map.put("query_type", "special_change");
+                    map.put("extra", "insert into Plan Values(" + maxInt + ", '" + username + "')");
+                    QueryExecutable qe = new QueryExecutable(map);
+                    JSONArray ans = qe.run();
+
+                    map.clear();
+                    map.put("query_type", "special_change");
+                    map.put("extra", "insert into WorkoutPlan Values(" + maxInt + ", 0)");
+
+                    qe = new QueryExecutable(map);
+                    ans = qe.run();
+
+
+
+                    intent.putExtra("workoutId", maxInt);
+                    startActivity(intent);
                 }
 
 
