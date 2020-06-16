@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#85A0AD</color>
-    <color name="colorPrimaryDark">#678998</color>
-    <color name="colorAccent">#AD9285</color>
-    <color name="table_light1">#d3e8f2</color>
-    <color name="table_light2">#b9dbeb</color>
+    <color name="colorPrimary">#D5CAD6</color>
+    <color name="colorPrimaryDark">#6B5E62</color>
+    <color name="colorAccent">#EFEFF0</color>
+    <color name="table_light1">#C9F0FF</color>
+    <color name="table_light2">#EAFFFD</color>
     <color name="white">#ffffff</color>
+
+
+
+
 </resources>

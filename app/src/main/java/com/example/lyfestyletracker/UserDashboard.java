@@ -28,6 +28,7 @@ public class UserDashboard extends AppCompatActivity {
     private EditText age;
     private EditText weight;
     private EditText height;
+    private TextView weeklySum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class UserDashboard extends AppCompatActivity {
         age = (EditText) findViewById(R.id.enter_age);
         weight = (EditText) findViewById(R.id.enter_weight);
         height = (EditText) findViewById(R.id.enter_height);
+        weeklySum = (TextView) findViewById(R.id.weekly_calSum);
 
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
@@ -58,6 +60,23 @@ public class UserDashboard extends AppCompatActivity {
         Random random = new Random();
         ((TextView) findViewById(R.id.user_dashboard_subgreeting)).setText(subgreetings[random.nextInt(subgreetings.length)]);
 
+        map.clear();
+        map.put("query_type", "special");
+        map.put("extra", "Select SUM(caloriesPerServing) from UserMealLog u, Meal m, MealCalories c WHERE u.username = '"+ username + "' AND u.logTime >= TRUNC(SYSDATE, 'DAY') AND u.logTime < TRUNC(SYSDATE, 'DAY') + 7 " +
+                "AND u.mealID = m.mealID AND m.carbohydrates = c.carbohydrates AND m.fat = c.fat AND m.protein = c.protein");
+        QueryExecutable qe2 = new QueryExecutable(map);
+        JSONArray res2 = qe2.run();
+        String sumCal;
+        try {
+            sumCal = res2.getJSONObject(0).getString("SUM(CALORIESPERSERVING)");
+        } catch (JSONException e) {
+            sumCal = "Not Available";
+            e.printStackTrace();
+        }
+        if (sumCal.equals("null")) {
+            sumCal = "0";
+        }
+        weeklySum.setText("Your current calories: " + sumCal);
         setDetails();
     }
 

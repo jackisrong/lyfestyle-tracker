@@ -163,5 +163,6 @@
     <string name="person_age">Age</string>
     <string name="person_height">Height (cm)</string>
     <string name="person_weight">Current Weight (approx.)</string>
+    <string name="weekly_calories">User Weekly Calories</string>
 
 </resources>
