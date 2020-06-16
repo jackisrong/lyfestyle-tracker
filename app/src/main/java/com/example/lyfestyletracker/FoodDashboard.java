@@ -29,9 +29,15 @@ public class FoodDashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodDashboard.this, AddMeal.class);
-                intent.putExtra("username", getIntent().getStringExtra("username"));
-                startActivity(intent);
+                TabLayout tb = (TabLayout) findViewById(R.id.tabs);
+                if (tb.getSelectedTabPosition() == 0){
+                    Intent intent = new Intent(FoodDashboard.this, AddMeal.class);
+                    intent.putExtra("username", getIntent().getStringExtra("username"));
+                    startActivity(intent);
+                }else{
+
+                }
+
             }
         });
     }

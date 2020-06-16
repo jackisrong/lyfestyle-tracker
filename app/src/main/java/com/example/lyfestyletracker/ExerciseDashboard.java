@@ -6,16 +6,20 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import android.widget.TabHost;
 
 import com.example.lyfestyletracker.ui.main.ExerciseSectionsPagerAdapter;
 
 public class ExerciseDashboard extends AppCompatActivity {
 
     private String username;
+    private boolean currentTab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +33,29 @@ public class ExerciseDashboard extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = findViewById(R.id.fab_diet);
 
+
+
+
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ExerciseDashboard.this, AddWorkout.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
+                TabLayout tb = (TabLayout) findViewById(R.id.tabs);
+                if (tb.getSelectedTabPosition() == 0){
+                    Intent intent = new Intent(ExerciseDashboard.this, AddWorkout.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }else{
+
+                }
+
+
             }
         });
     }
+
+
+
+
 }

@@ -29,6 +29,7 @@ public class UserConsultantsDashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(UserConsultantsDashboard.this, HireConsultant.class);
                 intent.putExtra("username", getIntent().getStringExtra("username"));
                 startActivity(intent);
