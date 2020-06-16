@@ -123,7 +123,8 @@
     <string name="companies_in_database">Companies:</string>
     <string name="add_new_companies_text">Companies:</string>
     <string name="add_new_company">Add New Company</string>
-
+    <string name="suggest_plan">Suggest Plan</string>
+    <string name="customers">Customers:</string>
 
 
     <string-array name="planets_array">

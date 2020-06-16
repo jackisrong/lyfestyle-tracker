@@ -22,15 +22,18 @@ import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 public class AddWorkout extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -39,7 +42,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
     private Switch sportSwitch;
     private String dateResult;
     private String timeResult;
-    private EditText workoutId;
+    private int workoutId;
     private EditText workoutDesc;
     private EditText workoutCaloriesBurnt;
     private EditText workoutLength;
@@ -52,6 +55,7 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
     private EditText sportType;
     private ConstraintLayout cardioLayout;
     private ConstraintLayout sportLayout;
+    private HashMap<String, String> prevValues = new HashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,6 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         typeOfAdd = getIntent().getStringExtra("type") != null ? getIntent().getStringExtra("type") : "new";
         cardioSwitch = (Switch) findViewById(R.id.cardio_switch);
         sportSwitch = (Switch) findViewById(R.id.sport_switch);
-        workoutId = (EditText) findViewById(R.id.enter_workout_id);
         workoutDesc = (EditText) findViewById(R.id.enter_description);
         workoutCaloriesBurnt = (EditText) findViewById(R.id.enter_calories_burnt);
         workoutLength = (EditText) findViewById(R.id.enter_workout_length);
@@ -108,9 +111,13 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             }
         });
 
+        findViewById(R.id.delete_exercise_submit_button).setVisibility(View.GONE);
+        findViewById(R.id.update_exercise_submit_button).setVisibility(View.GONE);
+
         if (typeOfAdd.equals("update")) {
-            findViewById(R.id.add_date_button).setEnabled(false);
-            findViewById(R.id.add_time_button).setEnabled(false);
+            findViewById(R.id.delete_exercise_submit_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.update_exercise_submit_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.add_exercise_submit_button).setEnabled(false);
             prefillWithExtras();
         }
     }
@@ -131,10 +138,21 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
 
         dateResult = year + "-" + monthString + "-" + dayOfMonthString;
         selectedDateLabel.setText(dateResult);
+
+        if (typeOfAdd.equals("update") && (!dateResult.equals(prevValues.get("date")) || !timeResult.equals(prevValues.get("time")))) {
+            // date and time have been changed from original prefill
+            findViewById(R.id.add_exercise_submit_button).setEnabled(true);
+            findViewById(R.id.update_exercise_submit_button).setEnabled(false);
+            findViewById(R.id.delete_exercise_submit_button).setEnabled(false);
+        } else if (typeOfAdd.equals("update") && dateResult.equals(prevValues.get("date")) && timeResult.equals(prevValues.get("time"))) {
+            findViewById(R.id.add_exercise_submit_button).setEnabled(false);
+            findViewById(R.id.update_exercise_submit_button).setEnabled(true);
+            findViewById(R.id.delete_exercise_submit_button).setEnabled(true);
+        }
     }
 
     public void createTimeClicked(View view) {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, this, 0, 0, false);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, this, LocalTime.now().getHourOfDay(), LocalTime.now().getMinuteOfHour(), false);
         timePickerDialog.show();
     }
 
@@ -150,79 +168,102 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         String timeTwelveString = hourOfDayTwelveString + ":" + minuteString + " " + (hourOfDay >= 12 ? "PM" : "AM");
 
         selectedTimeLabel.setText(timeTwelveString);
+
+        if (typeOfAdd.equals("update") && (!dateResult.equals(prevValues.get("date")) || !timeResult.equals(prevValues.get("time")))) {
+            // date and time have been changed from original prefill
+            findViewById(R.id.add_exercise_submit_button).setEnabled(true);
+            findViewById(R.id.update_exercise_submit_button).setEnabled(false);
+            findViewById(R.id.delete_exercise_submit_button).setEnabled(false);
+        } else if (typeOfAdd.equals("update") && dateResult.equals(prevValues.get("date")) && timeResult.equals(prevValues.get("time"))) {
+            findViewById(R.id.add_exercise_submit_button).setEnabled(false);
+            findViewById(R.id.update_exercise_submit_button).setEnabled(true);
+            findViewById(R.id.delete_exercise_submit_button).setEnabled(true);
+        }
     }
 
     public void addWorkout(View view) {
         Map<String, Object> map = new LinkedHashMap<>();
         QueryExecutable qe;
 
-        if (workoutId.getText().toString().equals("")) {
-            Snackbar.make(view, "Invalid Workout ID", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else if (workoutDesc.getText().toString().equals("")) {
-            Snackbar.make(view, "Invalid Workout Description", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else if (workoutCaloriesBurnt.getText().toString().equals("")) {
-            Snackbar.make(view, "Invalid Number of Calories Burnt", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else if (workoutLength.getText().toString().equals("")) {
-            Snackbar.make(view, "Invalid Workout Length", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else if (dateResult.equals("") && !typeOfAdd.equals("plan")) {
-            Snackbar.make(view, "Invalid Date", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else if (timeResult.equals("") && !typeOfAdd.equals("plan")) {
-            Snackbar.make(view, "Invalid Time", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else if (cardioSwitch.isChecked() && (cardioDistance.getText().toString().equals("") || cardioAvgSpeed.getText().toString().equals(""))) {
-            Snackbar.make(view, "Invalid Cardio Input", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else if (sportSwitch.isChecked() && (sportIntensity.getText().toString().equals("") || sportType.getText().toString().equals(""))) {
-            Snackbar.make(view, "Invalid Sport Input", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else {
-            // input ok
+        if (validityCheck(view)) {
             if (typeOfAdd.equals("update")) {
-                // want to update stuff
-                map.put("query_type", "special_change");
-                map.put("extra", "DELETE FROM cardio WHERE workoutid = " + workoutId.getText().toString());
-                qe = new QueryExecutable(map);
-                qe.run();
+                // we wanted to update but add button was pressed aka now we want to add a duplicate entry
+                if (workoutDesc.getText().toString().equals(prevValues.get("description"))) {
+                    if (workoutCaloriesBurnt.getText().toString().equals(prevValues.get("caloriesBurnt"))) {
+                        if (workoutLength.getText().toString().equals(prevValues.get("length"))) {
+                            if (dateResult.equals(prevValues.get("date"))) {
+                                if (timeResult.equals(prevValues.get("time"))) {
+                                    if (cardioSwitch.isChecked() && prevValues.get("isCardio").equals("true")) {
+                                        if (cardioDistance.getText().toString().equals(prevValues.get("cardioValue"))) {
+                                            if (cardioAvgSpeed.getText().toString().equals(prevValues.get("cardioAvgSpeed"))) {
+                                                // okay - every value is the same, use same ID
+                                                addDuplicate();
+                                                return;
+                                            }
+                                        }
+                                    } else if (sportSwitch.isChecked() && prevValues.get("isSport").equals("true")) {
+                                        if (sportIntensity.getText().toString().equals(prevValues.get("sportIntensity"))) {
+                                            if (sportType.getText().toString().equals(prevValues.get("sportType"))) {
+                                                // okay - every value is the same, use same ID
+                                                addDuplicate();
+                                                return;
+                                            }
+                                        }
+                                    } else if (!cardioSwitch.isChecked() && !sportSwitch.isChecked() && prevValues.get("isCardio").equals("false") && prevValues.get("isSport").equals("false")) {
+                                        // okay - every value is the same, use same ID
+                                        addDuplicate();
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
-                map.clear();
-                map.put("query_type", "special_change");
-                map.put("extra", "DELETE FROM sport WHERE workoutid = " + workoutId.getText().toString());
-                qe = new QueryExecutable(map);
-                qe.run();
-
-                map.clear();
-                map.put("query_type", "special_change");
-                map.put("extra", "UPDATE Workout SET description = '" + workoutDesc.getText().toString() + "', caloriesburnt = " + workoutCaloriesBurnt.getText().toString() + ", timeworkout = " + workoutLength.getText().toString() + " WHERE workoutid = " + workoutId.getText().toString());
-                qe = new QueryExecutable(map);
-                qe.run();
+                // not okay - every value is not the same, use new ID aka just continue with normal code below
             }
 
-            if (!typeOfAdd.equals("update")) {
-                map.put("query_type", "special_change");
-                map.put("extra", "INSERT INTO workout VALUES (" + workoutId.getText().toString() + ", '"
-                        + workoutDesc.getText().toString() + "', " + workoutCaloriesBurnt.getText().toString() + ", "
-                        + workoutLength.getText().toString() + ")");
-                qe = new QueryExecutable(map);
-                qe.run();
+            map.clear();
+            map.put("query_type", "special");
+            map.put("extra", "SELECT MAX(workoutid) FROM workout");
+            qe = new QueryExecutable(map);
+            JSONArray ans = qe.run();
+            try {
+                workoutId = Integer.parseInt(ans.getJSONObject(0).getString("MAX(WORKOUTID)")) + 1;
+                System.out.println(workoutId);
+            } catch (JSONException e) {
+                workoutId = new Random().nextInt();
+                e.printStackTrace();
             }
+
+            map.clear();
+            map.put("query_type", "special_change");
+            map.put("extra", "INSERT INTO workout VALUES (" + workoutId + ", '"
+                    + workoutDesc.getText().toString() + "', " + workoutCaloriesBurnt.getText().toString() + ", "
+                    + workoutLength.getText().toString() + ")");
+            qe = new QueryExecutable(map);
+            qe.run();
 
             if (cardioSwitch.isChecked()) {
                 map.clear();
                 map.put("query_type", "special_change");
-                map.put("extra", "INSERT INTO cardio VALUES (" + workoutId.getText().toString() + ", "
+                map.put("extra", "INSERT INTO cardio VALUES (" + workoutId + ", "
                         + cardioDistance.getText().toString() + ", " + cardioAvgSpeed.getText().toString() + ")");
                 qe = new QueryExecutable(map);
                 qe.run();
             } else if (sportSwitch.isChecked()) {
                 map.clear();
                 map.put("query_type", "special_change");
-                map.put("extra", "INSERT INTO sport VALUES (" + workoutId.getText().toString() + ", "
+                map.put("extra", "INSERT INTO sport VALUES (" + workoutId + ", "
                         + sportIntensity.getText().toString() + ", '" + sportType.getText().toString() + "')");
                 qe = new QueryExecutable(map);
                 qe.run();
             }
 
-            if (!typeOfAdd.equals("plan") && !typeOfAdd.equals("update")) {
+            if (!typeOfAdd.equals("plan")) {
                 map.clear();
                 map.put("query_type", "special_change");
-                map.put("extra", "INSERT INTO ExerciseLogEntry VALUES (" + workoutId.getText().toString()
+                map.put("extra", "INSERT INTO ExerciseLogEntry VALUES (" + workoutId
                         + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'))");
                 qe = new QueryExecutable(map);
                 qe.run();
@@ -230,17 +271,14 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
                 map.clear();
                 map.put("query_type", "special_change");
                 map.put("extra", "INSERT INTO UserExerciseLog VALUES ('" + getIntent().getStringExtra("username")
-                        + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId.getText().toString() + ")");
+                        + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId + ")");
                 qe = new QueryExecutable(map);
                 qe.run();
-            } else if (typeOfAdd.equals("plan")) {
+            } else {
                 addToPlan();
             }
 
-            if (typeOfAdd.equals("update")) {
-                Toast.makeText(this, "Successfully updated exercise log entry", Toast.LENGTH_SHORT).show();
-                finish();
-            } else if (typeOfAdd.equals("new")) {
+            if (!typeOfAdd.equals("plan")) {
                 Toast.makeText(this, "Successfully added new exercise log entry", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -249,25 +287,25 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
 
     private void prefillWithExtras() {
         String username = getIntent().getStringExtra("username");
-        String id = getIntent().getStringExtra("workoutId");
+        workoutId = Integer.parseInt(getIntent().getStringExtra("workoutId"));
         String timestamp = getIntent().getStringExtra("timestampString");
         String exerciseType = "";
 
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout, c.distance, c.avgspeed FROM workout w, exerciselogentry ele, userexerciselog uel, cardio c WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND w.workoutid = c.workoutid AND uel.username = '" + username + "' AND w.workoutid = '" + id + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
+        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout, c.distance, c.avgspeed FROM workout w, exerciselogentry ele, userexerciselog uel, cardio c WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND w.workoutid = c.workoutid AND uel.username = '" + username + "' AND w.workoutid = '" + workoutId + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray cardioAns = qe.run();
 
         map.clear();
         map.put("query_type", "special");
-        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout, s.intensity, s.sporttype FROM workout w, exerciselogentry ele, userexerciselog uel, sport s WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND w.workoutid = s.workoutid AND uel.username = '" + username + "' AND w.workoutid = '" + id + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
+        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout, s.intensity, s.sporttype FROM workout w, exerciselogentry ele, userexerciselog uel, sport s WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND w.workoutid = s.workoutid AND uel.username = '" + username + "' AND w.workoutid = '" + workoutId + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
         qe = new QueryExecutable(map);
         JSONArray sportAns = qe.run();
 
         map.clear();
         map.put("query_type", "special");
-        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND w.workoutid = '" + id + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
+        map.put("extra", "SELECT w.workoutid, ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '" + username + "' AND w.workoutid = '" + workoutId + "' AND ele.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
         qe = new QueryExecutable(map);
         JSONArray regularAns = qe.run();
 
@@ -290,7 +328,6 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
 
         try {
             JSONObject o = finalAns.getJSONObject(0);
-            workoutId.setText(id);
             workoutDesc.setText(o.getString("DESCRIPTION"));
             workoutCaloriesBurnt.setText(o.getString("CALORIESBURNT"));
             workoutLength.setText(o.getString("TIMEWORKOUT"));
@@ -311,7 +348,17 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             timeResult = ldt.toString("HH:mm:00", Locale.ENGLISH);
             selectedTimeLabel.setText(ldt.toString("hh:mm aa", Locale.ENGLISH));
 
-            ((TextView) findViewById(R.id.add_exercise_submit_button)).setText(R.string.update_existing_exercise);
+            prevValues.put("description", o.getString("DESCRIPTION"));
+            prevValues.put("caloriesBurnt", o.getString("CALORIESBURNT"));
+            prevValues.put("length", o.getString("TIMEWORKOUT"));
+            prevValues.put("date", dateResult);
+            prevValues.put("time", timeResult);
+            prevValues.put("isCardio", cardioSwitch.isChecked() ? "true" : "false");
+            prevValues.put("cardioDistance", cardioSwitch.isChecked() ? o.getString("DISTANCE") : "");
+            prevValues.put("cardioAvgSpeed", cardioSwitch.isChecked() ? o.getString("AVGSPEED") : "");
+            prevValues.put("isSport", sportSwitch.isChecked() ? "true" : "false");
+            prevValues.put("sportIntensity", sportSwitch.isChecked() ? o.getString("INTENSITY") : "");
+            prevValues.put("sportType", sportSwitch.isChecked() ? o.getString("SPORTTYPE") : "");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -322,19 +369,19 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         QueryExecutable qe;
 
         map.put("query_type", "special_change");
-        map.put("extra", "DELETE FROM cardio WHERE workoutid = " + workoutId.getText().toString());
+        map.put("extra", "DELETE FROM cardio WHERE workoutid = " + workoutId);
         qe = new QueryExecutable(map);
         qe.run();
 
         map.clear();
         map.put("query_type", "special_change");
-        map.put("extra", "DELETE FROM sport WHERE workoutid = " + workoutId.getText().toString());
+        map.put("extra", "DELETE FROM sport WHERE workoutid = " + workoutId);
         qe = new QueryExecutable(map);
         qe.run();
 
         map.clear();
         map.put("query_type", "special_change");
-        map.put("extra", "DELETE FROM UserExerciseLog WHERE workoutid = " + workoutId.getText().toString()
+        map.put("extra", "DELETE FROM UserExerciseLog WHERE workoutid = " + workoutId
                 + " AND logtime = TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS') AND username = '"
                 + username + "'");
         qe = new QueryExecutable(map);
@@ -342,12 +389,104 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
 
         map.clear();
         map.put("query_type", "special_change");
-        map.put("extra", "DELETE FROM ExerciseLogEntry WHERE workoutid = " + workoutId.getText().toString()
+        map.put("extra", "DELETE FROM ExerciseLogEntry WHERE workoutid = " + workoutId
                 + " AND logtime = TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')");
         qe = new QueryExecutable(map);
         qe.run();
 
         Toast.makeText(this, "Successfully deleted exercise log entry", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    public void updateWorkout(View view) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        QueryExecutable qe;
+
+        if (validityCheck(view)) {
+            map.put("query_type", "special_change");
+            map.put("extra", "DELETE FROM cardio WHERE workoutid = " + workoutId);
+            qe = new QueryExecutable(map);
+            qe.run();
+
+            map.clear();
+            map.put("query_type", "special_change");
+            map.put("extra", "DELETE FROM sport WHERE workoutid = " + workoutId);
+            qe = new QueryExecutable(map);
+            qe.run();
+
+            map.clear();
+            map.put("query_type", "special_change");
+            map.put("extra", "UPDATE Workout SET description = '" + workoutDesc.getText().toString() + "', caloriesburnt = " + workoutCaloriesBurnt.getText().toString() + ", timeworkout = " + workoutLength.getText().toString() + " WHERE workoutid = " + workoutId);
+            qe = new QueryExecutable(map);
+            qe.run();
+
+            if (cardioSwitch.isChecked()) {
+                map.clear();
+                map.put("query_type", "special_change");
+                map.put("extra", "INSERT INTO cardio VALUES (" + workoutId + ", "
+                        + cardioDistance.getText().toString() + ", " + cardioAvgSpeed.getText().toString() + ")");
+                qe = new QueryExecutable(map);
+                qe.run();
+            } else if (sportSwitch.isChecked()) {
+                map.clear();
+                map.put("query_type", "special_change");
+                map.put("extra", "INSERT INTO sport VALUES (" + workoutId + ", "
+                        + sportIntensity.getText().toString() + ", '" + sportType.getText().toString() + "')");
+                qe = new QueryExecutable(map);
+                qe.run();
+            }
+
+            Toast.makeText(this, "Successfully updated exercise log entry", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    private boolean validityCheck(View view) {
+        if (workoutDesc.getText().toString().equals("")) {
+            Snackbar.make(view, "Invalid Workout Description", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return false;
+        } else if (workoutCaloriesBurnt.getText().toString().equals("")) {
+            Snackbar.make(view, "Invalid Number of Calories Burnt", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return false;
+        } else if (workoutLength.getText().toString().equals("")) {
+            Snackbar.make(view, "Invalid Workout Length", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return false;
+        } else if (dateResult.equals("") && !typeOfAdd.equals("plan")) {
+            Snackbar.make(view, "Invalid Date", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return false;
+        } else if (timeResult.equals("") && !typeOfAdd.equals("plan")) {
+            Snackbar.make(view, "Invalid Time", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return false;
+        } else if (cardioSwitch.isChecked() && (cardioDistance.getText().toString().equals("") || cardioAvgSpeed.getText().toString().equals(""))) {
+            Snackbar.make(view, "Invalid Cardio Input", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return false;
+        } else if (sportSwitch.isChecked() && (sportIntensity.getText().toString().equals("") || sportType.getText().toString().equals(""))) {
+            Snackbar.make(view, "Invalid Sport Input", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void addDuplicate() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        QueryExecutable qe;
+
+        map.clear();
+        map.put("query_type", "special_change");
+        map.put("extra", "INSERT INTO ExerciseLogEntry VALUES (" + workoutId
+                + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'))");
+        qe = new QueryExecutable(map);
+        qe.run();
+
+        map.clear();
+        map.put("query_type", "special_change");
+        map.put("extra", "INSERT INTO UserExerciseLog VALUES ('" + getIntent().getStringExtra("username")
+                + "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS')," + workoutId + ")");
+        qe = new QueryExecutable(map);
+        qe.run();
+
+        Toast.makeText(this, "Successfully added new exercise log entry", Toast.LENGTH_SHORT).show();
         finish();
     }
 
