@@ -17,8 +17,10 @@ Here are some features that we've currently implemented:
   * Accounts require unique usernames just like every other account thing out there (wow look at us go with these features)
 * Meal and exercise tracking
   * Meal and exercise logs for the user are populated from the database and displayed in a nice table that is searchable by description terms and sortable ascending or descending by any column so you can see which meals you got the most calories from and yell at yourself internally (searching and sorting are both done with SQL queries since this is a databases course even though it isn't efficient)
-  * Ability to add new meal or exercise log entry for that mediocre pasta you made yourself for dinner or that sweaty basketball game you had earlier today
+  * Ability to add new meal or exercise log entries for that mediocre pasta you made yourself for dinner or that sweaty basketball game you had earlier today
   * Ability to edit an existing meal or exercise log entry in case you spelt "basketball" as "took a nap" by accident
+  * Ability to delete an existing meal or exercise log entry in case your showing your friends your log and don't want to expose that you ate McDonald's for all 3 meals yesterday
+  * Ability to duplicate an existing meal or exercise log entry in case you ate the same meal for 5 days in the row
 * Sleep tracking
   * Graphs created (with external library) using user's sleep data from the database so you can visualize your weekly patterns of exactly when you decided you've played enough League of Legends and should probably sleep
   * Ability to create new sleep logs so you can look back at your sleep patterns when you wonder why you're tired all the time
@@ -31,8 +33,7 @@ Here are some features that we've currently implemented:
 
 Here are some features that we'll be implementing very very soon:
 * Dashboard graphs and summaries
-* Add new diet/workout plans
-* Edit/delete existing meal/exercise logs and diet/workout plans
+* Add/edit/delete diet/workout plans
 * Consultant version of app with list of users and plans
 * Cleaning up code and names, minimising coupling, maximizing cohesion, adding comments for readability
 
