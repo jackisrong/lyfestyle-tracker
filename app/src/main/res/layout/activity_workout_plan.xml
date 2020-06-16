@@ -6,4 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".WorkoutPlan">
 
+    <ScrollView
+        android:id="@+id/exercise_plans_scroll_container"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_plans_headers_row">
+
+        <LinearLayout
+            android:id="@+id/exercise_plans_row_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/exercise_plans_main_table"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
