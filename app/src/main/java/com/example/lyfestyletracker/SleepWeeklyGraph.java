@@ -94,7 +94,7 @@ public class SleepWeeklyGraph extends Fragment {
     protected void updateWeeklyGraph(View v){
         Map<String,Object> map = new LinkedHashMap<>();
 
-        BarChart barChart = v.findViewById(R.id.BarChart1);
+        BarChart barChart = v.findViewById(R.id.weekly_bar_chart);
         barChart.clear();
 
 
@@ -130,7 +130,7 @@ public class SleepWeeklyGraph extends Fragment {
 
         }
 
-        String[] days = {"Mon.","Tue.","Wed.","Thu.","Fri.","Sat.","Sun."};
+        String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 
         for (int i = 0; i < days.length; i ++){
             if (sleepTimes.containsKey(days[i])){
@@ -147,6 +147,8 @@ public class SleepWeeklyGraph extends Fragment {
         data.setBarWidth(0.9f);
 
         barChart.setData(data);
+        barChart.getAxisLeft().setAxisMinimum(0);
+        barChart.getAxisRight().setAxisMinimum(0);
         barChart.getDescription().setEnabled(false);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new XaxisValueFormatter(days));

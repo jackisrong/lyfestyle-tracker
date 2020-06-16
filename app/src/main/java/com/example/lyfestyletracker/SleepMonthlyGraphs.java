@@ -132,10 +132,6 @@ public class SleepMonthlyGraphs extends Fragment {
         barChart3.getAxisLeft().setAxisMinimum(0);
         barChart2.getAxisRight().setAxisMinimum(0);
         barChart3.getAxisRight().setAxisMinimum(0);
-
-
-
-
     }
 
     @Override
