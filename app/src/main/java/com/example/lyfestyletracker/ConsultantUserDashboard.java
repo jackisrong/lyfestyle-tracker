@@ -1,6 +1,5 @@
 package com.example.lyfestyletracker;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,7 +23,7 @@ public class ConsultantUserDashboard extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab_diet);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

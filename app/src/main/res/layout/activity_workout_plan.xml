@@ -1,33 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WorkoutPlan">
+    tools:context=".DietPlan">
+
+
+    <SearchView
+        android:id="@+id/workout_plan_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:iconifiedByDefault="true"
+        android:queryHint="Search based on description..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <TableRow
+        android:id="@+id/workout_plan_headers_row"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:weightSum="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workout_plan_search_view">
+
+        <TextView
+            android:id="@+id/workout_plan_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.28"
+            android:drawableLeft="@android:drawable/arrow_down_float"
+            android:gravity="center"
+            android:tag="desc"
+            android:text="@string/add_exercise_workout_id_label"
+            android:textColor="@android:color/primary_text_dark" />
+
+        <TextView
+            android:id="@+id/workout_plan_description"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.36"
+            android:gravity="center"
+            android:tag="placeholder"
+            android:text="@string/add_exercise_description_label"
+            android:textColor="@android:color/primary_text_dark" />
+
+        <TextView
+            android:id="@+id/workout_plan_calories_burnt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:tag="placeholder"
+            android:text="@string/add_exercise_calories_burnt_label"
+            android:textColor="@android:color/primary_text_dark" />
+
+        <TextView
+            android:id="@+id/workout_plan_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:tag="placeholder"
+            android:text="@string/exercise_log_header_time"
+            android:textColor="@android:color/primary_text_dark" />
+
+    </TableRow>
 
     <ScrollView
-        android:id="@+id/exercise_plans_scroll_container"
+        android:id="@+id/workout_plan_scroll_container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exercise_plans_headers_row">
+        app:layout_constraintTop_toBottomOf="@+id/workout_plan_headers_row">
 
         <LinearLayout
-            android:id="@+id/exercise_plans_row_container"
+            android:id="@+id/workout_plan_row_container"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TableLayout
-                android:id="@+id/exercise_plans_main_table"
+                android:id="@+id/workout_plan_main_table"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
             </TableLayout>
         </LinearLayout>
     </ScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_workout_plan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:tint="@android:color/primary_text_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteY="15dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

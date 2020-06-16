@@ -78,3 +78,6 @@ map.put(
 "SELECT planId, createdByUsername, weeklyCalories FROM Plan, Diet WHERE createdByUsername = '" + username + "' AND planId = dietId"
 
 "SELECT planID, consultantUsername as createdByUsername, logTime FROM ConsultantSuggestsPlan WHERE userUsername = '" + username + "' "
+
+
+"Select m.mealId, ml.logTime, m.description, m.servingSizeGrams, m.type From DietContainsMealLog dcm, Meal m, MealLogEntry ml WHERE dcm.dietID = " + dietPlanID +" AND ml.logTime = dcm.logTime AND ml.mealId = dcm.mealId AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder

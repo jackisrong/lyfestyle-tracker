@@ -314,6 +314,22 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
 
         if (view.getClass().equals(TableRow.class)) {
 
+            if (type.equals("workout")){
+
+                Intent intent = new Intent(getActivity(), WorkoutPlan.class);
+                intent.putExtra("username", username);
+                intent.putExtra("workoutId", Integer.parseInt((String) view.getTag()));
+                startActivity(intent);
+            }else if(type.equals("diet")){
+                Intent intent = new Intent(getActivity(), DietPlan.class);
+                intent.putExtra("username", username);
+                intent.putExtra("dietId", Integer.parseInt((String) view.getTag()));
+                startActivity(intent);
+
+            }else {
+
+            }
+
             /*
             String workoutId = (String) view.getTag();
             TextView time = (TextView) ((TableRow) view).getChildAt(0);
@@ -330,7 +346,6 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
             startActivity(intent);
             */
 
-            System.out.println("click");
         }
     }
 }
