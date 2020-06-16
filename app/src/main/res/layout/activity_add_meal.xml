@@ -30,18 +30,6 @@
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_protein" />
 
     <EditText
-        android:id="@+id/enter_meal_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/enter_meal_id"
-        android:inputType="number"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
         android:id="@+id/enter_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,12 +77,13 @@
         android:id="@+id/enter_meal_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/enter_meal_type"
         android:inputType="text"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/enter_meal_id" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/add_date_button_meal"
@@ -108,17 +97,6 @@
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_serving_num" />
 
     <Button
-        android:id="@+id/add_meal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addMeal"
-        android:text="@string/add_meal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_meal_selected_date" />
-
-    <Button
         android:id="@+id/add_time_button_meal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -129,13 +107,37 @@
         app:layout_constraintStart_toEndOf="@+id/add_date_button_meal"
         app:layout_constraintTop_toBottomOf="@+id/enter_meal_serving_num" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/add_meal_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_meal_id_label"
-        app:layout_constraintBaseline_toBaselineOf="@+id/enter_meal_id"
-        app:layout_constraintEnd_toStartOf="@+id/enter_meal_serving_num" />
+        android:onClick="addMeal"
+        android:text="@string/add_meal"
+        app:layout_constraintBottom_toTopOf="@+id/delete_meal_button"
+        app:layout_constraintEnd_toStartOf="@+id/update_meal_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_meal_selected_date" />
+
+    <Button
+        android:id="@+id/update_meal_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="updateMeal"
+        android:text="@string/update_meal_button_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/add_meal_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/add_meal_button" />
+
+    <Button
+        android:id="@+id/delete_meal_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteMeal"
+        android:text="@string/delete_meal_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_meal_button" />
 
     <TextView
         android:id="@+id/textView3"

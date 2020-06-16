@@ -126,6 +126,8 @@
     <string name="suggest_plan">Suggest Plan</string>
     <string name="customers">Customers:</string>
 
+    <string name="update_meal_button_text">Update Meal</string>
+    <string name="delete_meal_button_text">Delete Meal</string>
 
     <string-array name="planets_array">
         <item>1</item>

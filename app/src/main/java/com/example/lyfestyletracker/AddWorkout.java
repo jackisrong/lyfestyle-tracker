@@ -191,30 +191,26 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
                 if (workoutDesc.getText().toString().equals(prevValues.get("description"))) {
                     if (workoutCaloriesBurnt.getText().toString().equals(prevValues.get("caloriesBurnt"))) {
                         if (workoutLength.getText().toString().equals(prevValues.get("length"))) {
-                            if (dateResult.equals(prevValues.get("date"))) {
-                                if (timeResult.equals(prevValues.get("time"))) {
-                                    if (cardioSwitch.isChecked() && prevValues.get("isCardio").equals("true")) {
-                                        if (cardioDistance.getText().toString().equals(prevValues.get("cardioValue"))) {
-                                            if (cardioAvgSpeed.getText().toString().equals(prevValues.get("cardioAvgSpeed"))) {
-                                                // okay - every value is the same, use same ID
-                                                addDuplicate();
-                                                return;
-                                            }
-                                        }
-                                    } else if (sportSwitch.isChecked() && prevValues.get("isSport").equals("true")) {
-                                        if (sportIntensity.getText().toString().equals(prevValues.get("sportIntensity"))) {
-                                            if (sportType.getText().toString().equals(prevValues.get("sportType"))) {
-                                                // okay - every value is the same, use same ID
-                                                addDuplicate();
-                                                return;
-                                            }
-                                        }
-                                    } else if (!cardioSwitch.isChecked() && !sportSwitch.isChecked() && prevValues.get("isCardio").equals("false") && prevValues.get("isSport").equals("false")) {
+                            if (cardioSwitch.isChecked() && prevValues.get("isCardio").equals("true")) {
+                                if (cardioDistance.getText().toString().equals(prevValues.get("cardioValue"))) {
+                                    if (cardioAvgSpeed.getText().toString().equals(prevValues.get("cardioAvgSpeed"))) {
                                         // okay - every value is the same, use same ID
                                         addDuplicate();
                                         return;
                                     }
                                 }
+                            } else if (sportSwitch.isChecked() && prevValues.get("isSport").equals("true")) {
+                                if (sportIntensity.getText().toString().equals(prevValues.get("sportIntensity"))) {
+                                    if (sportType.getText().toString().equals(prevValues.get("sportType"))) {
+                                        // okay - every value is the same, use same ID
+                                        addDuplicate();
+                                        return;
+                                    }
+                                }
+                            } else if (!cardioSwitch.isChecked() && !sportSwitch.isChecked() && prevValues.get("isCardio").equals("false") && prevValues.get("isSport").equals("false")) {
+                                // okay - every value is the same, use same ID
+                                addDuplicate();
+                                return;
                             }
                         }
                     }
