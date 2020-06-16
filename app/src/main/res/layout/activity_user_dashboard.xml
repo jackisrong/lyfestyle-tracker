@@ -186,6 +186,15 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_dashboard_welcome_prompt" />
+
+            <TextView
+                android:id="@+id/weekly_calSum"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/weekly_calories"
+                app:layout_constraintBottom_toTopOf="@+id/enter_age"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
