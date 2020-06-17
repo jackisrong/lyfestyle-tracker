@@ -49,7 +49,7 @@ public class ConsultantUserList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            username = getArguments().getString(username);
+            username = getArguments().getString("username");
         }
     }
 
@@ -68,7 +68,6 @@ public class ConsultantUserList extends Fragment {
         map.put("extra", "Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" + username + "'");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
-        System.out.println(ans);
 
         TableLayout mainTable = thisView.findViewById(R.id.user_log_main_table);
         mainTable.removeAllViews();
