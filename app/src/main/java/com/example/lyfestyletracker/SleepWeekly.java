@@ -29,10 +29,10 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SleepWeeklyGraph#newInstance} factory method to
+ * Use the {@link SleepWeekly#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SleepWeeklyGraph extends Fragment {
+public class SleepWeekly extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +45,7 @@ public class SleepWeeklyGraph extends Fragment {
     private String username;
     private View thisView;
 
-    public SleepWeeklyGraph() {
+    public SleepWeekly() {
         // Required empty public constructor
     }
 
@@ -58,8 +58,8 @@ public class SleepWeeklyGraph extends Fragment {
      * @return A new instance of fragment SleepTab1.
      */
     // TODO: Rename and change types and number of parameters
-    public static SleepWeeklyGraph newInstance(String param1, String param2, String username) {
-        SleepWeeklyGraph fragment = new SleepWeeklyGraph();
+    public static SleepWeekly newInstance(String param1, String param2, String username) {
+        SleepWeekly fragment = new SleepWeekly();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -84,7 +84,7 @@ public class SleepWeeklyGraph extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        thisView  = inflater.inflate(R.layout.fragment_sleep_tab1, container, false);
+        thisView  = inflater.inflate(R.layout.fragment_sleep_weekly, container, false);
         updateWeeklyGraph(thisView);
         return thisView;
 
