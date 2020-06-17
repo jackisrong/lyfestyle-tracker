@@ -91,6 +91,8 @@ public class UserConsultantsList extends Fragment {
 
         TableLayout mainTable = thisView.findViewById(R.id.consultant_log_main_table);
 
+        mainTable.removeAllViews();
+
         if (ans == null) {
             return;
         }
@@ -137,6 +139,8 @@ public class UserConsultantsList extends Fragment {
             }
         }
     }
+
+
 
     @Override
     public void onResume() {

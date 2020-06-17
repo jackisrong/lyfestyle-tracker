@@ -82,6 +82,7 @@ public class ConsultantUserList extends Fragment {
         System.out.println(ans);
 
         TableLayout mainTable = thisView.findViewById(R.id.user_log_main_table);
+        mainTable.removeAllViews();
 
         if (ans == null) {
             return;
