@@ -41,7 +41,7 @@ public class FoodSectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = FoodLog.newInstance(username, "", username);
                 break;
             case 1:
-                fragment = ExerciseWorkoutPlans.newInstance(username, "diet");
+                fragment = ExerciseWorkoutPlans.newInstance(username, "diet" , "");
                 break;
             default:
                 fragment = null;

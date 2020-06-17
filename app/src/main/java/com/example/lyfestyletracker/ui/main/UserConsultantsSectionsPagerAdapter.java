@@ -40,7 +40,7 @@ public class UserConsultantsSectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = UserConsultantsList.newInstance(username, "");
                 break;
             case 1:
-                fragment = ExerciseWorkoutPlans.newInstance(username, "suggested");
+                fragment = ExerciseWorkoutPlans.newInstance(username, "suggested", "consultant");
                 break;
             default:
                 fragment = null;

@@ -181,12 +181,13 @@
         android:id="@+id/delete_exercise_submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:onClick="deleteExercise"
         android:text="@string/delete_exercise"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_exercise_submit_button" />
+        app:layout_constraintTop_toBottomOf="@+id/add_to_workout_plan" />
 
     <Button
         android:id="@+id/add_date_button"
@@ -253,6 +254,17 @@
         android:text="@string/no_time_set_label"
         app:layout_constraintStart_toStartOf="@+id/add_time_button"
         app:layout_constraintTop_toBottomOf="@+id/add_time_button" />
+
+    <Button
+        android:id="@+id/add_to_workout_plan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="addWorkout"
+        android:text="@string/suggest_plan"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sport_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

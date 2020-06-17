@@ -42,10 +42,12 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
 
     // TODO: Rename and change types of parameters
     private String username;
     private String type;
+    private String consultant;
 
     private View thisView;
     private String searchTerm = "";
@@ -68,11 +70,12 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
      * @return A new instance of fragment ExerciseWorkoutPlans.
      */
     // TODO: Rename and change types and number of parameters
-    public static ExerciseWorkoutPlans newInstance(String param1, String param2) {
+    public static ExerciseWorkoutPlans newInstance(String param1, String param2, String param3) {
         ExerciseWorkoutPlans fragment = new ExerciseWorkoutPlans();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,6 +88,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
         if (getArguments() != null) {
             username = getArguments().getString(ARG_PARAM1);
             type = getArguments().getString(ARG_PARAM2);
+            consultant = getArguments().getString(ARG_PARAM3);
         }
 
         if (type.equals("workout")){
@@ -311,17 +315,19 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
 
         if (view.getClass().equals(TableRow.class)) {
 
+
+
+            Intent intent;
+
             if (type.equals("workout")){
 
-                Intent intent = new Intent(getActivity(), WorkoutPlan.class);
+                intent = new Intent(getActivity(), WorkoutPlan.class);
                 intent.putExtra("username", username);
                 intent.putExtra("workoutId", Integer.parseInt((String) view.getTag()));
-                startActivity(intent);
             }else if(type.equals("diet")){
-                Intent intent = new Intent(getActivity(), DietPlan.class);
+                intent = new Intent(getActivity(), DietPlan.class);
                 intent.putExtra("username", username);
                 intent.putExtra("dietId", Integer.parseInt((String) view.getTag()));
-                startActivity(intent);
 
             }else {
                 Map<String, Object> map = new LinkedHashMap<>();
@@ -330,18 +336,27 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
                 QueryExecutable qe = new QueryExecutable(map);
                 JSONArray ans = qe.run();
 
+
+
+
                 if (ans.length() > 0){
-                    Intent intent = new Intent(getActivity(), DietPlan.class);
+                    intent = new Intent(getActivity(), DietPlan.class);
                     intent.putExtra("username", username);
                     intent.putExtra("dietId", Integer.parseInt((String) view.getTag()));
-                    startActivity(intent);
+
                 }else {
-                    Intent intent = new Intent(getActivity(), WorkoutPlan.class);
+                    intent = new Intent(getActivity(), WorkoutPlan.class);
                     intent.putExtra("username", username);
                     intent.putExtra("workoutId", Integer.parseInt((String) view.getTag()));
-                    startActivity(intent);
                 }
+                intent.putExtra("fromConsultant", true);
             }
+
+
+            if (consultant.equals("consultant")){
+                intent.putExtra("consultant", true);
+            }
+            startActivity(intent);
 
         }
     }

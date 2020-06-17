@@ -83,6 +83,17 @@ public class WorkoutPlan extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.workout_plan_description).setOnClickListener(this);
         findViewById(R.id.workout_plan_calories_burnt).setOnClickListener(this);
         findViewById(R.id.workout_plan_time).setOnClickListener(this);
+
+        findViewById(R.id.fab_workout_plan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorkoutPlan.this, AddWorkout.class);
+                intent.putExtra("username", username);
+                intent.putExtra("planID", workoutPlanID);
+                intent.putExtra("type", "plan");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -139,24 +150,22 @@ public class WorkoutPlan extends AppCompatActivity implements View.OnClickListen
         }
 
         if (view.getClass().equals(TableRow.class)) {
-
-            /*
             String workoutId = (String) view.getTag();
-            TextView time = (TextView) ((TableRow) view).getChildAt(0);
-            String rawTime = time.getText().toString().replace("\n", " ");
-            LocalDateTime ldt = LocalDateTime.parse(rawTime, DateTimeFormat.forPattern("MMM dd yyyy hh:mm aa").withLocale(Locale.ENGLISH));
-            Timestamp ts = new Timestamp(ldt.toDateTime().getMillis());
-            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(ts);
+            LocalDateTime ld = new LocalDateTime();
+
+
 
             Intent intent = new Intent(this, AddWorkout.class);
             intent.putExtra("username", username);
             intent.putExtra("type", "update");
             intent.putExtra("workoutId", workoutId);
-            intent.putExtra("timestampString", timestamp);
-            startActivity(intent);\
+            intent.putExtra("consultant", getIntent().getBooleanExtra("consultant", false));
+            intent.putExtra("timestampString", ld.toString("yyyy-MM-dd HH:mm:ss"));
 
-             */
-
+            if (getIntent().getBooleanExtra("fromConsultant", false)){
+                intent.putExtra("fromConsultant", true);
+            }
+            startActivity(intent);
 
         }
     }
