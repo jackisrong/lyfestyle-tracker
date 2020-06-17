@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConsultantSuggestsPlan" />
+        <activity android:name=".consultant.ConsultantSuggestsPlan" />
         <activity android:name=".WorkoutPlan" />
         <activity android:name=".DietPlan" />
         <activity
-            android:name=".ui.login.CreateUserUser"
+            android:name=".ui.login.CreateNewUser"
             android:label="@string/title_activity_create_user_user"/>
         <activity
             android:name=".HireConsultant"
@@ -27,16 +27,14 @@
             android:name=".AddWorkout"
             android:label="@string/add_exercise" />
         <activity
-            android:name=".ui.login.CreateUserConsultant"
+            android:name=".ui.login.CreateNewConsultant"
             android:label="@string/title_activity_create_user_consultant"
             android:theme="@style/ConsultantAppTheme" />
         <activity
-            android:name=".ConsultantPlansDashboard"
-            android:label="@string/title_activity_consultant_plans"
+            android:name=".consultant.ConsultantPlansDashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ConsultantUserDashboard"
-            android:label="@string/title_activity_consultant_user_dashboard"
+            android:name=".consultant.ConsultantUserDashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddSleep"
@@ -58,7 +56,7 @@
             android:label="@string/exercise_dashboard_activity_title"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ConsultantDashboard"
+            android:name=".consultant.ConsultantDashboard"
             android:label="@string/consultant_dashboard_activity_title"
             android:theme="@style/ConsultantAppTheme" />
         <activity

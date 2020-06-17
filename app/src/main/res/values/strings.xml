@@ -1,99 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- global -->
     <string name="user_login_data_file_key">user_login_data</string>
-
     <string name="app_name">LyfeStyle Tracker</string>
+    <string name="lyfestyle_icon">LyfestyleICON</string>
+
+    <!-- login -->
     <string name="login_title_text">Welcome to LyfeStyle Fitness Tracker!</string>
     <string name="login_is_consultant_toggle">Consultant?</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="username">Username</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="remember_me_switch">Bypass Login</string>
+    <string name="login_failed">Login Failed</string>
 
-    <string name="sleep_activity_title">Sleep</string>
-    <string name="monthly">monthly</string>
-    <string name="weekly">weekly</string>
+    <!-- sign up -->
+    <string name="title_activity_create_user_user">Create New User Account</string>
+    <string name="title_activity_create_user_consultant">Create New Consultant Account</string>
+    <string name="signupPrompt">Register for LyfeStyle Tracking</string>
+    <string name="CreateAccount">Create Account</string>
+    <string name="peopleName">Name</string>
+    <string name="Confirm_Password">Confirm Password</string>
+    <string name="Sign_UP">Register Account</string>
+    <string name="person_age">Age</string>
+    <string name="person_height">Height (cm)</string>
+    <string name="person_weight">Current Weight (lbs)</string>
+    <string name="consultant_su">[Consultant]</string>
 
+    <!-- user navbar -->
     <string name="dashboard_activity_title">Dashboard</string>
     <string name="dashboard_nav_button_food">Food</string>
     <string name="dashboard_nav_button_workouts">Exercise</string>
     <string name="dashboard_nav_button_sleep">Sleep</string>
     <string name="dashboard_nav_button_consultant">Consultants</string>
 
-    <string name="consultant_user_tab_text_1">All Clients</string>
-    <string name="consultant_user_tab_text_2">Clients with all Plans</string>
-    <string name="consultant_dashboard_activity_title">Consultant Dashboard</string>
+    <!-- user dashboard -->
+    <string name="age_label">Age</string>
+    <string name="weight_label">Weight (lbs)</string>
+    <string name="height_label">Height (cm)</string>
+    <string name="update_dashboard_data_message">Update Details</string>
+    <string name="logout_button">Log Out</string>
+    <string name="weekly_calories">User Weekly Calories</string>
+
+    <!-- exercise -->
     <string name="exercise_dashboard_activity_title">Exercise</string>
+    <!-- exercise log -->
     <string name="exercise_tab_text_1">Exercise Log</string>
     <string name="exercise_log_header_time">Time</string>
     <string name="exercise_log_header_description">Description</string>
     <string name="exercise_log_header_calories_burnt">Cals\nBurnt</string>
     <string name="exercise_log_header_length">Length\n(min)</string>
-    <string name="exercise_tab_text_2">Workout Plans</string>
-    <string name="food_dashboard_activity_title">Food</string>
-    <string name="food_tab_text_1">Meal Log</string>
-    <string name="food_tab_text_2">Diet Plans</string>
-    <string name="sleep_dashboard_activity_title">Sleep</string>
-    <string name="sleep_tab_text_1">Weekly</string>
-    <string name="sleep_tab_text_2">Monthly</string>
-    <string name="user_consultants_dashboard_activity_title">Consultants</string>
-    <string name="user_consultants_tab_text_1">Consultants</string>
-    <string name="user_consultants_tab_text_2">Suggested Plans</string>
-    <string name="title_activity_add_sleep_entry">Add Sleep</string>
-    <string name="add_entry">Add Entry</string>
-    <string name="sleep_time">Sleep Length (hr)</string>
-    <string name="sleep_rating">Sleep Rating</string>
-    <string name="clients">Clients</string>
-    <string name="my_plans">My Plans</string>
-    <string name="delete_account">Delete Account</string>
-    <string name="total_calories">Total Calories</string>
-    <string name="number_of_servings"># Servings</string>
-    <string name="type">Type</string>
-    <string name="username">Username</string>
-    <string name="rating">Rating</string>
-    <string name="company">Company</string>
-    <string name="plans">Plans</string>
-    <string name="email">Email</string>
-    <string name="contract_number">Contract No.</string>
-    <string name="num_servings"># of\nServings</string>
-    <string name="age_label">Age</string>
-    <string name="weight_label">Weight (lbs)</string>
-    <string name="height_label">Height (cm)</string>
-    <string name="age_message">Enter New Age</string>
-    <string name="weight_message">Enter New Weight</string>
-    <string name="height_message">Enter New Height</string>
-    <string name="update_dashboard_data_message">Update Details</string>
-    <string name="logout_button">Log Out</string>
-    <string name="add_time">Set Time</string>
-    <string name="enter_workout_id">Enter Workout ID</string>
+    <!-- add exercise -->
     <string name="enter_description">Enter Description</string>
     <string name="enter_calories_burnt">Enter Calories Burnt</string>
     <string name="enter_workout_time">Enter Exercise Length</string>
     <string name="submit_new_exercise">Add Exercise</string>
+    <string name="add_exercise">Add Exercise</string>
     <string name="update_existing_exercise">Update Exercise</string>
+    <string name="Add_date">Set Date</string>
+    <string name="add_time">Set Time</string>
     <string name="cardio_switch">Cardio?</string>
     <string name="sport_switch">Sport?</string>
-    <string name="add_exercise">Add Exercise</string>
-    <string name="add_meal">Add Meal</string>
-    <string name="enter_meal_id">Enter Meal ID</string>
-    <string name="enter_meal_desc">Enter Description</string>
-    <string name="enter_meal_serving_size">Enter Serving Size</string>
-    <string name="enter_meal_carbohydrates">Enter Carbohydrates</string>
-    <string name="enter_meal_type">Enter Type</string>
-    <string name="enter_meal_protein">Enter Protein</string>
-    <string name="enter_fat">Enter Fat</string>
-    <string name="enter_num_servings">Enter Servings Consumed</string>
-
-    <string name="available_consultants">Available consultants:</string>
-    <string name="hire_consultants">Hire Consultant</string>
-
-
     <string name="add_exercise_workout_id_label">Workout ID</string>
     <string name="add_exercise_description_label">Description</string>
     <string name="add_exercise_calories_burnt_label">Calories Burnt</string>
@@ -109,7 +78,24 @@
     <string name="add_exercise_sport_enter_intensity">Enter Intensity</string>
     <string name="add_exercise_sport_enter_type">Enter Sport Type</string>
     <string name="delete_exercise">Delete Exercise</string>
+    <!-- workout plans -->
+    <string name="exercise_tab_text_2">Workout Plans</string>
 
+    <!-- food -->
+    <string name="food_dashboard_activity_title">Food</string>
+    <!-- meal log -->
+    <string name="food_tab_text_1">Meal Log</string>
+    <string name="num_servings"># of\nServings</string>
+    <string name="type">Type</string>
+    <!-- add meal -->
+    <string name="enter_meal_desc">Enter Description</string>
+    <string name="enter_meal_serving_size">Enter Serving Size</string>
+    <string name="enter_meal_carbohydrates">Enter Carbohydrates</string>
+    <string name="enter_meal_type">Enter Type</string>
+    <string name="enter_meal_protein">Enter Protein</string>
+    <string name="enter_fat">Enter Fat</string>
+    <string name="enter_num_servings">Enter Servings Consumed</string>
+    <string name="add_meal">Add Meal</string>
     <string name="add_meal_id_label">Meal ID</string>
     <string name="add_meal_type_label">Type</string>
     <string name="add_meal_description_label">Description</string>
@@ -118,16 +104,23 @@
     <string name="add_meal_fat_label">Fat (g)</string>
     <string name="add_meal_protein_label">Protein (g)</string>
     <string name="add_meal_number_of_servings_label">Number of Servings</string>
-    <string name="companies_in_database">Companies:</string>
-    <string name="add_new_companies_text">Companies:</string>
-    <string name="add_new_company">Add New Company</string>
-    <string name="suggest_plan">Suggest Plan</string>
-    <string name="customers">Customers:</string>
-    <string name="add_to_plan">Add to Plan</string>
-
     <string name="update_meal_button_text">Update Meal</string>
     <string name="delete_meal_button_text">Delete Meal</string>
+    <!-- diets -->
+    <string name="food_tab_text_2">Diet Plans</string>
 
+    <!-- sleep -->
+    <string name="sleep_dashboard_activity_title">Sleep</string>
+    <string name="monthly">Monthly</string>
+    <string name="weekly">Weekly</string>
+    <string name="sleep_weekly_graph_title">Sleep for the Week</string>
+    <string name="sleep_monthly_avg_graph_title">Average Sleep per Night by Week for the Month</string>
+    <string name="sleep_monthly_sum_graph_title">Total Sleep by Week for the Month</string>
+    <!-- add sleep -->
+    <string name="title_activity_add_sleep_entry">Add Sleep</string>
+    <string name="add_entry">Add Entry</string>
+    <string name="sleep_time">Sleep Length (hr)</string>
+    <string name="sleep_rating">Sleep Rating</string>
     <string-array name="planets_array">
         <item>1</item>
         <item>2</item>
@@ -143,34 +136,32 @@
         <item>12</item>
     </string-array>
 
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
-    <string name="Add_date">Set Date</string>
-    <string name="Confirm_Password">Confirm Password</string>
-    <string name="Sign_UP">Register Account</string>
-    <string name="title_activity_consultant_user_dashboard">ConsultantUserDashboard</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="title_activity_consultant_plans">ConsultantPlans</string>
-    <string name="title_activity_create_user_consultant">Create New Consultant Account</string>
-    <string name="CreateAccount">Create Account</string>
-    <string name="peopleName">Name</string>
-    <string name="signupPrompt">Register for LyfeStyle Tracking</string>
-    <string name="consCompany">Company Name</string>
-    <string name="title_activity_create_user_user">Create New User Account</string>
-    <string name="person_age">Age</string>
-    <string name="person_height">Height (cm)</string>
-    <string name="person_weight">Current Weight (lbs)</string>
-    <string name="weekly_calories">User Weekly Calories</string>
-    <string name="consultant_su">[Consultant]</string>
-    <string name="lyfestyle_icon">LyfestyleICON</string>
-
-    <string name="sleep_weekly_graph_title">Sleep for the Week</string>
-    <string name="sleep_monthly_avg_graph_title">Average Sleep per Night by Week for the Month</string>
-    <string name="sleep_monthly_sum_graph_title">Total Sleep by Week for the Month</string>
+    <!-- consultants -->
     <string name="hire_consultant_activity_label">Hire Consultant</string>
+    <string name="user_consultants_dashboard_activity_title">Consultants</string>
+    <string name="user_consultants_tab_text_1">Consultants</string>
+    <string name="user_consultants_tab_text_2">Suggested Plans</string>
+    <string name="rating">Rating</string>
+    <string name="company">Company</string>
+    <string name="plans">Plans</string>
+    <string name="email">Email</string>
+    <string name="contract_number">Contract No.</string>
+    <string name="available_consultants">Available Consultants:</string>
+    <string name="hire_consultants">Hire Consultant</string>
+    <string name="consCompany">Company Name</string>
+
+    <!-- consultant dashboard -->
+    <string name="consultant_user_tab_text_1">All Clients</string>
+    <string name="consultant_user_tab_text_2">Clients with all Plans</string>
+    <string name="consultant_dashboard_activity_title">Consultant Dashboard</string>
+    <string name="clients">Clients</string>
+    <string name="my_plans">My Plans</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="companies_in_database">Companies:</string>
+    <string name="add_new_companies_text">Companies:</string>
+    <string name="add_new_company">Add New Company</string>
+    <string name="suggest_plan">Suggest Plan</string>
+    <string name="customers">Customers:</string>
+    <string name="add_to_plan">Add to Plan</string>
 
 </resources>

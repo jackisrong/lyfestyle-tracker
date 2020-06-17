@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker;
+package com.example.lyfestyletracker.consultant;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.lyfestyletracker.R;
 import com.example.lyfestyletracker.web.QueryExecutable;
 
 import org.json.JSONArray;
@@ -20,12 +21,12 @@ import org.json.JSONObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ConsultantUserDivision extends Fragment {
+public class ConsultantUserList extends Fragment {
 
     private String username;
     private View thisView;
 
-    public ConsultantUserDivision() {
+    public ConsultantUserList() {
         // Required empty public constructor
     }
 
@@ -34,11 +35,10 @@ public class ConsultantUserDivision extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param username username.
-     * @return A new instance of fragment.
+     * @return A new instance of fragment FoodDiets.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ConsultantUserDivision newInstance(String username) {
-        ConsultantUserDivision fragment = new ConsultantUserDivision();
+    public static ConsultantUserList newInstance(String username) {
+        ConsultantUserList fragment = new ConsultantUserList();
         Bundle args = new Bundle();
         args.putString("username", username);
         fragment.setArguments(args);
@@ -49,7 +49,7 @@ public class ConsultantUserDivision extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            username = getArguments().getString("username");
+            username = getArguments().getString(username);
         }
     }
 
@@ -65,7 +65,7 @@ public class ConsultantUserDivision extends Fragment {
     public void populateTable() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" + username + "' AND NOT EXISTS ((Select planId FROM Plan WHERE createdByUsername = uhc.consultantUsername) MINUS (Select csp.planId FROM ConsultantSuggestsPlan csp Where csp.userUsername = u.username AND csp.consultantUsername = uhc.consultantUsername))");
+        map.put("extra", "Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" + username + "'");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
         System.out.println(ans);

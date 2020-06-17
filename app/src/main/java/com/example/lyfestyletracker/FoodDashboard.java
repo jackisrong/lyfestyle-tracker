@@ -7,7 +7,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.lyfestyletracker.ui.main.FoodSectionsPagerAdapter;
+import com.example.lyfestyletracker.ui.tabbed.FoodSectionsPagerAdapter;
+import com.example.lyfestyletracker.utils.MaxPlan;
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;

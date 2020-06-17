@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker.ui.main;
+package com.example.lyfestyletracker.ui.tabbed;
 
 import android.content.Context;
 
@@ -8,22 +8,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.lyfestyletracker.ExerciseLog;
+import com.example.lyfestyletracker.ExerciseWorkoutPlans;
 import com.example.lyfestyletracker.R;
-import com.example.lyfestyletracker.SleepWeekly;
-import com.example.lyfestyletracker.SleepMonthly;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SleepSectionsPagerAdapter extends FragmentPagerAdapter {
+public class ExerciseSectionsPagerAdapter extends FragmentPagerAdapter {
 
-    String username;
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.sleep_tab_text_1, R.string.sleep_tab_text_2};
+    private static final int[] TAB_TITLES = new int[]{R.string.exercise_tab_text_1, R.string.exercise_tab_text_2};
     private final Context mContext;
+    private String username;
 
-    public SleepSectionsPagerAdapter(Context context, FragmentManager fm, String username) {
+    public ExerciseSectionsPagerAdapter(Context context, FragmentManager fm, String username) {
         super(fm);
         mContext = context;
         this.username = username;
@@ -36,10 +36,10 @@ public class SleepSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = SleepWeekly.newInstance(username);
+                fragment = ExerciseLog.newInstance(username);
                 break;
             case 1:
-                fragment = SleepMonthly.newInstance(username);
+                fragment = ExerciseWorkoutPlans.newInstance(username, "workout", "");
                 break;
             default:
                 fragment = null;

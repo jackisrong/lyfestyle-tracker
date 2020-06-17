@@ -11,8 +11,9 @@ import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lyfestyletracker.ui.login.CreateUserConsultant;
-import com.example.lyfestyletracker.ui.login.CreateUserUser;
+import com.example.lyfestyletracker.consultant.ConsultantDashboard;
+import com.example.lyfestyletracker.ui.login.CreateNewConsultant;
+import com.example.lyfestyletracker.ui.login.CreateNewUser;
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -57,9 +58,9 @@ public class Login extends AppCompatActivity {
         consultant = (Switch) findViewById(R.id.consultant_switch);
         Intent intent;
         if (consultant.isChecked()) {
-            intent = new Intent(Login.this, CreateUserConsultant.class);
+            intent = new Intent(Login.this, CreateNewConsultant.class);
         } else {
-            intent = new Intent(Login.this, CreateUserUser.class);
+            intent = new Intent(Login.this, CreateNewUser.class);
         }
         startActivity(intent);
     }
