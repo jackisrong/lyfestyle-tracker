@@ -196,7 +196,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
 
                 TableRow.LayoutParams params1 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.28f);
                 TableRow.LayoutParams params2 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.36f);
-                TableRow.LayoutParams params3 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.18f);
+                TableRow.LayoutParams params3 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.34f);
 
                 TextView text1 = new TextView(getContext());
                 text1.setText(o.getString(colNames.get(0).toUpperCase()));

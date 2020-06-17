@@ -97,7 +97,7 @@ public class UserConsultantsList extends Fragment {
 
                 TableRow.LayoutParams paramsusername = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.28f);
                 TableRow.LayoutParams paramsCompany = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.42f);
-                TableRow.LayoutParams paramsRating = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
+                TableRow.LayoutParams paramsRating = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.30f);
 
                 TextView usernameText = new TextView(getContext());
                 usernameText.setText(o.getString("USERNAME"));
