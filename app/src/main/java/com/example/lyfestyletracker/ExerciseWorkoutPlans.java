@@ -2,9 +2,6 @@ package com.example.lyfestyletracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,17 +12,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.lyfestyletracker.web.QueryExecutable;
 
 import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -38,13 +33,6 @@ import java.util.Map;
  */
 public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "param3";
-
-    // TODO: Rename and change types of parameters
     private String username;
     private String type;
     private String consultant;
@@ -65,17 +53,17 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param username   username.
+     * @param type       type.
+     * @param consultant consultant.
      * @return A new instance of fragment ExerciseWorkoutPlans.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ExerciseWorkoutPlans newInstance(String param1, String param2, String param3) {
+    public static ExerciseWorkoutPlans newInstance(String username, String type, String consultant) {
         ExerciseWorkoutPlans fragment = new ExerciseWorkoutPlans();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
+        args.putString("username", username);
+        args.putString("type", type);
+        args.putString("consultant", consultant);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,35 +74,30 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
 
         colNames = new ArrayList<>();
         if (getArguments() != null) {
-            username = getArguments().getString(ARG_PARAM1);
-            type = getArguments().getString(ARG_PARAM2);
-            consultant = getArguments().getString(ARG_PARAM3);
+            username = getArguments().getString("username");
+            type = getArguments().getString("type");
+            consultant = getArguments().getString("consultant");
         }
 
-        if (type.equals("workout")){
+        if (type.equals("workout")) {
             numOfTables = 3;
             colNames.add("planID");
             colNames.add("createdByUsername");
             colNames.add("exercisePerWeek");
             searchQuery = "SELECT planId, createdByUsername, exercisePerWeek FROM Plan, WorkoutPlan WHERE createdByUsername = '" + username + "' AND planId = workoutPlanId AND LOWER(createdByUsername)";
-
-        }else if (type.equals("diet")){
+        } else if (type.equals("diet")) {
             numOfTables = 3;
             colNames.add("planID");
             colNames.add("createdByUsername");
             colNames.add("weeklyCalories");
             searchQuery = "SELECT planId, createdByUsername, weeklyCalories FROM Plan, Diet WHERE createdByUsername = '" + username + "' AND planId = dietId AND LOWER(createdByUsername)";
-
-
-        }else if (type.equals("suggested")){
+        } else if (type.equals("suggested")) {
             numOfTables = 3;
             colNames.add("planID");
             colNames.add("createdByUsername");
             colNames.add("logTime");
             sortBy = "logTime";
-
             searchQuery = "SELECT planID, consultantUsername as createdByUsername, logTime FROM ConsultantSuggestsPlan WHERE userUsername = '" + username + "' AND LOWER(consultantUsername) ";
-
         }
     }
 
@@ -159,9 +142,9 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
         thisView.findViewById(R.id.exercise_plans_header_2).setOnClickListener(this);
         thisView.findViewById(R.id.exercise_plans_header_3).setOnClickListener(this);
 
-        ((TextView)thisView.findViewById(R.id.exercise_plans_header_1)).setText(colNames.get(0));
-        ((TextView)thisView.findViewById(R.id.exercise_plans_header_2)).setText(colNames.get(1));
-        ((TextView)thisView.findViewById(R.id.exercise_plans_header_3)).setText(colNames.get(2));
+        ((TextView) thisView.findViewById(R.id.exercise_plans_header_1)).setText(colNames.get(0));
+        ((TextView) thisView.findViewById(R.id.exercise_plans_header_2)).setText(colNames.get(1));
+        ((TextView) thisView.findViewById(R.id.exercise_plans_header_3)).setText(colNames.get(2));
 
         return thisView;
     }
@@ -172,8 +155,6 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
         map.put("extra", searchQuery + "LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
-
-
         System.out.println(ans);
 
         TableLayout mainTable = thisView.findViewById(R.id.exercise_plans_main_table);
@@ -182,7 +163,6 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
         if (ans == null) {
             return;
         }
-
 
         for (int i = 0; i < ans.length(); i++) {
             try {
@@ -203,9 +183,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
                 TableRow.LayoutParams params2 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.36f);
                 TableRow.LayoutParams params3 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.18f);
 
-
-
-                TextView text1= new TextView(getContext());
+                TextView text1 = new TextView(getContext());
                 text1.setText(o.getString(colNames.get(0).toUpperCase()));
                 text1.setLayoutParams(params1);
 
@@ -214,20 +192,16 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
                 text2.setLayoutParams(params2);
                 text2.setGravity(Gravity.CENTER_HORIZONTAL);
 
-
                 TextView text3 = new TextView(getContext());
-                if (type.equals("suggested")){
+                if (type.equals("suggested")) {
                     LocalDateTime timestamp = TimestampUtility.parseDatabaseTimestamp(o.getString(colNames.get(2).toUpperCase()));
                     text3.setText(timestamp.toString("MMM dd yyyy\nhh:mm aa", Locale.ENGLISH));
-
-                }else {
+                } else {
                     text3.setText(o.getString(colNames.get(2).toUpperCase()));
                 }
 
                 text3.setLayoutParams(params3);
                 text3.setGravity(Gravity.CENTER_HORIZONTAL);
-
-
 
                 row.addView(text1);
                 row.addView(text2);
@@ -238,7 +212,6 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
             }
         }
     }
-
 
 
     // utility method for sorting
@@ -314,37 +287,27 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
         }
 
         if (view.getClass().equals(TableRow.class)) {
-
-
-
             Intent intent;
-
-            if (type.equals("workout")){
-
+            if (type.equals("workout")) {
                 intent = new Intent(getActivity(), WorkoutPlan.class);
                 intent.putExtra("username", username);
                 intent.putExtra("workoutId", Integer.parseInt((String) view.getTag()));
-            }else if(type.equals("diet")){
+            } else if (type.equals("diet")) {
                 intent = new Intent(getActivity(), DietPlan.class);
                 intent.putExtra("username", username);
                 intent.putExtra("dietId", Integer.parseInt((String) view.getTag()));
-
-            }else {
+            } else {
                 Map<String, Object> map = new LinkedHashMap<>();
                 map.put("query_type", "special");
                 map.put("extra", "Select * from Diet where dietId =" + view.getTag());
                 QueryExecutable qe = new QueryExecutable(map);
                 JSONArray ans = qe.run();
 
-
-
-
-                if (ans.length() > 0){
+                if (ans.length() > 0) {
                     intent = new Intent(getActivity(), DietPlan.class);
                     intent.putExtra("username", username);
                     intent.putExtra("dietId", Integer.parseInt((String) view.getTag()));
-
-                }else {
+                } else {
                     intent = new Intent(getActivity(), WorkoutPlan.class);
                     intent.putExtra("username", username);
                     intent.putExtra("workoutId", Integer.parseInt((String) view.getTag()));
@@ -352,12 +315,10 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
                 intent.putExtra("fromConsultant", true);
             }
 
-
-            if (consultant.equals("consultant")){
+            if (consultant.equals("consultant")) {
                 intent.putExtra("consultant", true);
             }
             startActivity(intent);
-
         }
     }
 }

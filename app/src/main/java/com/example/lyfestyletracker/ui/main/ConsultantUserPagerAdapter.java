@@ -10,8 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.lyfestyletracker.ConsultantUserDivision;
 import com.example.lyfestyletracker.ConsultantUserList;
-import com.example.lyfestyletracker.ExerciseLog;
-import com.example.lyfestyletracker.ExerciseWorkoutPlans;
 import com.example.lyfestyletracker.R;
 
 /**
@@ -38,10 +36,10 @@ public class ConsultantUserPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = ConsultantUserList.newInstance(username, "");
+                fragment = ConsultantUserList.newInstance(username);
                 break;
             case 1:
-                fragment = ConsultantUserDivision.newInstance(username, "");
+                fragment = ConsultantUserDivision.newInstance(username);
                 break;
             default:
                 fragment = null;

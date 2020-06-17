@@ -1,11 +1,7 @@
 package com.example.lyfestyletracker;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,6 +11,8 @@ import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 
@@ -57,7 +55,6 @@ public class ExerciseLog extends Fragment implements View.OnClickListener {
      * @param username Username of current user.
      * @return A new instance of fragment ExerciseLog.
      */
-    // TODO: Rename and change types and number of parameters
     public static ExerciseLog newInstance(String username) {
         ExerciseLog fragment = new ExerciseLog();
         Bundle args = new Bundle();

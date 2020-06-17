@@ -1,16 +1,15 @@
 package com.example.lyfestyletracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lyfestyletracker.ui.login.CreateUserConsultant;
 import com.example.lyfestyletracker.ui.login.CreateUserUser;
@@ -66,7 +65,6 @@ public class Login extends AppCompatActivity {
     }
 
     public void authenticate(View view) {
-
         EditText eEdit = (EditText) findViewById(R.id.email_box);
         EditText pEdit = (EditText) findViewById(R.id.password_box);
         consultant = (Switch) findViewById(R.id.consultant_switch);
@@ -128,8 +126,7 @@ public class Login extends AppCompatActivity {
         } else {
             if (view != null) {
                 //makes a bar saying invalid comb
-                Snackbar.make(view, "Invalid username and/or password", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Invalid username and/or password", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         }
     }

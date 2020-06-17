@@ -10,20 +10,19 @@ import java.util.Map;
 
 public class MaxPlan {
 
-    public int getMaxPlan(){
+    public int getMaxPlan() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
         map.put("extra", "select max(planId) as maxPlan From Plan");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
 
-        if (ans.length() > 0){
-            try{
+        if (ans.length() > 0) {
+            try {
                 return Integer.parseInt(ans.getJSONObject(0).getString("MAXPLAN")) + 1;
-            }catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
 
         return 0;

@@ -21,16 +21,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ConsultantUserDivision extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private String username;
-
     private View thisView;
 
     public ConsultantUserDivision() {
@@ -41,16 +33,14 @@ public class ConsultantUserDivision extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FoodDiets.
+     * @param username username.
+     * @return A new instance of fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ConsultantUserDivision newInstance(String param1, String param2) {
+    public static ConsultantUserDivision newInstance(String username) {
         ConsultantUserDivision fragment = new ConsultantUserDivision();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,8 +49,7 @@ public class ConsultantUserDivision extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
         }
     }
 
@@ -73,10 +62,10 @@ public class ConsultantUserDivision extends Fragment {
         return thisView;
     }
 
-    public void populateTable(){
-        Map<String,Object> map = new LinkedHashMap<>();
+    public void populateTable() {
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" +mParam1+ "' AND NOT EXISTS ((Select planId FROM Plan WHERE createdByUsername = uhc.consultantUsername) MINUS (Select csp.planId FROM ConsultantSuggestsPlan csp Where csp.userUsername = u.username AND csp.consultantUsername = uhc.consultantUsername))");
+        map.put("extra", "Select u.username, p.email, uhc.contractNumber From UserPerson u, UserHiresConsultant uhc, People p Where uhc.userUsername = u.username AND p.username = u.username AND uhc.consultantUsername = '" + username + "' AND NOT EXISTS ((Select planId FROM Plan WHERE createdByUsername = uhc.consultantUsername) MINUS (Select csp.planId FROM ConsultantSuggestsPlan csp Where csp.userUsername = u.username AND csp.consultantUsername = uhc.consultantUsername))");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
         System.out.println(ans);
@@ -105,7 +94,6 @@ public class ConsultantUserDivision extends Fragment {
                 TableRow.LayoutParams paramsEmail = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.42f);
                 TableRow.LayoutParams paramsContract = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.15f);
 
-
                 TextView usernameText = new TextView(getContext());
                 usernameText.setText(o.getString("USERNAME"));
                 usernameText.setLayoutParams(paramsusername);
@@ -119,7 +107,6 @@ public class ConsultantUserDivision extends Fragment {
                 contractText.setText(o.getString("CONTRACTNUMBER"));
                 contractText.setLayoutParams(paramsContract);
                 contractText.setGravity(Gravity.CENTER_HORIZONTAL);
-
 
                 row.addView(usernameText);
                 row.addView(emailText);

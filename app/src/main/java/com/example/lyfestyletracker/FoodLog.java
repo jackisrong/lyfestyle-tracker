@@ -2,9 +2,6 @@ package com.example.lyfestyletracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,6 +11,8 @@ import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 
@@ -34,16 +33,8 @@ import java.util.Map;
  * Use the {@link FoodLog#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FoodLog extends Fragment implements View.OnClickListener{
+public class FoodLog extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private String username;
     private View thisView;
     private String searchTerm = "";
@@ -58,16 +49,13 @@ public class FoodLog extends Fragment implements View.OnClickListener{
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param username username.
      * @return A new instance of fragment FoodLog.
      */
     // TODO: Rename and change types and number of parameters
-    public static FoodLog newInstance(String param1, String param2, String username) {
+    public static FoodLog newInstance(String username) {
         FoodLog fragment = new FoodLog();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
@@ -77,8 +65,6 @@ public class FoodLog extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
             username = getArguments().getString("username");
         }
     }
@@ -129,8 +115,8 @@ public class FoodLog extends Fragment implements View.OnClickListener{
         return thisView;
     }
 
-    public void populateTable(){
-        Map<String,Object> map = new LinkedHashMap<>();
+    public void populateTable() {
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
         map.put("extra", "SELECT m.mealid, uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = '" + username + "' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
@@ -147,7 +133,7 @@ public class FoodLog extends Fragment implements View.OnClickListener{
         for (int i = 0; i < ans.length(); i++) {
             try {
                 JSONObject o = ans.getJSONObject(i);
-                LocalDateTime timestamp = parseTimestamp(o.getString("LOGTIME"));
+                LocalDateTime timestamp = TimestampUtility.parseDatabaseTimestamp(o.getString("LOGTIME"));
 
                 TableRow row = new TableRow(getContext());
                 row.setWeightSum(1.0f);
@@ -189,19 +175,11 @@ public class FoodLog extends Fragment implements View.OnClickListener{
                 row.addView(textservings);
                 row.addView(texttype);
                 mainTable.addView(row);
-
-            }catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-
-
     }
-
-    public LocalDateTime parseTimestamp(String s) {
-        return LocalDateTime.parse(s, DateTimeFormat.forPattern("dd-MMM-yy hh.mm.ss.SSSSSS aa").withLocale(Locale.ENGLISH));
-    }
-
 
     @Override
     public void onClick(View view) {

@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.lyfestyletracker.ExerciseLog;
 import com.example.lyfestyletracker.ExerciseWorkoutPlans;
-import com.example.lyfestyletracker.FoodDiets;
 import com.example.lyfestyletracker.FoodLog;
 import com.example.lyfestyletracker.R;
 
@@ -38,7 +36,7 @@ public class FoodSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = FoodLog.newInstance(username, "", username);
+                fragment = FoodLog.newInstance(username);
                 break;
             case 1:
                 fragment = ExerciseWorkoutPlans.newInstance(username, "diet" , "");

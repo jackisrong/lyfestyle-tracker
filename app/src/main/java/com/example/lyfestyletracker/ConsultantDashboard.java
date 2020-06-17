@@ -68,7 +68,6 @@ public class ConsultantDashboard extends AppCompatActivity {
                     addCompanyText.add(e2);
                     ll.addView(e1);
                     ll.addView(e2);
-
                 } else {
                     for (int i = 0; i < addCompanyText.size(); i++) {
                         ll.removeView(addCompanyText.get(i));
@@ -78,17 +77,18 @@ public class ConsultantDashboard extends AppCompatActivity {
             }
         });
 
-
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
         map.put("extra", "SELECT name FROM people WHERE username = '" + username + "'");
         QueryExecutable qe = new QueryExecutable(map);
         String welcomeString = "Welcome!";
+
         try {
             welcomeString = "Welcome " + qe.run().getJSONObject(0).getString("NAME") + "!";
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         ((TextView) findViewById(R.id.consultant_greeting)).setText(welcomeString);
 
         String[] subgreetings = {"Did you eat your fiber today?", "Do you like pie?", "What are your thoughts on golf?",
@@ -172,7 +172,7 @@ public class ConsultantDashboard extends AppCompatActivity {
             map.put("extra", "INSERT INTO COMPANY VALUES(" + companyID + ", '"
                     + addCompanyText.get(0).getText().toString() + "', '" + addCompanyText.get(1).getText().toString() + "')");
             qe = new QueryExecutable(map);
-            JSONArray ans = qe.run();
+            qe.run();
 
             map.clear();
             map.put("query_type", "special_change");
@@ -186,7 +186,7 @@ public class ConsultantDashboard extends AppCompatActivity {
         }
         map.put("extra", "INSERT INTO ConsultantWorksForCompany Values('" + username + "', " + companyID + ")");
         qe = new QueryExecutable(map);
-        JSONArray ans = qe.run();
+        qe.run();
 
         populateSpinner();
     }

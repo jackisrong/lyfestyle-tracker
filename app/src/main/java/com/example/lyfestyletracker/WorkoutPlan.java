@@ -1,7 +1,5 @@
 package com.example.lyfestyletracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,22 +10,19 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.lyfestyletracker.web.QueryExecutable;
 
 import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class WorkoutPlan extends AppCompatActivity implements View.OnClickListener {
-
 
     private String username;
     private String searchTerm = "";
@@ -44,7 +39,6 @@ public class WorkoutPlan extends AppCompatActivity implements View.OnClickListen
         workoutPlanID = getIntent().getIntExtra("workoutId", 0);
 
         setTitle("Workout Plan #" + workoutPlanID);
-
 
         populateTable();
 
@@ -153,8 +147,6 @@ public class WorkoutPlan extends AppCompatActivity implements View.OnClickListen
             String workoutId = (String) view.getTag();
             LocalDateTime ld = new LocalDateTime();
 
-
-
             Intent intent = new Intent(this, AddWorkout.class);
             intent.putExtra("username", username);
             intent.putExtra("type", "update");
@@ -162,11 +154,10 @@ public class WorkoutPlan extends AppCompatActivity implements View.OnClickListen
             intent.putExtra("consultant", getIntent().getBooleanExtra("consultant", false));
             intent.putExtra("timestampString", ld.toString("yyyy-MM-dd HH:mm:ss"));
 
-            if (getIntent().getBooleanExtra("fromConsultant", false)){
+            if (getIntent().getBooleanExtra("fromConsultant", false)) {
                 intent.putExtra("fromConsultant", true);
             }
             startActivity(intent);
-
         }
     }
 
@@ -259,7 +250,6 @@ public class WorkoutPlan extends AppCompatActivity implements View.OnClickListen
     public void onResume() {
         super.onResume();
         populateTable();
-
     }
 
     @Override
@@ -268,12 +258,12 @@ public class WorkoutPlan extends AppCompatActivity implements View.OnClickListen
         updateCalories();
     }
 
-    public void updateCalories(){
+    public void updateCalories() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special_change");
-        map.put("extra", "UPDATE WorkoutPlan wp SET exercisePerWeek = (Select SUM(w.timeworkout) From Workout w, WorkoutPlanContainsWorkout wpc WHERE w.workoutId = wpc.workoutID AND wpc.workoutPlanId = "+ workoutPlanID +") WHERE wp.workoutPlanId = " + workoutPlanID);
+        map.put("extra", "UPDATE WorkoutPlan wp SET exercisePerWeek = (Select SUM(w.timeworkout) From Workout w, WorkoutPlanContainsWorkout wpc WHERE w.workoutId = wpc.workoutID AND wpc.workoutPlanId = " + workoutPlanID + ") WHERE wp.workoutPlanId = " + workoutPlanID);
 
         QueryExecutable qe = new QueryExecutable(map);
-        JSONArray ans = qe.run();
+        qe.run();
     }
 }

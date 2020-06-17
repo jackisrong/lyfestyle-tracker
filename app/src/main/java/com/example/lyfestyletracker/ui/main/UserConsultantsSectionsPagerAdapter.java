@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.lyfestyletracker.ExerciseWorkoutPlans;
 import com.example.lyfestyletracker.R;
 import com.example.lyfestyletracker.UserConsultantsList;
-import com.example.lyfestyletracker.UserConsultantsPlans;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -37,7 +36,7 @@ public class UserConsultantsSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = UserConsultantsList.newInstance(username, "");
+                fragment = UserConsultantsList.newInstance(username);
                 break;
             case 1:
                 fragment = ExerciseWorkoutPlans.newInstance(username, "suggested", "consultant");
