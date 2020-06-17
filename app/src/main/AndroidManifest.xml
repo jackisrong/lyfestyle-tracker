@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConsultantSuggestsPlan"></activity>
+        <activity android:name=".ConsultantSuggestsPlan" />
         <activity android:name=".WorkoutPlan" />
         <activity android:name=".DietPlan" />
         <activity
@@ -39,7 +39,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".addSleepEntry"
-            android:label="Add an Entry" />
+            android:label="@string/title_activity_add_sleep_entry" />
         <activity
             android:name=".UserConsultantsDashboard"
             android:label="@string/user_consultants_dashboard_activity_title"
@@ -73,14 +73,5 @@
             </intent-filter>
         </activity>
         <activity android:name=".DatePicker" />
-        <activity
-            android:name=".SleepTracker"
-            android:label="@string/sleep_activity_title"
-            android:parentActivityName=".UserDashboard">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UserDashboard" />
-        </activity>
     </application>
-
 </manifest>
