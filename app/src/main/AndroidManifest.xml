@@ -39,7 +39,7 @@
             android:label="@string/title_activity_consultant_user_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".addSleepEntry"
+            android:name=".AddSleep"
             android:label="@string/title_activity_add_sleep_entry" />
         <activity
             android:name=".UserConsultantsDashboard"

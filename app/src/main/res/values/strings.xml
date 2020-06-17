@@ -47,7 +47,7 @@
     <string name="user_consultants_tab_text_2">Suggested Plans</string>
     <string name="title_activity_add_sleep_entry">Add Sleep</string>
     <string name="add_entry">Add Entry</string>
-    <string name="sleep_time">Sleep Time</string>
+    <string name="sleep_time">Sleep Length (hr)</string>
     <string name="sleep_rating">Sleep Rating</string>
     <string name="clients">Clients</string>
     <string name="my_plans">My Plans</string>
@@ -168,6 +168,9 @@
     <string name="consultant_su">[Consultant]</string>
     <string name="lyfestyle_icon">LyfestyleICON</string>
 
+    <string name="sleep_weekly_graph_title">Sleep for the Week</string>
+    <string name="sleep_monthly_avg_graph_title">Average Sleep per Night by Week for the Month</string>
+    <string name="sleep_monthly_sum_graph_title">Total Sleep by Week for the Month</string>
     <string name="hire_consultant_activity_label">Hire Consultant</string>
 
 </resources>
