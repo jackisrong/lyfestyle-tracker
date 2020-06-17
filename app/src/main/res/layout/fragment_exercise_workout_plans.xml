@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.28"
-            android:drawableLeft="@android:drawable/arrow_down_float"
+            android:drawableLeft="@android:drawable/arrow_up_float"
             android:gravity="center"
             android:tag="desc"
             android:text="temp"
