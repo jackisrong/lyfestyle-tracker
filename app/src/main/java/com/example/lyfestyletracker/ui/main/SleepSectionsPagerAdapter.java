@@ -36,10 +36,10 @@ public class SleepSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = SleepWeekly.newInstance("1","2", username);
+                fragment = SleepWeekly.newInstance(username);
                 break;
             case 1:
-                fragment = SleepMonthly.newInstance("1","2", username);
+                fragment = SleepMonthly.newInstance(username);
                 break;
             default:
                 fragment = null;
