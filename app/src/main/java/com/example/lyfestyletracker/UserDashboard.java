@@ -118,10 +118,6 @@ public class UserDashboard extends AppCompatActivity {
     }
 
     public void updateUserDetails(View view){
-        if (age.getText().toString().equals("") || weight.getText().toString().equals("") || height.getText().toString().equals("")) {
-            return;
-        }
-
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special_change");
         map.put("extra", "UPDATE userPerson SET age = " + age.getText().toString() + ", weight = " + weight.getText().toString() + ", height = " + height.getText().toString() + " WHERE username = '" + username + "'");
@@ -129,9 +125,12 @@ public class UserDashboard extends AppCompatActivity {
         qe.run();
 
         ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
-        getCurrentFocus().clearFocus();
 
-        Toast.makeText(this, "Successfully updated user details!", Toast.LENGTH_SHORT).show();
+        if (getCurrentFocus() != null) {
+            getCurrentFocus().clearFocus();
+        }
+
+        Toast.makeText(this, "Successfully updated user details", Toast.LENGTH_SHORT).show();
     }
 
     public void logOut(View view){

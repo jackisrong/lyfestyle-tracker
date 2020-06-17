@@ -1,7 +1,5 @@
 package com.example.lyfestyletracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 
@@ -51,15 +51,15 @@ public class ConsultantDashboard extends AppCompatActivity {
         addCompanySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     EditText e1 = new EditText(ConsultantDashboard.this);
                     EditText e2 = new EditText(ConsultantDashboard.this);
 
                     e1.setHint("Enter Company Name");
                     e2.setHint("Enter Company Location");
 
-                    e1.setFilters(new InputFilter[] { new InputFilter.LengthFilter(200) });
-                    e2.setFilters(new InputFilter[] { new InputFilter.LengthFilter(200) });
+                    e1.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
+                    e2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
 
                     e1.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     e2.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -69,8 +69,8 @@ public class ConsultantDashboard extends AppCompatActivity {
                     ll.addView(e1);
                     ll.addView(e2);
 
-                }else{
-                    for (int i = 0; i < addCompanyText.size(); i ++){
+                } else {
+                    for (int i = 0; i < addCompanyText.size(); i++) {
                         ll.removeView(addCompanyText.get(i));
                     }
                     addCompanyText.clear();
@@ -100,33 +100,32 @@ public class ConsultantDashboard extends AppCompatActivity {
     }
 
     public void deleteAccount(View view) {
-        Map<String,Object> map = new LinkedHashMap<>();
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special_change");
-        map.put("extra", "DELETE FROM People WHERE username = '"+ username + "'");
+        map.put("extra", "DELETE FROM People WHERE username = '" + username + "'");
         QueryExecutable qe = new QueryExecutable(map);
-        JSONArray res = qe.run();
-
+        qe.run();
         logOut(null);
     }
 
-    public void navigate(View view){
+    public void navigate(View view) {
         int buttonId = view.getId();
         Intent intent;
 
         if (buttonId == R.id.nav_button_clients) {
             intent = new Intent(this, ConsultantUserDashboard.class);
-        } else if(buttonId == R.id.nav_button_plans){
+        } else if (buttonId == R.id.nav_button_plans) {
             intent = new Intent(this, ConsultantPlansDashboard.class);
         } else {
             // this should never happen, but just in case...
-            intent = new Intent(this, ConsultantDashboard.class);  ///FIX THISS
+            intent = new Intent(this, ConsultantDashboard.class);
         }
 
         intent.putExtra("username", getIntent().getStringExtra("username"));
         startActivity(intent);
     }
 
-    public void logOut(View view){
+    public void logOut(View view) {
         SharedPreferences sp = getSharedPreferences(getString(R.string.user_login_data_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor spe = sp.edit();
         spe.putBoolean("loggedIn", false);
@@ -140,38 +139,36 @@ public class ConsultantDashboard extends AppCompatActivity {
         finish();
     }
 
-    private void populateSpinner (){
+    private void populateSpinner() {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
 
-        Map<String,Object> map = new LinkedHashMap<>();
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "SELECT companyID, name, location From Company WHERE companyID NOT IN (SELECT companyId from ConsultantWorksForCompany where consultantUsername = '" + username + "')" );
+        map.put("extra", "SELECT companyID, name, location From Company WHERE companyID NOT IN (SELECT companyId from ConsultantWorksForCompany where consultantUsername = '" + username + "')");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
 
-        try{
-            for(int i = 0; i<ans.length(); i ++){
+        try {
+            for (int i = 0; i < ans.length(); i++) {
                 JSONObject o = ans.getJSONObject(i);
-                spinnerAdapter.add(o.getString("COMPANYID") + " - name: " + o.getString("NAME") + " - location :" + o.getString("LOCATION"));
+                spinnerAdapter.add("[" + o.getString("COMPANYID") + "] " + o.getString("NAME") + " @ " + o.getString("LOCATION"));
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
         spinnerAdapter.notifyDataSetChanged();
     }
 
-    public void addCompany(View view){
-        Map<String,Object> map = new LinkedHashMap<>();
+    public void addCompany(View view) {
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special_change");
         QueryExecutable qe;
 
-
         int companyID = findMax();
-        if (addCompanySwitch.isChecked()){
-
+        if (addCompanySwitch.isChecked()) {
             map.put("extra", "INSERT INTO COMPANY VALUES(" + companyID + ", '"
                     + addCompanyText.get(0).getText().toString() + "', '" + addCompanyText.get(1).getText().toString() + "')");
             qe = new QueryExecutable(map);
@@ -179,49 +176,37 @@ public class ConsultantDashboard extends AppCompatActivity {
 
             map.clear();
             map.put("query_type", "special_change");
-
-
-
-
-        }else {
-
-
-            if(spinner.getAdapter().getCount() == 0){
+        } else {
+            if (spinner.getAdapter().getCount() == 0) {
                 return;
             }
 
             String[] strs = spinner.getSelectedItem().toString().split(" ");
-
             companyID = Integer.parseInt(strs[0]);
         }
-
-        map.put("extra", "INSERT INTO ConsultantWorksForCompany Values('" + username + "', "  + companyID + ")");
+        map.put("extra", "INSERT INTO ConsultantWorksForCompany Values('" + username + "', " + companyID + ")");
         qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
 
-
         populateSpinner();
-
     }
 
-    private int findMax(){
-        Map<String,Object> map = new LinkedHashMap<>();
+    private int findMax() {
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
         map.put("extra", "Select Max(companyId) FROM Company");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
         int max = 0;
 
-        if (ans.length() > 0){
-            try{
+        if (ans.length() > 0) {
+            try {
                 max = 1 + Integer.parseInt(ans.getJSONObject(0).getString("MAX(COMPANYID)"));
-
-            }catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
 
-        return  max;
+        return max;
     }
 }

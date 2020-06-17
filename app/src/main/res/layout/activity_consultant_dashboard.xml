@@ -10,7 +10,7 @@
         android:id="@+id/navbar2"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/ConsultantcolorPrimary"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,8 +72,6 @@
                 android:id="@+id/add_company_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="160dp"
-                android:layout_marginEnd="160dp"
                 android:text="@string/add_new_company"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -82,25 +80,24 @@
 
             <Button
                 android:id="@+id/button_log_out_consultant"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:onClick="logOut"
                 android:text="@string/logout_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button2" />
+                app:layout_constraintStart_toEndOf="@+id/button2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="deleteAccount"
                 android:text="@string/delete_account"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_log_out_consultant"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/button_log_out_consultant" />
 
 
             <Spinner
@@ -117,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/add_new_companies_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/consultant_greeting_extra" />
@@ -135,8 +132,7 @@
                 android:id="@+id/consultant_greeting_extra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/consultant_greeting" />
 
@@ -144,11 +140,11 @@
                 android:id="@+id/consultant_greeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_log_out_consultant" />
+                app:layout_constraintTop_toBottomOf="@+id/button2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
