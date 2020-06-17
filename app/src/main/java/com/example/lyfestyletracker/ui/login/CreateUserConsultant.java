@@ -49,7 +49,6 @@ public class CreateUserConsultant extends AppCompatActivity {
         final EditText inputUsername = findViewById(R.id.userName);
         final EditText inputPersonName = findViewById(R.id.personName);
         final Button registerButton = findViewById(R.id.registerButton);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -76,7 +75,6 @@ public class CreateUserConsultant extends AppCompatActivity {
                 if (loginResult == null) {
                     return;
                 }
-                loadingProgressBar.setVisibility(View.GONE);
                 if (loginResult.getError() != null) {
                     if (!matchingPassword(passwordEditText.getText().toString(), (passwordEditText2.getText().toString()))){
                         showSignupFailed(loginResult.getError());
@@ -131,7 +129,6 @@ public class CreateUserConsultant extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(userEmailID.getText().toString(),
                         passwordEditText.getText().toString());
             }

@@ -166,5 +166,6 @@
     <string name="person_height">Height (cm)</string>
     <string name="person_weight">Current Weight (approx.)</string>
     <string name="weekly_calories">User Weekly Calories</string>
+    <string name="consultant_su">[ Consultant ]</string>
 
 </resources>
