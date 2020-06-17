@@ -2,17 +2,15 @@ package com.example.lyfestyletracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.lyfestyletracker.ui.main.FoodSectionsPagerAdapter;
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
-import com.example.lyfestyletracker.ui.main.FoodSectionsPagerAdapter;
 
 import org.json.JSONArray;
 
@@ -40,14 +38,13 @@ public class FoodDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TabLayout tb = (TabLayout) findViewById(R.id.tabs);
-                if (tb.getSelectedTabPosition() == 0){
+                if (tb.getSelectedTabPosition() == 0) {
                     Intent intent = new Intent(FoodDashboard.this, AddMeal.class);
                     intent.putExtra("username", getIntent().getStringExtra("username"));
                     startActivity(intent);
-                }else{
+                } else {
                     Intent intent = new Intent(FoodDashboard.this, DietPlan.class);
                     intent.putExtra("username", username);
-
 
                     MaxPlan mp = new MaxPlan();
                     Integer maxInt = mp.getMaxPlan();
@@ -62,14 +59,11 @@ public class FoodDashboard extends AppCompatActivity {
                     map.put("extra", "insert into Diet Values(" + maxInt + ", 0)");
 
                     qe = new QueryExecutable(map);
-                    ans = qe.run();
-
-
+                    qe.run();
 
                     intent.putExtra("dietId", maxInt);
                     startActivity(intent);
                 }
-
             }
         });
     }

@@ -8,10 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.lyfestyletracker.ConsultantUserDivision;
-import com.example.lyfestyletracker.ConsultantUserList;
 import com.example.lyfestyletracker.ExerciseWorkoutPlans;
-import com.example.lyfestyletracker.FoodDiets;
 import com.example.lyfestyletracker.R;
 
 /**

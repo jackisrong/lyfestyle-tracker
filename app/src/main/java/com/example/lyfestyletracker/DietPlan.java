@@ -1,7 +1,5 @@
 package com.example.lyfestyletracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,6 +9,8 @@ import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 
@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class DietPlan extends AppCompatActivity implements View.OnClickListener {
 
-
     private String username;
     private String searchTerm = "";
     private String sortBy = "ml.logTime";
@@ -44,7 +43,6 @@ public class DietPlan extends AppCompatActivity implements View.OnClickListener 
         dietPlanID = getIntent().getIntExtra("dietId", 0);
 
         setTitle("Diet #" + dietPlanID);
-
 
         populateTable();
 
@@ -150,15 +148,12 @@ public class DietPlan extends AppCompatActivity implements View.OnClickListener 
         }
 
         if (view.getClass().equals(TableRow.class)) {
-
             String mealId = (String) view.getTag();
             TextView time = (TextView) ((TableRow) view).getChildAt(0);
             String rawTime = time.getText().toString().replace("\n", " ");
             LocalDateTime ldt = LocalDateTime.parse(rawTime, DateTimeFormat.forPattern("MMM dd yyyy hh:mm aa").withLocale(Locale.ENGLISH));
             Timestamp ts = new Timestamp(ldt.toDateTime().getMillis());
             String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(ts);
-
-
 
             Intent intent = new Intent(this, AddMeal.class);
             intent.putExtra("username", username);
@@ -167,12 +162,10 @@ public class DietPlan extends AppCompatActivity implements View.OnClickListener 
             intent.putExtra("consultant", getIntent().getBooleanExtra("consultant", false));
             intent.putExtra("timestampString", timestamp);
 
-            if (getIntent().getBooleanExtra("fromConsultant", false)){
+            if (getIntent().getBooleanExtra("fromConsultant", false)) {
                 intent.putExtra("fromConsultant", true);
             }
             startActivity(intent);
-
-
         }
     }
 
@@ -180,7 +173,7 @@ public class DietPlan extends AppCompatActivity implements View.OnClickListener 
     private void populateTable() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "Select m.mealId, ml.logTime, m.description, m.servingSizeGrams, m.type From DietContainsMealLog dcm, Meal m, MealLogEntry ml WHERE dcm.dietID = " + dietPlanID +" AND ml.logTime = dcm.logTime AND ml.mealId = dcm.mealId AND m.mealID = dcm.mealId AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
+        map.put("extra", "Select m.mealId, ml.logTime, m.description, m.servingSizeGrams, m.type From DietContainsMealLog dcm, Meal m, MealLogEntry ml WHERE dcm.dietID = " + dietPlanID + " AND ml.logTime = dcm.logTime AND ml.mealId = dcm.mealId AND m.mealID = dcm.mealId AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();

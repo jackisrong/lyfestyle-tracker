@@ -2,16 +2,14 @@ package com.example.lyfestyletracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.lyfestyletracker.ui.main.SleepSectionsPagerAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 public class SleepDashboard extends AppCompatActivity {
 
@@ -28,7 +26,7 @@ public class SleepDashboard extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = findViewById(R.id.fab_diet);
-        
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,9 +35,7 @@ public class SleepDashboard extends AppCompatActivity {
         });
     }
 
-
-
-    public void addSEntry (){
+    public void addSEntry() {
         Intent intent = new Intent(this, AddSleep.class);
         intent.putExtra("username", username);
         startActivity(intent);

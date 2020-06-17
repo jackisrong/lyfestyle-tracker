@@ -1,22 +1,19 @@
 package com.example.lyfestyletracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,7 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -121,18 +117,14 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             prefillWithExtras();
         }
 
-
-        if (getIntent().getBooleanExtra("consultant", false)){
+        if (getIntent().getBooleanExtra("consultant", false)) {
             findViewById(R.id.add_exercise_submit_button).setEnabled(false);
             findViewById(R.id.add_date_button).setEnabled(false);
             findViewById(R.id.add_time_button).setEnabled(false);
             findViewById(R.id.delete_exercise_submit_button).setVisibility(View.GONE);
-
         }
 
-
-
-        if (getIntent().getBooleanExtra("fromConsultant", false)){
+        if (getIntent().getBooleanExtra("fromConsultant", false)) {
             findViewById(R.id.add_exercise_submit_button).setEnabled(true);
             findViewById(R.id.add_date_button).setEnabled(true);
             findViewById(R.id.add_time_button).setEnabled(true);
@@ -140,16 +132,14 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
             findViewById(R.id.delete_exercise_submit_button).setVisibility(View.GONE);
         }
 
-        if (typeOfAdd.equals("plan")){
+        if (typeOfAdd.equals("plan")) {
             findViewById(R.id.add_exercise_submit_button).setVisibility(View.GONE);
             findViewById(R.id.add_exercise_submit_button).setVisibility(View.GONE);
             findViewById(R.id.add_to_workout_plan).setVisibility(View.VISIBLE);
             findViewById(R.id.add_date_button).setEnabled(false);
             findViewById(R.id.add_time_button).setEnabled(false);
             findViewById(R.id.delete_exercise_submit_button).setVisibility(View.GONE);
-
         }
-
     }
 
     public void createDateClicked(View view) {
@@ -249,7 +239,6 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
                 // not okay - every value is not the same, use new ID aka just continue with normal code below
             }
 
-            map.clear();
             workoutId = findMaxWorkout();
 
             map.clear();
@@ -292,9 +281,9 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
                 qe.run();
             }
 
-            if(typeOfAdd.equals("plan")){
+            if (typeOfAdd.equals("plan")) {
                 addToPlan();
-            }else {
+            } else {
                 Toast.makeText(this, "Successfully added new exercise log entry", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -368,17 +357,15 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
         } else if (sportAns.length() != 0) {
             exerciseType = "sport";
             finalAns = sportAns;
-
-        }else if(planCardio.length() == 0 && sportAns.length() == 0) {
+        } else if (planCardio.length() == 0 && sportAns.length() == 0) {
             exerciseType = "";
             finalAns = planRegular;
-        } else if(planCardio.length() != 0){
+        } else if (planCardio.length() != 0) {
             exerciseType = "cardio";
             finalAns = planCardio;
-        }else if(sportAns.length() != 0){
+        } else if (sportAns.length() != 0) {
             exerciseType = "sport";
             finalAns = planSport;
-
         } else {
             // should never happen, but just in case our database is messed up
             exerciseType = "";
@@ -401,15 +388,13 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
                 sportType.setText(o.getString("SPORTTYPE"));
             }
 
-            if (regularAns.length() >0){
+            if (regularAns.length() > 0) {
                 LocalDateTime ldt = TimestampUtility.parseDatabaseTimestamp(o.getString("LOGTIME"));
                 dateResult = ldt.toString("yyyy-MM-dd", Locale.ENGLISH);
                 selectedDateLabel.setText(dateResult);
                 timeResult = ldt.toString("HH:mm:00", Locale.ENGLISH);
                 selectedTimeLabel.setText(ldt.toString("hh:mm aa", Locale.ENGLISH));
             }
-
-
 
             prevValues.put("description", o.getString("DESCRIPTION"));
             prevValues.put("caloriesBurnt", o.getString("CALORIESBURNT"));
@@ -554,19 +539,15 @@ public class AddWorkout extends AppCompatActivity implements DatePickerDialog.On
     }
 
     private void addToPlan() {
-
         Map<String, Object> map = new HashMap<>();
         map.clear();
 
         map.put("query_type", "special_change");
-        map.put("extra", "INSERT INTO WorkoutPlanContainsWorkout VALUES(" + getIntent().getIntExtra("planID",-1) +", " + workoutId + ")");
+        map.put("extra", "INSERT INTO WorkoutPlanContainsWorkout VALUES(" + getIntent().getIntExtra("planID", -1) + ", " + workoutId + ")");
         QueryExecutable qe = new QueryExecutable(map);
         qe.run();
 
         Toast.makeText(this, "Successfully added to plan", Toast.LENGTH_SHORT).show();
         finish();
-
-
-
     }
 }

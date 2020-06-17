@@ -1,7 +1,5 @@
 package com.example.lyfestyletracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
@@ -85,13 +85,13 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
             prefillWithExtras();
         }
 
-        if (getIntent().getBooleanExtra("consultant", false)){
+        if (getIntent().getBooleanExtra("consultant", false)) {
             findViewById(R.id.add_meal_button).setEnabled(false);
             findViewById(R.id.delete_meal_button).setVisibility(View.GONE);
 
         }
 
-        if (getIntent().getBooleanExtra("fromConsultant", false)){
+        if (getIntent().getBooleanExtra("fromConsultant", false)) {
             findViewById(R.id.add_meal_button).setEnabled(true);
             findViewById(R.id.add_date_button_meal).setEnabled(true);
             findViewById(R.id.add_time_button_meal).setEnabled(true);
@@ -99,7 +99,7 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
             findViewById(R.id.delete_meal_button).setVisibility(View.GONE);
         }
 
-        if (typeOfAdd.equals("plan")){
+        if (typeOfAdd.equals("plan")) {
             findViewById(R.id.delete_meal_button).setVisibility(View.GONE);
             findViewById(R.id.update_meal_button).setVisibility(View.GONE);
             findViewById(R.id.add_meal_button).setVisibility(View.GONE);
@@ -249,8 +249,6 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
 
             // not okay - every value is not the same, use new ID aka just continue with normal code below
         }
-
-
     }
 
     private int calculateCalories(int protein, int fat, int carbs) {
@@ -272,7 +270,7 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
 
         System.out.println(ans);
 
-        if (ans.length() == 0){
+        if (ans.length() == 0) {
             map.clear();
             map.put("query_type", "special");
             map.put("extra", "SELECT m.mealid, m.type, m.description, m.servingsizegrams, m.carbohydrates, m.fat, m.protein, mle.logtime, mle.numberofservings FROM meal m, meallogentry mle WHERE m.mealid = mle.mealid  AND m.mealid = " + mealId + " AND mle.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
@@ -423,9 +421,9 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
         map.clear();
 
         map.put("query_type", "special_change");
-        map.put("extra", "INSERT INTO DietContainsMealLog Values("+ getIntent().getIntExtra("planID", -1) + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + meal + ")");
+        map.put("extra", "INSERT INTO DietContainsMealLog Values(" + getIntent().getIntExtra("planID", -1) + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + meal + ")");
 
-        System.out.println("INSERT INTO DietContainsMealLog Values("+ getIntent().getIntExtra("planID", -1) + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + meal + ")");
+        System.out.println("INSERT INTO DietContainsMealLog Values(" + getIntent().getIntExtra("planID", -1) + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + meal + ")");
         QueryExecutable qe = new QueryExecutable(map);
         qe.run();
 

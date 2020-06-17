@@ -2,18 +2,15 @@ package com.example.lyfestyletracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.lyfestyletracker.web.QueryExecutable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.lyfestyletracker.ui.main.ConsultantPlansPagerAdapter;
+import com.example.lyfestyletracker.web.QueryExecutable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 
@@ -39,12 +36,10 @@ public class ConsultantPlansDashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 TabLayout tb = (TabLayout) findViewById(R.id.tabs);
-                if (tb.getSelectedTabPosition() == 0){
+                if (tb.getSelectedTabPosition() == 0) {
                     Intent intent = new Intent(ConsultantPlansDashboard.this, DietPlan.class);
                     intent.putExtra("username", username);
-
 
                     MaxPlan mp = new MaxPlan();
                     Integer maxInt = mp.getMaxPlan();
@@ -59,18 +54,14 @@ public class ConsultantPlansDashboard extends AppCompatActivity {
                     map.put("extra", "insert into Diet Values(" + maxInt + ", 0)");
 
                     qe = new QueryExecutable(map);
-                    ans = qe.run();
-
-
+                    qe.run();
 
                     intent.putExtra("dietId", maxInt);
                     intent.putExtra("consultant", true);
                     startActivity(intent);
-
-                }else{
+                } else {
                     Intent intent = new Intent(ConsultantPlansDashboard.this, WorkoutPlan.class);
                     intent.putExtra("username", username);
-
 
                     MaxPlan mp = new MaxPlan();
                     Integer maxInt = mp.getMaxPlan();
@@ -85,9 +76,7 @@ public class ConsultantPlansDashboard extends AppCompatActivity {
                     map.put("extra", "insert into WorkoutPlan Values(" + maxInt + ", 0)");
 
                     qe = new QueryExecutable(map);
-                    ans = qe.run();
-
-
+                    qe.run();
 
                     intent.putExtra("workoutId", maxInt);
                     intent.putExtra("consultant", true);
