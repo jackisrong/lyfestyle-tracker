@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker;
+package com.example.lyfestyletracker.consultant;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lyfestyletracker.Login;
+import com.example.lyfestyletracker.R;
 import com.example.lyfestyletracker.web.QueryExecutable;
 
 import org.json.JSONArray;

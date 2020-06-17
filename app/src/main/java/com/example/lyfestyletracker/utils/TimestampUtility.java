@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker;
+package com.example.lyfestyletracker.utils;
 
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;

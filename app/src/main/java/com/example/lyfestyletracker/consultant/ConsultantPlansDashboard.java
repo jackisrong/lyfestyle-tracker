@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker;
+package com.example.lyfestyletracker.consultant;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,11 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.lyfestyletracker.ui.main.ConsultantPlansPagerAdapter;
+import com.example.lyfestyletracker.DietPlan;
+import com.example.lyfestyletracker.R;
+import com.example.lyfestyletracker.WorkoutPlan;
+import com.example.lyfestyletracker.ui.tabbed.ConsultantPlansPagerAdapter;
+import com.example.lyfestyletracker.utils.MaxPlan;
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;

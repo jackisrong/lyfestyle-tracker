@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +31,7 @@ import org.json.JSONArray;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CreateUserConsultant extends AppCompatActivity {
+public class CreateNewConsultant extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
 
@@ -165,7 +164,7 @@ public class CreateUserConsultant extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = "Please Sign In";
-        Intent intent = new Intent(CreateUserConsultant.this, Login.class);
+        Intent intent = new Intent(CreateNewConsultant.this, Login.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }

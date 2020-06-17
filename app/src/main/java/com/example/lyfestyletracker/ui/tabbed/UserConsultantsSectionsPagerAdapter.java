@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker.ui.main;
+package com.example.lyfestyletracker.ui.tabbed;
 
 import android.content.Context;
 

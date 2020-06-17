@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker;
+package com.example.lyfestyletracker.utils;
 
 import com.example.lyfestyletracker.web.QueryExecutable;
 

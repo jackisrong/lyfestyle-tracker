@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker.ui.main;
+package com.example.lyfestyletracker.ui.tabbed;
 
 import android.content.Context;
 
@@ -8,22 +8,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.lyfestyletracker.ExerciseWorkoutPlans;
-import com.example.lyfestyletracker.FoodLog;
+import com.example.lyfestyletracker.consultant.ConsultantUserDivision;
+import com.example.lyfestyletracker.consultant.ConsultantUserList;
 import com.example.lyfestyletracker.R;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class FoodSectionsPagerAdapter extends FragmentPagerAdapter {
+public class ConsultantUserPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.food_tab_text_1, R.string.food_tab_text_2};
+    private static final int[] TAB_TITLES = new int[]{R.string.consultant_user_tab_text_1, R.string.consultant_user_tab_text_2};
     private final Context mContext;
     private String username;
 
-    public FoodSectionsPagerAdapter(Context context, FragmentManager fm, String username) {
+    public ConsultantUserPagerAdapter(Context context, FragmentManager fm, String username) {
         super(fm);
         mContext = context;
         this.username = username;
@@ -36,10 +36,10 @@ public class FoodSectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = FoodLog.newInstance(username);
+                fragment = ConsultantUserList.newInstance(username);
                 break;
             case 1:
-                fragment = ExerciseWorkoutPlans.newInstance(username, "diet" , "");
+                fragment = ConsultantUserDivision.newInstance(username);
                 break;
             default:
                 fragment = null;

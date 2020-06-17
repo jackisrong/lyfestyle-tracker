@@ -1,4 +1,4 @@
-package com.example.lyfestyletracker;
+package com.example.lyfestyletracker.consultant;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lyfestyletracker.R;
 import com.example.lyfestyletracker.web.QueryExecutable;
 import com.google.android.material.snackbar.Snackbar;
 
