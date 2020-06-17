@@ -44,6 +44,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
     private String sortByOrder = "DESC";
     private String searchQuery;
     private int numOfTables;
+    private ArrayList<String> colTitles;
     private ArrayList<String> colNames;
 
     public ExerciseWorkoutPlans() {
@@ -74,6 +75,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
         super.onCreate(savedInstanceState);
 
         colNames = new ArrayList<>();
+        colTitles = new ArrayList<>();
         if (getArguments() != null) {
             username = getArguments().getString("username");
             type = getArguments().getString("type");
@@ -85,18 +87,30 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
             colNames.add("planID");
             colNames.add("createdByUsername");
             colNames.add("exercisePerWeek");
+
+            colTitles.add("Plan ID");
+            colTitles.add("Created By");
+            colTitles.add("Weekly Exercise (minutes)");
             searchQuery = "SELECT planId, createdByUsername, exercisePerWeek FROM Plan, WorkoutPlan WHERE createdByUsername = '" + username + "' AND planId = workoutPlanId AND LOWER(createdByUsername)";
         } else if (type.equals("diet")) {
             numOfTables = 3;
             colNames.add("planID");
             colNames.add("createdByUsername");
             colNames.add("weeklyCalories");
+
+            colTitles.add("Plan ID");
+            colTitles.add("Created By");
+            colTitles.add("Weekly Calories");
             searchQuery = "SELECT planId, createdByUsername, weeklyCalories FROM Plan, Diet WHERE createdByUsername = '" + username + "' AND planId = dietId AND LOWER(createdByUsername)";
         } else if (type.equals("suggested")) {
             numOfTables = 3;
             colNames.add("planID");
             colNames.add("createdByUsername");
             colNames.add("logTime");
+
+            colTitles.add("Plan ID");
+            colTitles.add("Created By");
+            colTitles.add("Log Time");
             sortBy = "logTime";
             searchQuery = "SELECT planID, consultantUsername as createdByUsername, logTime FROM ConsultantSuggestsPlan WHERE userUsername = '" + username + "' AND LOWER(consultantUsername) ";
         }
@@ -143,9 +157,9 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
         thisView.findViewById(R.id.exercise_plans_header_2).setOnClickListener(this);
         thisView.findViewById(R.id.exercise_plans_header_3).setOnClickListener(this);
 
-        ((TextView) thisView.findViewById(R.id.exercise_plans_header_1)).setText(colNames.get(0));
-        ((TextView) thisView.findViewById(R.id.exercise_plans_header_2)).setText(colNames.get(1));
-        ((TextView) thisView.findViewById(R.id.exercise_plans_header_3)).setText(colNames.get(2));
+        ((TextView) thisView.findViewById(R.id.exercise_plans_header_1)).setText(colTitles.get(0));
+        ((TextView) thisView.findViewById(R.id.exercise_plans_header_2)).setText(colTitles.get(1));
+        ((TextView) thisView.findViewById(R.id.exercise_plans_header_3)).setText(colTitles.get(2));
 
         return thisView;
     }
