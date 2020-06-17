@@ -7,19 +7,26 @@
 //selects the user sleep times for the past week
 "Select us.username, us.sleepTime from UserSleepEntry us WHERE us.username = " + username + " AND sleepDate >= TRUNC(SYSDATE, 'DY') AND us.sleepDate < TRUNC(SYSDATE, 'DY') + 7 ORDER BY us.sleepdate"
 
-"INSERT INTO userSleepEntry VALUES ('"+ username + "', TO_DATE('" + dateResult.getText() +"', 'YYYY-MM-DD'), " + s1.getSelectedItem().toString() + ", " + s2.getSelectedItem().toString() +")");
+"INSERT INTO userSleepEntry VALUES ('"+ username + "', TO_DATE('" + dateResult.getText() +"', 'YYYY-MM-DD'), " + s1.getSelectedItem().toString() + ", " + s2.getSelectedItem().toString() +")"
 
+
+"UPDATE Workout SET description = '" + workoutDesc.getText().toString() + "', caloriesburnt = " + workoutCaloriesBurnt.getText().toString() + ", timeworkout = " + workoutLength.getText().toString() + " WHERE workoutid = " + workoutId"
+
+"DELETE FROM UserExerciseLog WHERE workoutid = " + workoutId "AND logtime = TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS') AND username = '" + username +
 
 'SELECT * FROM People p, UserPerson up WHERE up.username = '' + username + '' AND p.username = up.username'
 'SELECT * FROM People p, Consultant c WHERE c.username = ' + username  + ' AND c.username = p.username'
+
+"SELECT name FROM people WHERE username = '" + username + "'""
 
 
 "SELECT ele.logtime, w.description, w.caloriesburnt, w.timeworkout FROM workout w, exerciselogentry ele, userexerciselog uel WHERE w.workoutid = ele.workoutid AND w.workoutid = uel.workoutid AND ele.logtime = uel.logtime AND uel.username = '"+ username + "' ORDER BY uel.logtime DESC"
 
 "SELECT uml.logTime, m.description, mle.numberOfServings, m.type FROM userMealLog uml, Meal m, MealLogEntry mle WHERE uml.username = 'bob123' AND mle.mealId = m.mealID AND uml.mealId = mle.mealID AND uml.logTime = mle.logTime ORDER BY mle.logTime DESC"
 
-"Select c.username, c.rating, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"') ORDER BY c.rating"
-"Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"') ORDER BY c.result"
+
+
+"Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"' AND c.username = consultantUsername) ORDER BY c.result"
 
 
 "Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = 'bob123') ORDER BY c.result"
