@@ -49,7 +49,6 @@ public class CreateUserConsultant extends AppCompatActivity {
         final EditText inputUsername = findViewById(R.id.userName);
         final EditText inputPersonName = findViewById(R.id.personName);
         final Button registerButton = findViewById(R.id.registerButton);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -76,7 +75,6 @@ public class CreateUserConsultant extends AppCompatActivity {
                 if (loginResult == null) {
                     return;
                 }
-                loadingProgressBar.setVisibility(View.GONE);
                 if (loginResult.getError() != null) {
                     if (!matchingPassword(passwordEditText.getText().toString(), (passwordEditText2.getText().toString()))){
                         showSignupFailed(loginResult.getError());
@@ -131,7 +129,6 @@ public class CreateUserConsultant extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(userEmailID.getText().toString(),
                         passwordEditText.getText().toString());
             }
@@ -140,7 +137,7 @@ public class CreateUserConsultant extends AppCompatActivity {
 
     public boolean usernameAvail(String username){
         Map<String,Object> map = new LinkedHashMap<>();
-        map.put("query_type", "special_change");
+        map.put("query_type", "special");
         map.put("extra", "Select * from People where username = " + username);
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
@@ -154,12 +151,12 @@ public class CreateUserConsultant extends AppCompatActivity {
         map.put("query_type", "special_change");
         map.put("extra", "Insert Into People Values('" + username + "', '" + name + "', '" + password + "', '" + email + "')");
         QueryExecutable qe = new QueryExecutable(map);
-        JSONArray res = qe.run();
+        qe.run();
         map.clear();
         map.put("query_type", "special_change");
         map.put("extra", "Insert Into Consultant Values ('" + username + "', 0)");
         QueryExecutable qe2 = new QueryExecutable(map);
-        JSONArray res2 = qe2.run();
+        qe2.run();
     }
 
     public boolean matchingPassword(String string1, String string2) {

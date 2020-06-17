@@ -36,8 +36,6 @@
     <string name="exercise_log_header_calories_burnt">Cals\nBurnt</string>
     <string name="exercise_log_header_length">Length\n(min)</string>
     <string name="exercise_tab_text_2">Workout Plans</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="food_dashboard_activity_title">Food</string>
     <string name="food_tab_text_1">Meal Log</string>
     <string name="food_tab_text_2">Diet Plans</string>
@@ -47,7 +45,7 @@
     <string name="user_consultants_dashboard_activity_title">Consultants</string>
     <string name="user_consultants_tab_text_1">Consultants</string>
     <string name="user_consultants_tab_text_2">Suggested Plans</string>
-    <string name="title_activity_add_sleep_entry">addSleepEntry</string>
+    <string name="title_activity_add_sleep_entry">Add Sleep</string>
     <string name="add_entry">Add Entry</string>
     <string name="sleep_time">Sleep Time</string>
     <string name="sleep_rating">Sleep Rating</string>
@@ -127,6 +125,8 @@
     <string name="customers">Customers:</string>
     <string name="add_to_plan">Add to Plan</string>
 
+    <string name="update_meal_button_text">Update Meal</string>
+    <string name="delete_meal_button_text">Delete Meal</string>
 
     <string-array name="planets_array">
         <item>1</item>
@@ -155,15 +155,16 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="title_activity_consultant_plans">ConsultantPlans</string>
-    <string name="title_activity_create_user_consultant">CreateUserConsultant</string>
+    <string name="title_activity_create_user_consultant">Create New Consultant Account</string>
     <string name="CreateAccount">Create Account</string>
     <string name="peopleName">Name</string>
     <string name="signupPrompt">Register for LyfeStyle Tracking</string>
     <string name="consCompany">Company Name</string>
-    <string name="title_activity_create_user_user">CreateUserUser</string>
+    <string name="title_activity_create_user_user">Create New User Account</string>
     <string name="person_age">Age</string>
     <string name="person_height">Height (cm)</string>
-    <string name="person_weight">Current Weight (approx.)</string>
+    <string name="person_weight">Current Weight (lbs)</string>
     <string name="weekly_calories">User Weekly Calories</string>
+    <string name="consultant_su">[Consultant]</string>
 
 </resources>

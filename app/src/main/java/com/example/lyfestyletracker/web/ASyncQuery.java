@@ -2,7 +2,6 @@ package com.example.lyfestyletracker.web;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,29 +10,29 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
 public class ASyncQuery implements Callable<JSONArray> {
-    Map<String,Object> map;
+    Map<String, Object> map;
 
-    public ASyncQuery(Map<String,Object> map){
+    public ASyncQuery(Map<String, Object> map) {
         this.map = map;
     }
 
     @Override
-    public JSONArray call() throws Exception {
-        BufferedReader br =null;
+    public JSONArray call() {
+        BufferedReader br = null;
         StringBuilder sb = new StringBuilder();
 
         String url = "https://www.students.cs.ubc.ca/~luigi28/hello.php";
 
-
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> param : map.entrySet()) {
-                if (postData.length() != 0) postData.append('&');
+            for (Map.Entry<String, Object> param : map.entrySet()) {
+                if (postData.length() != 0) {
+                    postData.append('&');
+                }
                 postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
                 postData.append('=');
                 postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
@@ -58,7 +57,7 @@ public class ASyncQuery implements Callable<JSONArray> {
                 sb.append(line);
                 sb.append("\n");
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (br != null) {
@@ -70,9 +69,9 @@ public class ASyncQuery implements Callable<JSONArray> {
             }
         }
         JSONArray obj = null;
-        try{
+        try {
             obj = new JSONArray(sb.toString());
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return obj;

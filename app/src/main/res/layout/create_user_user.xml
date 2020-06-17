@@ -16,16 +16,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signupPrompt"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintVertical_bias="0.112" />
 
     <EditText
         android:id="@+id/userName"
         android:layout_width="210dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=""
         android:hint="@string/username"
@@ -39,21 +40,21 @@
     <EditText
         android:id="@+id/personName"
         android:layout_width="210dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:autofillHints=""
         android:hint="@string/peopleName"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
         android:id="@+id/userEmail"
         android:layout_width="210dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=""
         android:hint="@string/prompt_email"
@@ -67,7 +68,7 @@
     <EditText
         android:id="@+id/personAge"
         android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=""
         android:hint="@string/person_age"
@@ -81,7 +82,7 @@
     <EditText
         android:id="@+id/personWeight"
         android:layout_width="210dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=""
         android:hint="@string/person_weight"
@@ -95,7 +96,7 @@
     <EditText
         android:id="@+id/personHeight"
         android:layout_width="122dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:autofillHints=""
@@ -108,7 +109,7 @@
     <EditText
         android:id="@+id/password"
         android:layout_width="210dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=""
         android:hint="@string/prompt_password"
@@ -123,21 +124,21 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="147dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:enabled="false"
         android:text="@string/Sign_UP"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.894" />
+        app:layout_constraintTop_toBottomOf="@+id/password2"
+        app:layout_constraintVertical_bias="0.721" />
 
     <EditText
         android:id="@+id/password2"
         android:layout_width="210dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=""
         android:hint="@string/Confirm_Password"
@@ -149,17 +150,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
-
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/registerButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,10 +24,10 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SleepMonthlyGraphs#newInstance} factory method to
+ * Use the {@link SleepMonthly#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SleepMonthlyGraphs extends Fragment {
+public class SleepMonthly extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +40,7 @@ public class SleepMonthlyGraphs extends Fragment {
     private String username;
     private View thisView;
 
-    public SleepMonthlyGraphs() {
+    public SleepMonthly() {
         // Required empty public constructor
     }
 
@@ -53,8 +53,8 @@ public class SleepMonthlyGraphs extends Fragment {
      * @return A new instance of fragment SleepTab2.
      */
     // TODO: Rename and change types and number of parameters
-    public static SleepMonthlyGraphs newInstance(String param1, String param2, String username) {
-        SleepMonthlyGraphs fragment = new SleepMonthlyGraphs();
+    public static SleepMonthly newInstance(String param1, String param2, String username) {
+        SleepMonthly fragment = new SleepMonthly();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,7 +78,7 @@ public class SleepMonthlyGraphs extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        thisView = inflater.inflate(R.layout.fragment_sleep_tab2, container, false);
+        thisView = inflater.inflate(R.layout.fragment_sleep_monthly, container, false);
         updateMonthlyGraph(thisView);
         return thisView;
     }
