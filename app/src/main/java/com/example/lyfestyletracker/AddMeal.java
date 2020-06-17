@@ -93,8 +93,8 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
 
         if (getIntent().getBooleanExtra("fromConsultant", false)){
             findViewById(R.id.add_meal_button).setEnabled(true);
-            findViewById(R.id.add_date_button).setEnabled(true);
-            findViewById(R.id.add_time_button).setEnabled(true);
+            findViewById(R.id.add_date_button_meal).setEnabled(true);
+            findViewById(R.id.add_time_button_meal).setEnabled(true);
             findViewById(R.id.update_meal_button).setEnabled(false);
             findViewById(R.id.delete_meal_button).setVisibility(View.GONE);
         }

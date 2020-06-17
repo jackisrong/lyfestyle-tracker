@@ -27,7 +27,7 @@
     <string name="dashboard_nav_button_consultant">Consultants</string>
 
     <string name="consultant_user_tab_text_1">All Clients</string>
-    <string name="consultant_user_tab_text_2">All plans clients</string>
+    <string name="consultant_user_tab_text_2">Clients with all Plans</string>
     <string name="consultant_dashboard_activity_title">Consultant Dashboard</string>
     <string name="exercise_dashboard_activity_title">Exercise</string>
     <string name="exercise_tab_text_1">Exercise Log</string>
