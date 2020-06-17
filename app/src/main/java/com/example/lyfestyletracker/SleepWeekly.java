@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -86,7 +87,7 @@ public class SleepWeekly extends Fragment {
         JSONArray res = qe.run();
         System.out.println(res);
 
-        HashMap<String, Integer> sleepTimes = new HashMap<>();
+        HashMap<Integer, Integer> sleepTimes = new HashMap<>();
 
         //gets the week day from the date format
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E");
@@ -95,19 +96,22 @@ public class SleepWeekly extends Fragment {
         for (int i = 0; i < res.length(); i++) {
             try {
                 ArrayList<Integer> dates = getDate(res.getJSONObject(i).getString("SLEEPDATE"));
-                java.util.Date date1 = new Date(dates.get(2) - 1900, dates.get(1) - 1, dates.get(0));
-                sleepTimes.put(simpleDateFormat.format(date1), Integer.parseInt(res.getJSONObject(i).getString("SLEEPTIME")));
-                System.out.println(simpleDateFormat.format(date1));
+
+                LocalDate ld = new LocalDate(dates.get(2), dates.get(1), dates.get(0));
+                System.out.println(ld.getDayOfWeek());
+                sleepTimes.put(ld.getDayOfWeek(), Integer.parseInt(res.getJSONObject(i).getString("SLEEPTIME")));
+                System.out.println(ld.getDayOfWeek());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        int[] ints = {7,1,2,3,4,5,6};
 
         for (int i = 0; i < days.length; i++) {
-            if (sleepTimes.containsKey(days[i])) {
-                barEntries.add(new BarEntry(i, sleepTimes.get(days[i])));
+            if (sleepTimes.containsKey(ints[i])) {
+                barEntries.add(new BarEntry(i, sleepTimes.get(ints[i])));
             } else {
                 barEntries.add(new BarEntry(i, 0));
             }
