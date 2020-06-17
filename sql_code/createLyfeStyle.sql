@@ -410,7 +410,7 @@ insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-06-19 19:15:00',  'Y
 insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-06-18 09:25:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2010-06-18 01:15:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2019-06-18 09:05:00',  'YYYY-MM-DD HH24:MI:SS'));
-insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-05-20 1-:15:10',  'YYYY-MM-DD HH24:MI:SS'));
+insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2020-05-20 10:15:10',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2018-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2019-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
 insert into ExerciseLogEntry values (12, TO_TIMESTAMP('2015-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'));
@@ -434,7 +434,7 @@ insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-19 19:15:00',
 insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-06-18 09:25:00',  'YYYY-MM-DD HH24:MI:SS'),12);
 insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2010-06-18 01:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
 insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2019-06-18 09:05:00',  'YYYY-MM-DD HH24:MI:SS'),12);
-insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-05-20 1-:15:10',  'YYYY-MM-DD HH24:MI:SS'),12);
+insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2020-05-20 10:15:10',  'YYYY-MM-DD HH24:MI:SS'),12);
 insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2018-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
 insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2019-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);
 insert into UserExerciseLog values ('bob123',TO_TIMESTAMP('2015-06-18 09:15:00',  'YYYY-MM-DD HH24:MI:SS'),12);

@@ -60,6 +60,11 @@ public class UserDashboard extends AppCompatActivity {
         Random random = new Random();
         ((TextView) findViewById(R.id.user_dashboard_subgreeting)).setText(subgreetings[random.nextInt(subgreetings.length)]);
 
+        updateWeeklyCalories(map);
+        setDetails();
+    }
+
+    private void updateWeeklyCalories(Map<String, Object> map) {
         map.clear();
         map.put("query_type", "special");
         map.put("extra", "Select SUM(caloriesPerServing) from UserMealLog u, Meal m, MealCalories c WHERE u.username = '"+ username + "' AND u.logTime >= TRUNC(SYSDATE, 'DAY') AND u.logTime < TRUNC(SYSDATE, 'DAY') + 7 " +
@@ -76,8 +81,7 @@ public class UserDashboard extends AppCompatActivity {
         if (sumCal.equals("null")) {
             sumCal = "0";
         }
-        weeklySum.setText("Your current calories: " + sumCal);
-        setDetails();
+        weeklySum.setText("Your current calories this week: " + sumCal);
     }
 
     public void navigation(View view) {
@@ -147,4 +151,9 @@ public class UserDashboard extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateWeeklyCalories(new LinkedHashMap<String, Object>());
+    }
 }
