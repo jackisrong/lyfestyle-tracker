@@ -52,7 +52,7 @@
             android:layout_weight="0.36"
             android:gravity="center"
             android:tag="placeholder"
-            android:text="temp"
+            android:text="@string/add_exercise_description_label"
             android:textColor="@android:color/primary_text_dark" />
 
         <TextView
