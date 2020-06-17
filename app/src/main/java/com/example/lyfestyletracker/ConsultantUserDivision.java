@@ -129,4 +129,10 @@ public class ConsultantUserDivision extends Fragment {
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateTable();
+    }
 }

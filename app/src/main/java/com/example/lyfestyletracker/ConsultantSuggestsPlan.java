@@ -128,10 +128,10 @@ public class ConsultantSuggestsPlan extends AppCompatActivity implements Adapter
 
         LocalDateTime ld = new LocalDateTime();
 
-        String formattedDate = ld.toString("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = ld.toString("yyyy-MM-dd HH:mm:ss");
 
 
-
+        //System.out.println("Insert Into ConsultantSuggestsPlan Values('" + userUsername + "', '" + username + "', " + plan + ", TO_TIMESTAMP('" + formattedDate + "',  'YYYY-MM-DD HH24:MI:SS'))");
 
 
         Map<String, Object> map = new LinkedHashMap<>();
