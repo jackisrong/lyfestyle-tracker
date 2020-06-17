@@ -43,7 +43,7 @@ public class HireConsultant extends AppCompatActivity {
 
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + username +"') ORDER BY c.result");
+        map.put("extra", "Select c.username, c.result FROM Consultant c WHERE c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + username +"') ORDER BY c.result");
 
 
 
@@ -53,7 +53,7 @@ public class HireConsultant extends AppCompatActivity {
         try{
             for(int i = 0; i<ans.length(); i ++){
                 JSONObject o = ans.getJSONObject(i);
-                spinnerAdapter.add(o.getString("USERNAME") + " - rating:" + o.getString("RESULT") + " - company:" + o.getString("NAME"));
+                spinnerAdapter.add(o.getString("USERNAME") + " - rating:" + o.getString("RESULT") );
             }
         }catch (JSONException e){
             e.printStackTrace();

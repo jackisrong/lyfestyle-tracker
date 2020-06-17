@@ -83,7 +83,7 @@ public class UserConsultantsList extends Fragment {
     public void populateTable(){
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"') ORDER BY c.result");
+        map.put("extra", "Select c.username, c.result, co.name FROM Consultant c, Company co, ConsultantWorksForCompany cw WHERE cw.consultantUsername = c.username AND co.companyID = cw.companyId AND c.username IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + mParam1 +"' AND consultantUsername = c.username) ORDER BY c.result");
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
@@ -138,4 +138,9 @@ public class UserConsultantsList extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateTable();
+    }
 }
