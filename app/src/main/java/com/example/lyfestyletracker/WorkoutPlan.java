@@ -259,5 +259,21 @@ public class WorkoutPlan extends AppCompatActivity implements View.OnClickListen
     public void onResume() {
         super.onResume();
         populateTable();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        updateCalories();
+    }
+
+    public void updateCalories(){
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("query_type", "special_change");
+        map.put("extra", "UPDATE WorkoutPlan wp SET exercisePerWeek = (Select SUM(w.timeworkout) From Workout w, WorkoutPlanContainsWorkout wpc WHERE w.workoutId = wpc.workoutID AND wpc.workoutPlanId = "+ workoutPlanID +") WHERE wp.workoutPlanId = " + workoutPlanID);
+
+        QueryExecutable qe = new QueryExecutable(map);
+        JSONArray ans = qe.run();
     }
 }
