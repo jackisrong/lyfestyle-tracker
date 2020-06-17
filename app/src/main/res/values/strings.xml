@@ -91,7 +91,7 @@
     <string name="enter_num_servings">Enter Servings Consumed</string>
 
     <string name="available_consultants">Available consultants:</string>
-    <string name="hire_consultants">Hire consultant:</string>
+    <string name="hire_consultants">Hire Consultant</string>
 
 
     <string name="add_exercise_workout_id_label">Workout ID</string>
@@ -167,5 +167,7 @@
     <string name="weekly_calories">User Weekly Calories</string>
     <string name="consultant_su">[Consultant]</string>
     <string name="lyfestyle_icon">LyfestyleICON</string>
+
+    <string name="hire_consultant_activity_label">Hire Consultant</string>
 
 </resources>

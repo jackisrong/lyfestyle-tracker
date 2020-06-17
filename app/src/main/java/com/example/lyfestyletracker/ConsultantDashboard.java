@@ -153,7 +153,7 @@ public class ConsultantDashboard extends AppCompatActivity {
         try {
             for (int i = 0; i < ans.length(); i++) {
                 JSONObject o = ans.getJSONObject(i);
-                spinnerAdapter.add("[" + o.getString("COMPANYID") + "] " + o.getString("NAME") + " @ " + o.getString("LOCATION"));
+                spinnerAdapter.add(o.getString("COMPANYID") + " - " + o.getString("NAME") + " @ " + o.getString("LOCATION"));
             }
         } catch (JSONException e) {
             e.printStackTrace();

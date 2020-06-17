@@ -18,7 +18,8 @@
             android:name=".ui.login.CreateUserUser"
             android:label="@string/title_activity_create_user_user"/>
         <activity
-            android:name=".HireConsultant" />
+            android:name=".HireConsultant"
+            android:label="@string/hire_consultant_activity_label"/>
         <activity
             android:name=".AddMeal"
             android:label="@string/add_meal" />

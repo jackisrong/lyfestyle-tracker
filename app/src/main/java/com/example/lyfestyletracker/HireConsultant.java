@@ -40,12 +40,9 @@ public class HireConsultant extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
 
-
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
         map.put("extra", "Select c.username, c.result FROM Consultant c WHERE c.username NOT IN (SELECT consultantUsername FROM UserHiresConsultant WHERE userUsername = '" + username +"') ORDER BY c.result");
-
-
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
@@ -53,28 +50,23 @@ public class HireConsultant extends AppCompatActivity {
         try{
             for(int i = 0; i<ans.length(); i ++){
                 JSONObject o = ans.getJSONObject(i);
-                spinnerAdapter.add(o.getString("USERNAME") + " - rating:" + o.getString("RESULT") );
+                spinnerAdapter.add(o.getString("USERNAME") + " - Rating: " + o.getString("RESULT") );
             }
         }catch (JSONException e){
             e.printStackTrace();
         }
 
         spinnerAdapter.notifyDataSetChanged();
-
     }
 
     public void hirePerson(View view){
-
         String spinnerContent = spinner.getSelectedItem().toString();
-
         String[] split = spinnerContent.split(" ");
         String usernameC = "";
 
         if (split.length > 0){
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("query_type", "special_change");
-
-
 
             usernameC = split[0];
 
@@ -83,27 +75,13 @@ public class HireConsultant extends AppCompatActivity {
             System.out.println(usernameC);
             System.out.println(username);
 
-            map.put("extra", "Insert Into UserHiresConsultant Values('" + username + "', '" + usernameC +
-                    "', " + rand + ")");
-
-
-            //String timeStamp = ldt.getYear() +  "-" + monthOfYear + "-" + dayOfMonth+ " " + hourOfDay + ":" + minuteOfHour + ":" + seconds;
-            //map.put("extra", "Insert Into UserHiresConsultant Values('" + username + "', '" + usernameC +
-            //                    "', TO_TIMESTAMP('" + timeStamp +"', 'YYYY-MM-DD HH24:MI:SS'))");
-
-
+            map.put("extra", "Insert Into UserHiresConsultant Values('" + username + "', '" + usernameC + "', " + rand + ")");
 
             QueryExecutable qe = new QueryExecutable(map);
-            JSONArray ans = qe.run();
-
+            qe.run();
             finish();
-
         }else {
-            Snackbar.make(view, "Invalid Consultant", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            Snackbar.make(view, "Invalid Consultant", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
-
-
-
     }
 }
