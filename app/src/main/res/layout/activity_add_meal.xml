@@ -212,5 +212,17 @@
         app:layout_constraintStart_toStartOf="@+id/add_time_button_meal"
         app:layout_constraintTop_toBottomOf="@+id/add_time_button_meal" />
 
+    <Button
+        android:id="@+id/add_to_diet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="addMeal"
+        android:text="@string/add_to_plan"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_meal_selected_date" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

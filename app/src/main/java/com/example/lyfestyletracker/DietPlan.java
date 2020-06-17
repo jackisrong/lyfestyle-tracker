@@ -2,6 +2,7 @@ package com.example.lyfestyletracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -19,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -80,6 +83,17 @@ public class DietPlan extends AppCompatActivity implements View.OnClickListener 
         findViewById(R.id.diet_plan_description).setOnClickListener(this);
         findViewById(R.id.diet_plan_num_servings).setOnClickListener(this);
         findViewById(R.id.diet_plan_log_type).setOnClickListener(this);
+
+        findViewById(R.id.fab_diet_plan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DietPlan.this, AddMeal.class);
+                intent.putExtra("username", username);
+                intent.putExtra("planID", dietPlanID);
+                intent.putExtra("type", "plan");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -137,22 +151,26 @@ public class DietPlan extends AppCompatActivity implements View.OnClickListener 
 
         if (view.getClass().equals(TableRow.class)) {
 
-            /*
-            String workoutId = (String) view.getTag();
+            String mealId = (String) view.getTag();
             TextView time = (TextView) ((TableRow) view).getChildAt(0);
             String rawTime = time.getText().toString().replace("\n", " ");
             LocalDateTime ldt = LocalDateTime.parse(rawTime, DateTimeFormat.forPattern("MMM dd yyyy hh:mm aa").withLocale(Locale.ENGLISH));
             Timestamp ts = new Timestamp(ldt.toDateTime().getMillis());
             String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(ts);
 
-            Intent intent = new Intent(this, AddWorkout.class);
+
+
+            Intent intent = new Intent(this, AddMeal.class);
             intent.putExtra("username", username);
             intent.putExtra("type", "update");
-            intent.putExtra("workoutId", workoutId);
+            intent.putExtra("mealId", mealId);
+            intent.putExtra("consultant", getIntent().getBooleanExtra("consultant", false));
             intent.putExtra("timestampString", timestamp);
-            startActivity(intent);\
 
-             */
+            if (getIntent().getBooleanExtra("fromConsultant", false)){
+                intent.putExtra("fromConsultant", true);
+            }
+            startActivity(intent);
 
 
         }
@@ -162,12 +180,10 @@ public class DietPlan extends AppCompatActivity implements View.OnClickListener 
     private void populateTable() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("query_type", "special");
-        map.put("extra", "Select m.mealId, ml.logTime, m.description, m.servingSizeGrams, m.type From DietContainsMealLog dcm, Meal m, MealLogEntry ml WHERE dcm.dietID = " + dietPlanID +" AND ml.logTime = dcm.logTime AND ml.mealId = dcm.mealId AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
+        map.put("extra", "Select m.mealId, ml.logTime, m.description, m.servingSizeGrams, m.type From DietContainsMealLog dcm, Meal m, MealLogEntry ml WHERE dcm.dietID = " + dietPlanID +" AND ml.logTime = dcm.logTime AND ml.mealId = dcm.mealId AND m.mealID = dcm.mealId AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
-        System.out.println(ans);
-        System.out.println("Select m.mealId, ml.logTime, m.description, m.servingSizeGrams, m.type From DietContainsMealLog dcm, Meal m, MealLogEntry ml WHERE dcm.dietID = " + dietPlanID +" AND ml.logTime = dcm.logTime AND ml.mealId = dcm.mealId AND LOWER(m.description) LIKE '%" + searchTerm.toLowerCase() + "%' ORDER BY " + sortBy + " " + sortByOrder);
 
         TableLayout mainTable = this.findViewById(R.id.diet_plan_main_table);
         mainTable.removeAllViews();

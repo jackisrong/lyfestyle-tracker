@@ -54,7 +54,7 @@ public class ConsultantSuggestsPlan extends AppCompatActivity implements Adapter
         }
 
         map.put("query_type", "special");
-        map.put("extra", "Select planId FROM Plan p WHERE planID NOT IN (SELECT planID from ConsultantSuggestsPlan WHERE userUsername = '" + userUsername +"' AND consultantUsername = '" + username +"')");
+        map.put("extra", "Select planId FROM Plan p WHERE createdByUsername = '" + username + "' AND planID NOT IN (SELECT planID from ConsultantSuggestsPlan WHERE userUsername = '" + userUsername +"' AND consultantUsername = '" + username +"')");
         QueryExecutable qe = new QueryExecutable(map);
         JSONArray res = qe.run();
 

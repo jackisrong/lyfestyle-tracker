@@ -75,6 +75,36 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
             findViewById(R.id.add_meal_button).setEnabled(false);
             prefillWithExtras();
         }
+
+        if (typeOfAdd.equals("update")) {
+            findViewById(R.id.delete_meal_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.update_meal_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.add_date_button_meal).setEnabled(false);
+            findViewById(R.id.add_time_button_meal).setEnabled(false);
+            findViewById(R.id.add_meal_button).setEnabled(false);
+            prefillWithExtras();
+        }
+
+        if (getIntent().getBooleanExtra("consultant", false)){
+            findViewById(R.id.add_meal_button).setEnabled(false);
+            findViewById(R.id.delete_meal_button).setVisibility(View.GONE);
+
+        }
+
+        if (getIntent().getBooleanExtra("fromConsultant", false)){
+            findViewById(R.id.add_meal_button).setEnabled(true);
+            findViewById(R.id.add_date_button).setEnabled(true);
+            findViewById(R.id.add_time_button).setEnabled(true);
+            findViewById(R.id.update_meal_button).setEnabled(false);
+            findViewById(R.id.delete_meal_button).setVisibility(View.GONE);
+        }
+
+        if (typeOfAdd.equals("plan")){
+            findViewById(R.id.delete_meal_button).setVisibility(View.GONE);
+            findViewById(R.id.update_meal_button).setVisibility(View.GONE);
+            findViewById(R.id.add_meal_button).setVisibility(View.GONE);
+            findViewById(R.id.add_to_diet).setVisibility(View.VISIBLE);
+        }
     }
 
     public void createDateClicked(View view) {
@@ -163,41 +193,37 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
                 }
             }
 
-            // not okay - every value is not the same, use new ID aka just continue with normal code below
-        }
+            map.clear();
+            map.put("query_type", "special");
+            map.put("extra", "SELECT MAX(mealid) FROM meal");
+            qe = new QueryExecutable(map);
+            JSONArray ans = qe.run();
+            try {
+                mealId = Integer.parseInt(ans.getJSONObject(0).getString("MAX(MEALID)")) + 1;
+                System.out.println(mealId);
+            } catch (JSONException e) {
+                mealId = new Random().nextInt();
+                e.printStackTrace();
+            }
 
-        map.clear();
-        map.put("query_type", "special");
-        map.put("extra", "SELECT MAX(mealid) FROM meal");
-        qe = new QueryExecutable(map);
-        JSONArray ans = qe.run();
-        try {
-            mealId = Integer.parseInt(ans.getJSONObject(0).getString("MAX(MEALID)")) + 1;
-            System.out.println(mealId);
-        } catch (JSONException e) {
-            mealId = new Random().nextInt();
-            e.printStackTrace();
-        }
+            int protein = Integer.parseInt(mealProtein.getText().toString());
+            int carbs = Integer.parseInt(mealCarb.getText().toString());
+            int fat = Integer.parseInt(mealFat.getText().toString());
+            int calories = calculateCalories(protein, fat, carbs);
 
-        int protein = Integer.parseInt(mealProtein.getText().toString());
-        int carbs = Integer.parseInt(mealCarb.getText().toString());
-        int fat = Integer.parseInt(mealFat.getText().toString());
-        int calories = calculateCalories(protein, fat, carbs);
+            map.clear();
+            map.put("query_type", "special_change");
+            map.put("extra", "INSERT INTO MealCalories Values(" + carbs + ", " + fat + ", " + protein + ", " + calories + ")");
+            qe = new QueryExecutable(map);
+            qe.run();
 
-        map.clear();
-        map.put("query_type", "special_change");
-        map.put("extra", "INSERT INTO MealCalories Values(" + carbs + ", " + fat + ", " + protein + ", " + calories + ")");
-        qe = new QueryExecutable(map);
-        qe.run();
+            map.clear();
+            map.put("query_type", "special_change");
+            map.put("extra", "INSERT INTO Meal Values(" + mealId + ", '" + mealType.getText().toString() + "', '" +
+                    mealDesc.getText().toString() + "', " + mealServingSize.getText().toString() + ", " + carbs + ", " + fat + ", " + protein + ")");
+            qe = new QueryExecutable(map);
+            qe.run();
 
-        map.clear();
-        map.put("query_type", "special_change");
-        map.put("extra", "INSERT INTO Meal Values(" + mealId + ", '" + mealType.getText().toString() + "', '" +
-                mealDesc.getText().toString() + "', " + mealServingSize.getText().toString() + ", " + carbs + ", " + fat + ", " + protein + ")");
-        qe = new QueryExecutable(map);
-        qe.run();
-
-        if (!typeOfAdd.equals("plan")) {
             map.clear();
             map.put("query_type", "special_change");
             map.put("extra", "INSERT INTO MealLogEntry Values(" + mealId +
@@ -205,20 +231,26 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
             qe = new QueryExecutable(map);
             qe.run();
 
-            map.clear();
-            map.put("query_type", "special_change");
-            map.put("extra", "INSERT INTO UserMealLog Values('" + username +
-                    "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + mealId + ")");
-            qe = new QueryExecutable(map);
-            qe.run();
-        } else {
-            addToPlan();
+            if (!typeOfAdd.equals("plan")) {
+                map.clear();
+                map.put("query_type", "special_change");
+                map.put("extra", "INSERT INTO UserMealLog Values('" + username +
+                        "', TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + mealId + ")");
+                qe = new QueryExecutable(map);
+                qe.run();
+            } else {
+                addToPlan(Integer.toString(mealId));
+            }
+
+            if (!typeOfAdd.equals("plan")) {
+                Toast.makeText(this, "Successfully added new meal log entry", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            // not okay - every value is not the same, use new ID aka just continue with normal code below
         }
 
-        if (!typeOfAdd.equals("plan")) {
-            Toast.makeText(this, "Successfully added new exercise log entry", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+
     }
 
     private int calculateCalories(int protein, int fat, int carbs) {
@@ -237,6 +269,16 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
         map.put("extra", "SELECT m.mealid, m.type, m.description, m.servingsizegrams, m.carbohydrates, m.fat, m.protein, mle.logtime, mle.numberofservings FROM meal m, meallogentry mle, usermeallog uml WHERE m.mealid = mle.mealid AND m.mealid = uml.mealid AND mle.logtime = uml.logtime AND uml.username = '" + username + "' AND m.mealid = '" + mealId + "' AND mle.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
         qe = new QueryExecutable(map);
         JSONArray ans = qe.run();
+
+        System.out.println(ans);
+
+        if (ans.length() == 0){
+            map.clear();
+            map.put("query_type", "special");
+            map.put("extra", "SELECT m.mealid, m.type, m.description, m.servingsizegrams, m.carbohydrates, m.fat, m.protein, mle.logtime, mle.numberofservings FROM meal m, meallogentry mle WHERE m.mealid = mle.mealid  AND m.mealid = " + mealId + " AND mle.logtime = TO_TIMESTAMP('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS')");
+            qe = new QueryExecutable(map);
+            ans = qe.run();
+        }
 
         try {
             JSONObject o = ans.getJSONObject(0);
@@ -299,16 +341,7 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
             int carbs = Integer.parseInt(mealCarb.getText().toString());
             int fat = Integer.parseInt(mealFat.getText().toString());
             int protein = Integer.parseInt(mealProtein.getText().toString());
-            //int prevCarbs = Integer.parseInt(prevValues.get("carbohydrates"));
-            //int prevFat = Integer.parseInt(prevValues.get("fat"));
-            //int prevProtein = Integer.parseInt(prevValues.get("protein"));
 
-            /*
-            map.put("query_type", "special_change");
-            map.put("extra", "UPDATE MealCalories SET carbohydrates = " + carbs + ", fat = " + fat + ", protein = " + protein + ", caloriesPerServing = " + calculateCalories(carbs, fat, protein) + " WHERE carbohydrates = " + prevCarbs + " AND fat = " + prevFat + " AND protein = " + prevProtein);
-            qe = new QueryExecutable(map);
-            qe.run();
-             */
 
             map.clear();
             map.put("query_type", "special_change");
@@ -385,7 +418,18 @@ public class AddMeal extends AppCompatActivity implements DatePickerDialog.OnDat
         finish();
     }
 
-    private void addToPlan() {
-        // todo
+    private void addToPlan(String meal) {
+        Map<String, Object> map = new HashMap<>();
+        map.clear();
+
+        map.put("query_type", "special_change");
+        map.put("extra", "INSERT INTO DietContainsMealLog Values("+ getIntent().getIntExtra("planID", -1) + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + meal + ")");
+
+        System.out.println("INSERT INTO DietContainsMealLog Values("+ getIntent().getIntExtra("planID", -1) + ", TO_TIMESTAMP('" + dateResult + " " + timeResult + "', 'YYYY-MM-DD HH24:MI:SS'), " + meal + ")");
+        QueryExecutable qe = new QueryExecutable(map);
+        qe.run();
+
+        Toast.makeText(this, "Successfully added to plan", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
