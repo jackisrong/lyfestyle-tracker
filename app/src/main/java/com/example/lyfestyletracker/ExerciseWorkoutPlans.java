@@ -41,7 +41,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
     private View thisView;
     private String searchTerm = "";
     private String sortBy = "planID";
-    private String sortByOrder = "DESC";
+    private String sortByOrder = "";
     private String searchQuery;
     private int numOfTables;
     private ArrayList<String> colTitles;
@@ -196,11 +196,12 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
 
                 TableRow.LayoutParams params1 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.28f);
                 TableRow.LayoutParams params2 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.36f);
-                TableRow.LayoutParams params3 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.18f);
+                TableRow.LayoutParams params3 = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.34f);
 
                 TextView text1 = new TextView(getContext());
                 text1.setText(o.getString(colNames.get(0).toUpperCase()));
                 text1.setLayoutParams(params1);
+                text1.setGravity(Gravity.CENTER_HORIZONTAL);
 
                 TextView text2 = new TextView(getContext());
                 text2.setText(o.getString(colNames.get(1).toUpperCase()));
@@ -259,24 +260,7 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
             thisView.findViewById(R.id.exercise_plans_search_view).clearFocus();
         }
 
-        if (view.getId() == R.id.exercise_plans_header_1) {
-            TextView v = (TextView) view;
-            if (v.getTag().equals("desc")) {
-                // currently descending, want to sort ascending
-                clearHeaderDrawablesAndTags();
-                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_up_float, 0, 0, 0);
-                v.setTag("asc");
-                sortByOrder = "ASC";
-            } else {
-                // current ascending, want to sort descending OR default (ie. just started to sort by time)
-                clearHeaderDrawablesAndTags();
-                v.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.arrow_down_float, 0, 0, 0);
-                v.setTag("desc");
-                sortByOrder = "DESC";
-            }
-            sortBy = colNames.get(0);
-            populateTable();
-        } else if (view.getId() == R.id.exercise_plans_header_2 || view.getId() == R.id.exercise_plans_header_3) {
+        if (view.getId() == R.id.exercise_plans_header_1 || view.getId() == R.id.exercise_plans_header_2 || view.getId() == R.id.exercise_plans_header_3) {
             TextView v = (TextView) view;
             if (v.getTag().equals("asc")) {
                 // current ascending, want to sort descending
@@ -292,7 +276,9 @@ public class ExerciseWorkoutPlans extends Fragment implements View.OnClickListen
                 sortByOrder = "ASC";
             }
 
-            if (view.getId() == R.id.exercise_plans_header_2) {
+            if (view.getId() == R.id.exercise_plans_header_1) {
+                sortBy = colNames.get(0);
+            } else if (view.getId() == R.id.exercise_plans_header_2) {
                 sortBy = colNames.get(1);
             } else if (view.getId() == R.id.exercise_plans_header_3) {
                 sortBy = colNames.get(2);
